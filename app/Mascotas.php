@@ -9,7 +9,7 @@ class Mascotas extends Model
     protected $table = 'mascotas';
     protected $fillable = [
         'id',
-        'idUsuario',
+        'idUPersona',
         'nombreMacota',
         'especie',
         'raza',

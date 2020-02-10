@@ -48,7 +48,7 @@
             <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
             <span class="navbar-toggler-icon"></span>
             <a href="{{ url('/home') }}">
-            <span class="logo-mini"><i> Veterinaria D</i></span>
+            <span class="logo-mini"><i> Veterinaria Dobaltoff</i></span>
         </a>
         </button>
 

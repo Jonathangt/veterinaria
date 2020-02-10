@@ -1,9 +1,5 @@
 <template>
     <main class="main">
-    <!-- Breadcrumb -->
-    <!--<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/">Escritorio</a></li>
-        </ol> -->
         <ol></ol>
             <div class="container-fluid">
                 <!-- Ejemplo de tabla Listado -->
@@ -314,83 +310,6 @@
                         }
                     }
                 }
-            },
-            desactivar(id){
-                swal({
-                    title: 'Esta seguro de desactivar este usuario?',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar!',
-                    cancelButtonText: 'Cancelar',
-                    confirmButtonClass: 'btn btn-success',
-                    cancelButtonClass: 'btn btn-danger',
-                    buttonsStyling: false,
-                    reverseButtons: true
-                    }).then((result) => {
-                    if (result.value) {
-                        let me = this;
-
-                        axios.put('/users/desactivar',{
-                            'id': id
-                        }).then(function (response) {
-                            me.listar(1,'','name');
-                            swal(
-                            'Desactivado!',
-                            'El registro ha sido desactivado con éxito.',
-                            'success'
-                            )
-                        }).catch(function (error) {
-                            console.log(error);
-                        });
-                       
-                    } else if (
-                        // Read more about handling dismissals
-                        result.dismiss === swal.DismissReason.cancel
-                    ) {
-                        
-                    }
-                    }) 
-            },
-            activar(id){
-                swal({
-                    title: 'Esta seguro de activar este usuario?',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar!',
-                    cancelButtonText: 'Cancelar',
-                    confirmButtonClass: 'btn btn-success',
-                    cancelButtonClass: 'btn btn-danger',
-                    buttonsStyling: false,
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
-                        let me = this;
-
-                        axios.put('/users/activar',{
-                            'id': id
-                        }).then(function (response) {
-                            me.listar(1,'','name');
-                            swal(
-                            'Activado!',
-                            'El registro ha sido activado con éxito.',
-                            'success'
-                            )
-                        }).catch(function (error) {
-                            console.log(error);
-                        });
-                        
-                        
-                    } else if (
-                        // Read more about handling dismissals
-                        result.dismiss === swal.DismissReason.cancel
-                    ) {
-                        
-                    }
-                }) 
             },
             eliminar(id){
                 swal({

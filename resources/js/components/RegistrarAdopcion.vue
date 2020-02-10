@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="table-responsive"> <!--Tabla pricipal donde se vizualiza los registros-->
-                            <table class="table table-bordered table-striped table-sm">
+                            <table class="table table-bordered table-striped table-sm ">
                                 <thead>
                                     <tr>
                                         <th>Acciones</th>                                        
@@ -176,7 +176,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <Label>Fecha Nacimiento</Label>
-                                        <input type="text" class="form-control" v-model="fechaNacimiento" placeholder="Fecha nacimiento" maxlength="40"> 
+                                        <input type="date" class="form-control" v-model="fechaNacimiento" placeholder="Fecha nacimiento" maxlength="40"> 
                                     </div>
                                 </div>
                             </div>
@@ -668,6 +668,10 @@
         width: 100% !important;
         position: absolute !important;
     }
+
+
+
+
     
     .mostrar {
         display: list-item !important;

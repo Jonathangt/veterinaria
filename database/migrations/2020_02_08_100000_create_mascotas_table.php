@@ -24,6 +24,7 @@ class CreateMascotasTable extends Migration
             $table->string('edad', 4)->nullable();
             $table->string('observacion', 200)->nullable();
             $table->string('imagen')->nullable();
+            $table->boolean('estado')->default(1);    
             //$table->timestamps();
         });
     }

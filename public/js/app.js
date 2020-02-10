@@ -2528,10 +2528,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Usuarios.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Usuarios.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RegistrarDonacion.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RegistrarDonacion.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2541,6 +2541,624 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      name: '',
+      email: '',
+      motivo: '',
+      recaudacion: '',
+      lugar: '',
+      telefono: '',
+      direccion: '',
+      idDonacion: 0,
+      data: [],
+      arrayRegistros: [],
+      arrayMostrarDatos: [],
+      errorMostrarMsj: [],
+      errorValidacion: 0,
+      pagination: {
+        'total': 0,
+        'current_page': 0,
+        'per_page': 0,
+        'last_page': 0,
+        'from': 0,
+        'to': 0
+      },
+      template: 1,
+      offset: 3,
+      criterio: 'motivo',
+      buscar: '',
+      estadoGet: 2
+    };
+  },
+  computed: {
+    isActived: function isActived() {
+      return this.pagination.current_page;
+    },
+    //Calcula los elementos de la paginación
+    pagesNumber: function pagesNumber() {
+      if (!this.pagination.to) {
+        return [];
+      }
+
+      var from = this.pagination.current_page - this.offset;
+
+      if (from < 1) {
+        from = 1;
+      }
+
+      var to = from + this.offset * 2;
+
+      if (to >= this.pagination.last_page) {
+        to = this.pagination.last_page;
+      }
+
+      var pagesArray = [];
+
+      while (from <= to) {
+        pagesArray.push(from);
+        from++;
+      }
+
+      return pagesArray;
+    }
+  },
+  methods: {
+    listar: function listar(page, buscar, criterio) {
+      var me = this;
+      var url = '/donacion?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.arrayRegistros = respuesta.donacion.data;
+        me.pagination = respuesta.pagination;
+      })["catch"](function (error) {
+        console.log(me.getID);
+        console.log(error);
+      });
+    },
+    desactivar: function desactivar(id) {
+      var _this = this;
+
+      swal({
+        title: 'Esta seguro de desactivar la donación?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Aceptar!',
+        cancelButtonText: 'Cancelar',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false,
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.value) {
+          var me = _this;
+          axios.put('/donacion/desactivar', {
+            'id': id
+          }).then(function (response) {
+            me.listar(1, '', 'name');
+            swal('Desactivado!', 'El registro ha sido desactivado con éxito.', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if ( // Read more about handling dismissals
+        result.dismiss === swal.DismissReason.cancel) {}
+      });
+    },
+    activar: function activar(id) {
+      var _this2 = this;
+
+      swal({
+        title: 'Esta seguro de activar esta donación?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Aceptar!',
+        cancelButtonText: 'Cancelar',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false,
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.value) {
+          var me = _this2;
+          axios.put('/donacion/activar', {
+            'id': id
+          }).then(function (response) {
+            me.listar(1, '', 'name');
+            swal('Activado!', 'El registro ha sido activado con éxito.', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if ( // Read more about handling dismissals
+        result.dismiss === swal.DismissReason.cancel) {}
+      });
+    },
+    registrar: function registrar() {
+      if (this.validarDatos()) {
+        return;
+      }
+
+      var me = this;
+      axios.post('/donacion/registrar', {
+        'recaudacion': this.recaudacion,
+        'lugar': this.lugar,
+        'motivo': this.motivo,
+        'telefono': this.telefono,
+        'direccion': this.direccion
+      }).then(function (response) {
+        console.log('EXITO!!');
+      })["catch"](function (error) {
+        console.log('error de ingreso!!');
+        console.log(error);
+      });
+      this.listar(1, '', 'motivo');
+      this.cerrarTemplateRegistro();
+      swal({
+        title: 'Donación Registrada!!',
+        type: 'success',
+        text: 'La información a sido publicada'
+      });
+    },
+    editar: function editar(id) {
+      this.templateEditar();
+      this.template = 3; //abro el template para editar
+
+      var me = this; //metodo para mostrar los datos de la malla
+
+      var url = '/donacion/obtener?id=' + id;
+      var arrayEditarDatos = [];
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        arrayEditarDatos = respuesta.donacion;
+        me.idDonacion = arrayEditarDatos[0]['id'];
+        me.recaudacion = arrayEditarDatos[0]['recaudacion'];
+        me.lugar = arrayEditarDatos[0]['lugar'];
+        me.motivo = arrayEditarDatos[0]['motivo'];
+        me.telefono = arrayEditarDatos[0]['telefono'];
+        me.direccion = arrayEditarDatos[0]['direccion'];
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    actualizar: function actualizar() {
+      if (this.validarDatos()) {
+        return;
+      }
+
+      var me = this;
+      axios.put('/donacion/actualizar', {
+        'recaudacion': this.recaudacion,
+        'lugar': this.lugar,
+        'motivo': this.motivo,
+        'telefono': this.telefono,
+        'direccion': this.direccion,
+        'id': this.idDonacion
+      }).then(function (response) {
+        me.cerrarModal();
+        me.listar(1, '', 'name');
+      })["catch"](function (error) {
+        console.log(error);
+      });
+      this.listar(1, '', 'motivo');
+      this.cerrarTemplateRegistro();
+      swal({
+        title: 'Donación Editada!!',
+        type: 'success',
+        text: 'La información a sido actualizada'
+      });
+    },
+    validarDatos: function validarDatos() {
+      //Validaciones para el registro de los datos
+      this.errorValidacion = 0;
+      this.errorMostrarMsj = [];
+      if (!this.recaudacion) this.errorMostrarMsj.push("El campo recaudacion no puede estar vacio");
+      if (!this.lugar) this.errorMostrarMsj.push("El campo lugar no puede estar vacio");
+      if (!this.telefono) this.errorMostrarMsj.push("El campo telefono no puede estar vacio");
+      if (this.errorMostrarMsj.length) this.errorValidacion = 1;
+      return this.errorValidacion;
+    },
+    cambiarPagina: function cambiarPagina(page, buscar, criterio) {
+      var me = this; //Actualiza la página actual
+
+      me.pagination.current_page = page; //Envia la petición para visualizar la data de esa página
+
+      me.listar(page, buscar, criterio);
+    },
+    cerrarTemplateRegistro: function cerrarTemplateRegistro() {
+      var me = this;
+      this.template = 1;
+      me.recaudacion = '';
+      me.lugar = '';
+      me.motivo = '';
+      me.telefono = '';
+      me.direccion = '';
+    },
+    templateRegistrar: function templateRegistrar() {
+      this.obtenerEstado();
+      var me = this;
+      this.template = 0;
+      me.recaudacion = '';
+      me.lugar = '';
+      me.motivo = '';
+      me.telefono = '';
+      me.direccion = '';
+    },
+    templateEditar: function templateEditar() {
+      var me = this;
+      this.template = 3;
+      me.recaudacion = '';
+      me.lugar = '';
+      me.motivo = '';
+      me.telefono = '';
+      me.direccion = '';
+    },
+    obtenerRegistro: function obtenerRegistro(id) {
+      var me = this; //metodo para mostrar los datos
+
+      this.template = 2;
+      var url = '/donacion/obtener?id=' + id;
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.arrayMostrarDatos = respuesta.donacion;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    obtenerEstado: function obtenerEstado() {
+      var me = this; //metodo para mostrar los datos
+
+      this.template = 2;
+      var url = '/donacion/estado';
+      axios.get(url).then(function (response) {
+        var respuesta = response.data.donacion;
+
+        if (this.respuesta > 1) {
+          swal({
+            title: 'Donación Registrada!!',
+            type: 'success',
+            text: 'La información a sido publicada'
+          });
+        }
+      }).then(function (response) {
+        console.log(me.respuesta);
+        console.log(this.respuesta);
+        console.log('EXITO!!');
+      })["catch"](function (error) {
+        console.log('error de ingreso!!');
+        console.log(me.respuesta);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.listar(1, this.buscar, this.criterio);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Usuarios.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Usuarios.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 //
 //
 //
@@ -2854,68 +3472,8 @@ __webpack_require__.r(__webpack_exports__);
           }
       }
     },
-    desactivar: function desactivar(id) {
-      var _this = this;
-
-      swal({
-        title: 'Esta seguro de desactivar este usuario?',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Aceptar!',
-        cancelButtonText: 'Cancelar',
-        confirmButtonClass: 'btn btn-success',
-        cancelButtonClass: 'btn btn-danger',
-        buttonsStyling: false,
-        reverseButtons: true
-      }).then(function (result) {
-        if (result.value) {
-          var me = _this;
-          axios.put('/users/desactivar', {
-            'id': id
-          }).then(function (response) {
-            me.listar(1, '', 'name');
-            swal('Desactivado!', 'El registro ha sido desactivado con éxito.', 'success');
-          })["catch"](function (error) {
-            console.log(error);
-          });
-        } else if ( // Read more about handling dismissals
-        result.dismiss === swal.DismissReason.cancel) {}
-      });
-    },
-    activar: function activar(id) {
-      var _this2 = this;
-
-      swal({
-        title: 'Esta seguro de activar este usuario?',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Aceptar!',
-        cancelButtonText: 'Cancelar',
-        confirmButtonClass: 'btn btn-success',
-        cancelButtonClass: 'btn btn-danger',
-        buttonsStyling: false,
-        reverseButtons: true
-      }).then(function (result) {
-        if (result.value) {
-          var me = _this2;
-          axios.put('/users/activar', {
-            'id': id
-          }).then(function (response) {
-            me.listar(1, '', 'name');
-            swal('Activado!', 'El registro ha sido activado con éxito.', 'success');
-          })["catch"](function (error) {
-            console.log(error);
-          });
-        } else if ( // Read more about handling dismissals
-        result.dismiss === swal.DismissReason.cancel) {}
-      });
-    },
     eliminar: function eliminar(id) {
-      var _this3 = this;
+      var _this = this;
 
       swal({
         title: 'Esta seguro que desea eliminar este usuario?',
@@ -2931,7 +3489,7 @@ __webpack_require__.r(__webpack_exports__);
         reverseButtons: true
       }).then(function (result) {
         if (result.value) {
-          var me = _this3;
+          var me = _this;
           var url = '/users/delete/' + id;
           axios["delete"](url).then(function (response) {
             me.listar(1, '', 'name');
@@ -7514,6 +8072,25 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 // module
 exports.push([module.i, "\n.modal-content {\n    width: 100% !important;\n    position: absolute !important;\n}\n.mostrar {\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error {\n    display: flex;\n    justify-content: center;\n}\n.text-error {\n    color: red !important;\n    font-weight: bold;\n}\n@media (min-width: 600px) {\n.btnagregar {\n        margin-top: 2rem;\n}\n}\n\n/*#div1 {\n    overflow:scroll;\n    width:1900px;\n}\n#div1 table {\n    width:1900px;\n}\ntd {\n    \n    width: 300px;\n    text-align: center;\n} */\n.centerTabla {\n    text-align: center;\n}\n.swal2-title {\n  font-size: 20px !important;\n}\n.swal2-content {\n  font-size: 15px !important;\n}\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RegistrarDonacion.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RegistrarDonacion.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.modal-content {\n    width: 100% !important;\n    position: absolute !important;\n}\n#labelContacto {\n    display: inline-block !important;\n    margin-bottom: .5rem !important;\n}\n.mostrar {\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error {\n    display: flex;\n    justify-content: center;\n}\n.text-error {\n    color: red !important;\n    font-weight: bold;\n}\n@media (min-width: 600px) {\n.btnagregar {\n        margin-top: 2rem;\n}\n}\n\n/*#div1 {\n    overflow:scroll;\n    width:1900px;\n}\n#div1 table {\n    width:1900px;\n}\ntd {\n    \n    width: 300px;\n    text-align: center;\n} */\n.centerTabla {\n    text-align: center;\n}\n.swal2-title {\n  font-size: 20px !important;\n}\n.swal2-content {\n  font-size: 15px !important;\n}\n", ""]);
 
 // exports
 
@@ -38435,6 +39012,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RegistrarDonacion.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RegistrarDonacion.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./RegistrarDonacion.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RegistrarDonacion.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Usuarios.vue?vue&type=style&index=0&lang=css&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Usuarios.vue?vue&type=style&index=0&lang=css& ***!
@@ -39428,7 +40035,7 @@ var render = function() {
                       "table",
                       {
                         staticClass:
-                          "table table-bordered table-striped table-sm"
+                          "table table-bordered table-striped table-sm "
                       },
                       [
                         _vm._m(1),
@@ -39955,7 +40562,7 @@ var render = function() {
                               ],
                               staticClass: "form-control",
                               attrs: {
-                                type: "text",
+                                type: "date",
                                 placeholder: "Fecha nacimiento",
                                 maxlength: "40"
                               },
@@ -40481,6 +41088,1183 @@ var staticRenderFns = [
         _c("th", [_vm._v("C. Autónomo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Totales")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RegistrarDonacion.vue?vue&type=template&id=35532316&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RegistrarDonacion.vue?vue&type=template&id=35532316& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("main", { staticClass: "main" }, [
+    _c("ol"),
+    _vm._v(" "),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c(
+        "div",
+        { staticClass: "card" },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm.template == 1
+            ? [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c("div", { staticClass: "col-md-11" }, [
+                      _c("div", { staticClass: "input-group" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.criterio,
+                                expression: "criterio"
+                              }
+                            ],
+                            staticClass: "form-control col-md-2",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.criterio = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "motivo" } }, [
+                              _vm._v("Motivo")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.buscar,
+                              expression: "buscar"
+                            }
+                          ],
+                          staticClass: "form-control col-md-4",
+                          attrs: { type: "text", placeholder: "Busqueda" },
+                          domProps: { value: _vm.buscar },
+                          on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.listar(1, _vm.buscar, _vm.criterio)
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.buscar = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "submit" },
+                            on: {
+                              click: function($event) {
+                                return _vm.listar(1, _vm.buscar, _vm.criterio)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "fa fa-search" }),
+                            _vm._v(" Buscar")
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "btn-group col-md-2" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary",
+                              attrs: { id: "terms", type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.templateRegistrar()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "icon-plus" }),
+                              _vm._v(
+                                " Registrar Donación\n                                    "
+                              )
+                            ]
+                          )
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "table-responsive" }, [
+                    _c(
+                      "table",
+                      {
+                        staticClass:
+                          "table table-bordered table-striped table-sm "
+                      },
+                      [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          _vm._l(_vm.arrayRegistros, function(registro) {
+                            return _c("tr", { key: registro.id }, [
+                              _c(
+                                "td",
+                                { staticStyle: { width: "170px" } },
+                                [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-success btn-sm",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.obtenerRegistro(
+                                            registro.id
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "icon-eye" })]
+                                  ),
+                                  _vm._v(
+                                    "  \n                                        "
+                                  ),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-warning btn-sm",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.editar(registro.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "icon-pencil" })]
+                                  ),
+                                  _vm._v(
+                                    " \n                                         "
+                                  ),
+                                  registro.estado
+                                    ? [
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-danger btn-sm",
+                                            attrs: { type: "button" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.desactivar(
+                                                  registro.id
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "icon-trash"
+                                            })
+                                          ]
+                                        )
+                                      ]
+                                    : [
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass: "btn btn-info btn-sm",
+                                            attrs: { type: "button" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.activar(registro.id)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "icon-check"
+                                            })
+                                          ]
+                                        )
+                                      ]
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c("td", {
+                                domProps: { textContent: _vm._s(registro.name) }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                domProps: {
+                                  textContent: _vm._s(registro.email)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                domProps: {
+                                  textContent: _vm._s(registro.motivo)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", [
+                                registro.estado
+                                  ? _c("div", [
+                                      _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "badge badge-success centerTabla"
+                                        },
+                                        [_vm._v("Activa")]
+                                      )
+                                    ])
+                                  : _c("div", [
+                                      _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "badge badge-danger centerTabla"
+                                        },
+                                        [_vm._v("Inactiva")]
+                                      )
+                                    ])
+                              ])
+                            ])
+                          }),
+                          0
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("nav", [
+                    _c(
+                      "ul",
+                      { staticClass: "pagination" },
+                      [
+                        _vm.pagination.current_page > 1
+                          ? _c("li", { staticClass: "page-item" }, [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "page-link",
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.cambiarPagina(
+                                        _vm.pagination.current_page - 1,
+                                        _vm.buscar,
+                                        _vm.criterio
+                                      )
+                                    }
+                                  }
+                                },
+                                [_vm._v("Ant")]
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm._l(_vm.pagesNumber, function(page) {
+                          return _c(
+                            "li",
+                            {
+                              key: page,
+                              staticClass: "page-item",
+                              class: [page == _vm.isActived ? "active" : ""]
+                            },
+                            [
+                              _c("a", {
+                                staticClass: "page-link",
+                                attrs: { href: "#" },
+                                domProps: { textContent: _vm._s(page) },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.cambiarPagina(
+                                      page,
+                                      _vm.buscar,
+                                      _vm.criterio
+                                    )
+                                  }
+                                }
+                              })
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _vm.pagination.current_page < _vm.pagination.last_page
+                          ? _c("li", { staticClass: "page-item" }, [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "page-link",
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.cambiarPagina(
+                                        _vm.pagination.current_page + 1,
+                                        _vm.buscar,
+                                        _vm.criterio
+                                      )
+                                    }
+                                  }
+                                },
+                                [_vm._v("Sig")]
+                              )
+                            ])
+                          : _vm._e()
+                      ],
+                      2
+                    )
+                  ])
+                ])
+              ]
+            : _vm.template == 0
+            ? [
+                _c(
+                  "div",
+                  { staticClass: "text-center" },
+                  [
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("Label", [
+                      _c("b", { staticClass: "labelContacto" }, [
+                        _vm._v(" Información a publicar")
+                      ])
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "form-group row border" }, [
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("Label", [_vm._v("Recaudacion(*)")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.recaudacion,
+                                expression: "recaudacion"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Recaudacion",
+                              maxlength: "200"
+                            },
+                            domProps: { value: _vm.recaudacion },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.recaudacion = $event.target.value
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("Label", [_vm._v("Lugar de recaudo(*)")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.lugar,
+                                expression: "lugar"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Lugar",
+                              maxlength: "200"
+                            },
+                            domProps: { value: _vm.lugar },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.lugar = $event.target.value
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("Label", [_vm._v("Motivo")]),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.motivo,
+                                expression: "motivo"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              rows: "4",
+                              placeholder: "Para que se esta recaudando",
+                              cols: "50"
+                            },
+                            domProps: { value: _vm.motivo },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.motivo = $event.target.value
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "text-center" },
+                  [
+                    _c("Label", [
+                      _c("b", { staticClass: "labelContacto" }, [
+                        _vm._v(" Contacto del Responsable")
+                      ])
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "form-group row border" }, [
+                    _c("div", { staticClass: "col-md-4" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("Label", [_vm._v("Teléfono(*)")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.telefono,
+                                expression: "telefono"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Teléfono",
+                              maxlength: "10"
+                            },
+                            domProps: { value: _vm.telefono },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.telefono = $event.target.value
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("Label", [_vm._v("Dirección")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.direccion,
+                                expression: "direccion"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Dirección",
+                              maxlength: "200"
+                            },
+                            domProps: { value: _vm.direccion },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.direccion = $event.target.value
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(2),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errorValidacion,
+                            expression: "errorValidacion"
+                          }
+                        ],
+                        staticClass: "form-group row div-error"
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "text-center text-error" },
+                          _vm._l(_vm.errorMostrarMsj, function(error) {
+                            return _c("div", {
+                              key: error,
+                              domProps: { textContent: _vm._s(error) }
+                            })
+                          }),
+                          0
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.cerrarTemplateRegistro()
+                            }
+                          }
+                        },
+                        [_vm._v("Cerrar")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function($event) {
+                              return _vm.registrar()
+                            }
+                          }
+                        },
+                        [_vm._v("Registrar Donación")]
+                      )
+                    ])
+                  ])
+                ])
+              ]
+            : _vm.template == 3
+            ? [
+                _c(
+                  "div",
+                  { staticClass: "text-center" },
+                  [
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("Label", [
+                      _c("b", { staticClass: "labelContacto" }, [
+                        _vm._v(" Información a editar")
+                      ])
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "form-group row border" }, [
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("Label", [_vm._v("Recaudacion(*)")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.recaudacion,
+                                expression: "recaudacion"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Recaudacion",
+                              maxlength: "200"
+                            },
+                            domProps: { value: _vm.recaudacion },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.recaudacion = $event.target.value
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("Label", [_vm._v("Lugar de recaudo(*)")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.lugar,
+                                expression: "lugar"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Lugar",
+                              maxlength: "200"
+                            },
+                            domProps: { value: _vm.lugar },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.lugar = $event.target.value
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("Label", [_vm._v("Motivo")]),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.motivo,
+                                expression: "motivo"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              rows: "4",
+                              placeholder: "Para que se esta recaudando",
+                              cols: "50"
+                            },
+                            domProps: { value: _vm.motivo },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.motivo = $event.target.value
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "text-center" },
+                  [
+                    _c("Label", [
+                      _c("b", { staticClass: "labelContacto" }, [
+                        _vm._v(" Contacto del Responsable")
+                      ])
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "form-group row border" }, [
+                    _c("div", { staticClass: "col-md-4" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("Label", [_vm._v("Teléfono(*)")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.telefono,
+                                expression: "telefono"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Teléfono",
+                              maxlength: "10"
+                            },
+                            domProps: { value: _vm.telefono },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.telefono = $event.target.value
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("Label", [_vm._v("Dirección")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.direccion,
+                                expression: "direccion"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Dirección",
+                              maxlength: "200"
+                            },
+                            domProps: { value: _vm.direccion },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.direccion = $event.target.value
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(3),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errorValidacion,
+                            expression: "errorValidacion"
+                          }
+                        ],
+                        staticClass: "form-group row div-error"
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "text-center text-error" },
+                          _vm._l(_vm.errorMostrarMsj, function(error) {
+                            return _c("div", {
+                              key: error,
+                              domProps: { textContent: _vm._s(error) }
+                            })
+                          }),
+                          0
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.cerrarTemplateRegistro()
+                            }
+                          }
+                        },
+                        [_vm._v("Cerrar")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function($event) {
+                              return _vm.actualizar()
+                            }
+                          }
+                        },
+                        [_vm._v("Actualiar Donación")]
+                      )
+                    ])
+                  ])
+                ])
+              ]
+            : _vm.template == 2
+            ? [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-md-12" },
+                      [
+                        _c("center", [
+                          _c("h5", [_vm._v("VETERINARIA DOBALTOFF")])
+                        ]),
+                        _vm._v(" "),
+                        _c("label", { attrs: { for: "" } }),
+                        _vm._v(" "),
+                        _c("center", [
+                          _c("h6", [_vm._v("Detalle de la Donación")])
+                        ])
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row border" }, [
+                    _c("div", { staticClass: "table-responsive col-md-12" }, [
+                      _c(
+                        "table",
+                        {
+                          staticClass:
+                            "table table-bordered table-striped table-sm"
+                        },
+                        [
+                          _vm._m(4),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.arrayMostrarDatos, function(
+                              mostrarDatos
+                            ) {
+                              return _c("tr", { key: mostrarDatos.id }, [
+                                _c("td", {
+                                  domProps: {
+                                    textContent: _vm._s(mostrarDatos.name)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  domProps: {
+                                    textContent: _vm._s(mostrarDatos.email)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      mostrarDatos.recaudacion
+                                    )
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  domProps: {
+                                    textContent: _vm._s(mostrarDatos.lugar)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  domProps: {
+                                    textContent: _vm._s(mostrarDatos.motivo)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  domProps: {
+                                    textContent: _vm._s(mostrarDatos.telefono)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  domProps: {
+                                    textContent: _vm._s(mostrarDatos.direccion)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", [
+                                  mostrarDatos.estado
+                                    ? _c("div", [
+                                        _c(
+                                          "td",
+                                          {
+                                            staticClass:
+                                              "badge badge-success centerTabla"
+                                          },
+                                          [_vm._v("Activa")]
+                                        )
+                                      ])
+                                    : _c("div", [
+                                        _c(
+                                          "td",
+                                          {
+                                            staticClass:
+                                              "badge badge-danger centerTabla"
+                                          },
+                                          [_vm._v("Inactiva")]
+                                        )
+                                      ])
+                                ])
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.cerrarTemplateRegistro()
+                            }
+                          }
+                        },
+                        [_vm._v("Cerrar")]
+                      )
+                    ])
+                  ])
+                ])
+              ]
+            : _vm._e()
+        ],
+        2
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("i", { staticClass: "icon-chart" }),
+      _vm._v(" Registro de donaciones del sistema\n            ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Acciones")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Usuario")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Motivo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("span", [_vm._v("Los campos con (*) son obligatorios")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("span", [_vm._v("Los campos con (*) son obligatorios")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Usuario")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Recaudacion")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Lugar")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Motivo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Teléfono")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Dirección")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado")])
       ])
     ])
   }
@@ -53251,6 +55035,7 @@ Vue.component('quienes-somos', __webpack_require__(/*! ./components/QuienesSomos
 Vue.component('usuarios', __webpack_require__(/*! ./components/Usuarios.vue */ "./resources/js/components/Usuarios.vue")["default"]);
 Vue.component('inicio', __webpack_require__(/*! ./components/Inicio.vue */ "./resources/js/components/Inicio.vue")["default"]);
 Vue.component('adopcion', __webpack_require__(/*! ./components/RegistrarAdopcion.vue */ "./resources/js/components/RegistrarAdopcion.vue")["default"]);
+Vue.component('donaciones', __webpack_require__(/*! ./components/RegistrarDonacion.vue */ "./resources/js/components/RegistrarDonacion.vue")["default"]);
 var app = new Vue({
   el: '#app',
   data: {
@@ -53511,6 +55296,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegistrarAdopcion_vue_vue_type_template_id_0cb9c23b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegistrarAdopcion_vue_vue_type_template_id_0cb9c23b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/RegistrarDonacion.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/RegistrarDonacion.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _RegistrarDonacion_vue_vue_type_template_id_35532316___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RegistrarDonacion.vue?vue&type=template&id=35532316& */ "./resources/js/components/RegistrarDonacion.vue?vue&type=template&id=35532316&");
+/* harmony import */ var _RegistrarDonacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RegistrarDonacion.vue?vue&type=script&lang=js& */ "./resources/js/components/RegistrarDonacion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _RegistrarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RegistrarDonacion.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/RegistrarDonacion.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _RegistrarDonacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RegistrarDonacion_vue_vue_type_template_id_35532316___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RegistrarDonacion_vue_vue_type_template_id_35532316___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/RegistrarDonacion.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/RegistrarDonacion.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/RegistrarDonacion.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RegistrarDonacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./RegistrarDonacion.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RegistrarDonacion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RegistrarDonacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/RegistrarDonacion.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/RegistrarDonacion.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegistrarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./RegistrarDonacion.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RegistrarDonacion.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegistrarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegistrarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegistrarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegistrarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegistrarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/RegistrarDonacion.vue?vue&type=template&id=35532316&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/RegistrarDonacion.vue?vue&type=template&id=35532316& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegistrarDonacion_vue_vue_type_template_id_35532316___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./RegistrarDonacion.vue?vue&type=template&id=35532316& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RegistrarDonacion.vue?vue&type=template&id=35532316&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegistrarDonacion_vue_vue_type_template_id_35532316___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegistrarDonacion_vue_vue_type_template_id_35532316___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

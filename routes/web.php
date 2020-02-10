@@ -28,8 +28,22 @@ Route::put('/users/activar', 'UserController@activar');
 Route::delete('/users/delete/{id}', 'UserController@destroy');
 
 
-//Modulo Usuario 
+//Modulo registrar adopcion - personas 
 Route::get('/personas', 'PersonasController@index');
 Route::get('/personas/get_id', 'PersonasController@obtenerID');
 Route::post('/personas/registrar', 'PersonasController@store');
 Route::delete('/personas/delete/{id}', 'PersonasController@destroy');
+
+
+//Modulo registrar adopcion - mascota 
+Route::get('/mascotas', 'MascotasController@index');
+
+
+//Modulo donacion
+Route::get('/donacion', 'DonacionesController@index');
+Route::post('/donacion/registrar', 'DonacionesController@store');
+Route::put('/donacion/actualizar', 'DonacionesController@update');
+Route::get('/donacion/obtener', 'DonacionesController@obtenerDatos');
+Route::get('/donacion/estado', 'DonacionesController@obtenerEstado');
+Route::put('/donacion/desactivar', 'DonacionesController@desactivar');
+Route::put('/donacion/activar', 'DonacionesController@activar');
