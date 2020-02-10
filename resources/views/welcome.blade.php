@@ -112,23 +112,27 @@
         <div class="app-body">    
             @include('sidebarGeneral')           
             <template v-if="menu==0">
-                <quienes-somos></quienes-somos>
+                <usuarios></usuarios>
             </template>
             <template v-if="menu==1">
                 <quienes></quienes>
             </template>
         </div>
     </div>
+
+   
+    
+        <!-- Bootstrap and necessary plugins-->
         <script src="js/app.js"></script> 
-        <!-- Bootstrap and necessary plugins -->
+
         <script src="js/jquery.min.js"></script>
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/pace.min.js"></script>
-        <!-- Plugins and scripts required by all views -->
         <script src="js/Chart.min.js"></script>
-        <!-- GenesisUI main scripts -->
-        <script src="js/template.js"></script>
+        <script src="js/template.js"></script> 
+        <script src="js/sweetalert2.all.js"></script> 
+        
 </body>
 
 </html>

@@ -6,9 +6,12 @@
             </li>
             <li class="nav-title">
                 Opciones
-            </li>            
-
+            </li>  
             <li @click="menu=1" class="nav-item">
+                <a class="nav-link" href="#"><i class="icon-info"></i> Registrar Adopción</a> 
+            </li>          
+
+            <li @click="menu=2" class="nav-item">
                 <a class="nav-link" href="#"><i class="icon-info"></i> Quienes Somos</a> 
             </li>
         </ul>

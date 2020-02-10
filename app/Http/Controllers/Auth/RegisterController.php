@@ -72,7 +72,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'Rol' => 2, //Cuando se registra por el login de registro siempre se le asignara el rol 2 // usuario
+            'rol' => 0, //Cuando se registra por el login de registro siempre se le asignara el rol 0 // usuario
         ]);
     }
 }

@@ -12,10 +12,10 @@
 
 
     @if(Auth::check())
-        @if (Auth::user()->Rol == 1)
+        @if (Auth::user()->rol == 1)
             @include('sidebarAdministrador')           
             <template v-if="menu==0">
-                <quienes-somos></quienes-somos>
+                <usuarios></usuarios>
             </template>
             <template v-if="menu==1">
                 <quienes></quienes>
@@ -24,14 +24,18 @@
         @else
             @include('sidebarUsuario')           
             <template v-if="menu==0">
-                <quienes-somos></quienes-somos>
+                <adopcion></adopcion>
             </template>
             <template v-if="menu==1">
-                <quienes></quienes>
+                <adopcion></adopcion>
+            </template>
+            <template v-if="menu==2">
+                <quienes-somos></quienes-somos>
             </template> 
         @endif
     @endif
-    
+
+  
+
       
 @endsection
-

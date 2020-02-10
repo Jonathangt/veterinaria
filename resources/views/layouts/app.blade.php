@@ -9,18 +9,20 @@
 
     <title>Veterinaria D</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Scripts-->
+    <script src="{{ asset('js/app.js') }}" ></script> 
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
+ 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+       <!-- Styles-->
     <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/simple-line-icons.min.css" rel="stylesheet">
-    <!-- Main styles for this application -->
+    <link href="css/simple-line-icons.min.css" rel="stylesheet"> 
+
+
     <link href="css/style.css" rel="stylesheet">
 
 </head>
@@ -28,9 +30,6 @@
     <div id="app">
 
     <header class="app-header navbar">
-
-      
-
        
             <!-- Authentication Links -->
             @guest
@@ -86,3 +85,21 @@
 
         @yield('content')
       
+        </div>
+    </div> 
+
+   
+     <!-- Bootstrap and necessary plugins -->
+
+        <script src="js/app.js"></script> 
+        <script src="js/jquery.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/pace.min.js"></script>
+       
+        <script src="js/Chart.min.js"></script>
+        <script src="js/template.js"></script>
+        <script src="js/sweetalert2.all.js"></script> 
+</body>
+
+</html>

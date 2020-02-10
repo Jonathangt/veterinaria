@@ -28,7 +28,9 @@
                                         Hidalgo</strong> guiada por su padre quien la instruyo y motivó desde  
                                         muy joven a lograr el objetivo el que hoy en día es fundar 
                                         una veterinaria 
-                                    </P>
+                                    </P><br>
+                                    
+                                    <h6><p id="red" class="centerTabla">TU ACCIÓN PUEDE CAMBIAR VIDAS, ADOPTA UN MASCOTA</p></h6>
                                 </div>
                             </div>
                               <div class="col-md-2">
@@ -41,9 +43,10 @@
                         </div>  
                         <div>
                             <label for=""><i>Conoce más de nosotros</i></label><br>
-                            <button id="btnFacebook" type="button" class="btn btn-primary">Facebook</button>
-                            <button id="btnInstagram" type="button" class="btn btn-primary">Instagram</button>
-                            <button id="btnTwitter" type="button" class="btn btn-primary">Twitter</button>
+                            <a target="_blank" href="https://www.google.es/"> <button type="button" class="btn btn-facebook">Fa</button></a>
+                            <a target="_blank" href="https://www.google.es/"> <button type="button" class="btn btn-instagram">Fa</button></a>
+                            <a target="_blank" href="https://www.google.es/"> <button type="button" class="btn btn-twitter">Fa</button></a>
+                            
                         </div>
                                           
                     </div>
@@ -61,6 +64,10 @@
         color: #fff;
         background-color: #4e71ba;
         border-color: #4e71ba;
+    }
+
+    #red{
+         color: #F0380A;
     }
 
 
