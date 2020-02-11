@@ -17,12 +17,13 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
+              
                 color: #636b6f;
-                font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
                 margin: 0;
+                font-family: Arial, sans-serif;
+              /*  font-size: 12px;*/
             }
 
             .full-height {
@@ -62,16 +63,9 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
-
-         
         </style>
 
-        <style>
-            body {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-        }
-        </style>
+  
 
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/simple-line-icons.min.css" rel="stylesheet">
@@ -115,23 +109,20 @@
         </header>
 
         <div class="app-body">    
-            @include('sidebarGeneral')           
+           @include('sidebarGeneral')    
             <template v-if="menu==0">
-            <h1>Informacionmmnnnnnnnnnnnnnnnnn</h1>
+                <inicio-general></inicio-general>
             </template>
             <template v-if="menu==1">
-                <h1>Informacionmmnnnnnnnnnnnnnnnnn</h1>
+                <informacion-general></informacion-general>
             </template>
             <template v-if="menu==2">
-                <visualizar-donaciones></visualizar-donaciones>
-            </template>
-            <template v-if="menu==3">
                 <quienes-somos></quienes-somos>
             </template>
         </div>
     </div> <!---fin div app --->
+    
 
-   
         <!---Desarrollado por Jonathan Guevara 2020--->
         
         <!-- Bootstrap and necessary plugins-->

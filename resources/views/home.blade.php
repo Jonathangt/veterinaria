@@ -15,7 +15,7 @@
         @if (Auth::user()->rol == 1)
             @include('sidebarAdministrador')           
             <template v-if="menu==0">
-                <h1>modulo adaopcion</h1>
+            <donaciones></donaciones>
             </template>
             <template v-if="menu==1">
                 <h1>modulo clientes</h1>

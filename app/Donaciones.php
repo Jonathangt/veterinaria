@@ -14,8 +14,11 @@ class Donaciones extends Model
         'lugar',
         'motivo',
         'direccion',
+        'email',
         'telefono',
         'celular',
+        'fechaInicio',
+        'fechaFin'
 
     ];
     

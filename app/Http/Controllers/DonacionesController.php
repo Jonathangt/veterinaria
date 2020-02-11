@@ -6,11 +6,12 @@ use App\Donaciones;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DonacionesController extends Controller
 {
     public function index(Request $request)    {
-        if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
+       // if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
 
         $buscar = $request->buscar;
         $criterio = $request->criterio;
@@ -18,13 +19,15 @@ class DonacionesController extends Controller
         if ($buscar==''){
             $donacion = Donaciones::join('users', 'donaciones.idUsuario', 'users.id')
                                     ->select('donaciones.id', 'donaciones.idUsuario', 'donaciones.recaudacion', 'donaciones.lugar',
-                                            'donaciones.motivo', 'donaciones.telefono', 'donaciones.direccion', 'donaciones.estado', 'users.name', 'users.email')
+                                            'donaciones.motivo', 'donaciones.telefono', 'donaciones.direccion',  'donaciones.fechaInicio', 
+                                            'donaciones.fechaFin', 'donaciones.email', 'users.name')
                                     ->orderBy('donaciones.id', 'desc')->paginate(10);
         }
         else{
             $donacion = Donaciones::join('users', 'donaciones.idUsuario', 'users.id')
                                     ->select('donaciones.id', 'donaciones.idUsuario', 'donaciones.recaudacion', 'donaciones.lugar',
-                                            'donaciones.motivo', 'donaciones.telefono', 'donaciones.direccion', 'donaciones.estado', 'users.name', 'users.email')
+                                            'donaciones.motivo', 'donaciones.telefono', 'donaciones.direccion',  'donaciones.fechaInicio', 
+                                            'donaciones.fechaFin', 'donaciones.email', 'users.name')
                                     ->where($criterio, 'like', '%'. $buscar . '%')
                                     ->orderBy('donaciones.id', 'desc')->paginate(10);
         }
@@ -48,6 +51,14 @@ class DonacionesController extends Controller
         
         try{
             DB::beginTransaction();
+
+            /*$fechaInicio = date('d-m-Y');
+            $fechaInicio = $request->fechaInicio;
+
+            $fechaFin = date('d-m-Y');
+            $fechaFin = $request->fechaFin;*/
+            
+
             $donacion = new Donaciones();
             $donacion->idUsuario = \Auth::user()->id; //obtengo el id del user 
             $donacion->recaudacion = $request->recaudacion;
@@ -55,10 +66,10 @@ class DonacionesController extends Controller
             $donacion->motivo = $request->motivo;
             $donacion->telefono = $request->telefono;
             $donacion->direccion = $request->direccion;
-            $donacion->estado = '1'; //activo
+            $donacion->fechaInicio = $request->fechaInicio;
+            $donacion->fechaFin =  $request->fechaFin;
+            $donacion->email = $request->email;
             $donacion->save();
-
-    
             DB::commit();
 
         } catch (Exception $e){

@@ -7,7 +7,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-paper-clip"></i> Inicio
+                    <i class="icon-paper-clip"></i> Informacion
                 </div>
 
             </div>
@@ -15,4 +15,3 @@
         </div>
     </main>
 </template>
-

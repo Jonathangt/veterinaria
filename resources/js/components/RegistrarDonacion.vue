@@ -109,19 +109,49 @@
                                     <Label>Recaudacion(*)</Label>
                                     <input type="text" class="form-control" v-model="recaudacion" placeholder="Recaudacion" maxlength="200"> 
                                 </div>
-                            </div>
 
-                            <div class="col-md-8">
                                 <div class="form-group">
                                     <Label>Lugar de recaudo(*)</Label>
                                     <input type="text" class="form-control" v-model="lugar" placeholder="Lugar" maxlength="200"> 
                                 </div>
                             </div>
 
+                             <div class="col-md-2">
+                                <div class="form-group">
+                                   <div> <br>
+                                        <img src="img/About.jpg" alt="Dobaltoff" id="imagen">
+                                    </div>
+                                </div>
+                            </div>
+                           
+
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <Label>Motivo</Label>
-                                     <textarea rows="4" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando" cols="50" > </textarea> 
+                                    <Label>Motivo(*)</Label>
+                                    <textarea rows="4" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando" cols="50" > </textarea> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <Label></Label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <Label>Fecha de Inicio(*)</Label>
+                                 <!--    <input type="date" class="form-control" v-model="fechaInicio"> -->
+                                 <datepicker id="select" placeholder= "Fecha de inico" v-model="fechaInicio" :language="es"></datepicker>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <Label>Fecha de Fin(*)</Label>
+                               <!--     <input type="date" class="form-control" v-model="fechaFin"> -->
+                                    
+                                    <datepicker id="select" placeholder= "Fecha de finalización" v-model="fechaFin" :language="es"></datepicker>
                                 </div>
                             </div>
                         </div>
@@ -142,8 +172,15 @@
 
                             <div class="col-md-8">
                                 <div class="form-group"><br>
-                                    <Label>Dirección</Label>
-                                    <input type="text" class="form-control" v-model="direccion" placeholder="Dirección" maxlength="200"> 
+                                    <Label>Dirección (*)</Label>
+                                    <input type="text" class="form-control" v-model="direccion" placeholder="Dirección" maxlength="100"> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="form-group"><br>
+                                    <Label>Email (*)</Label>
+                                    <input type="text" class="form-control" v-model="email" placeholder="Dirección" maxlength="50"> 
                                 </div>
                             </div>
                         </div> <!--fin row borde-->
@@ -243,7 +280,7 @@
                  <!-- fin  Edicion de datos-->
 
                 <!-----------------------------Tabla para visualizar el registro completo--->
-                <!-- Ver Materias de Malla -->
+               
                 <template v-else-if="template==2">
                     <div class="card-body">
                         <div class="form-group">
@@ -299,7 +336,7 @@
                         </div>
                     </div>
                 </template>
-                <!-- fin Materias de Malla -->
+              
             </div>
             <!-- Fin ejemplo de tabla Listado -->
         </div>
@@ -314,9 +351,14 @@
 
 <script>
    
+
+    import Datepicker from 'vuejs-datepicker';
+    import { es } from 'vuejs-datepicker/dist/locale'
     export default {
         data() {
             return {
+                es: es,
+                date: new Date(2016, 9, 16),
                 name: '',
                 email: '',
                 motivo: '',
@@ -324,6 +366,8 @@
                 lugar: '',
                 telefono: '',
                 direccion: '',
+                fechaInicio: '',
+                fechaFin: '',
                 idDonacion: 0,
                 data: [],
                 arrayRegistros: [],
@@ -343,6 +387,9 @@
                 criterio: 'motivo',
                 buscar: '',
             }
+        },
+        components: {
+            Datepicker
         },
         computed: {
             isActived: function() {
@@ -389,7 +436,7 @@
                         console.log(error);
                     });
             },
-            desactivar(id){
+            /*desactivar(id){
                 swal({
                     title: 'Esta seguro de desactivar la donación?',
                     type: 'warning',
@@ -426,8 +473,8 @@
                         
                     }
                     }) 
-            },
-            activar(id){
+            },*/
+            /*activar(id){
                 swal({
                     title: 'Esta seguro de activar esta donación?',
                     type: 'warning',
@@ -465,18 +512,24 @@
                         
                     }
                 }) 
-            },
+            },*/
             registrar(){
-                if (this.validarDatos()) {
+               /* if (this.validarDatos()) {
                     return;
-                }
+                }*/
                 let me = this;
+                this.customFormatter(this.fechaInicio);
+                 this.customFormatter(this.fechaFin);
                 axios.post('/donacion/registrar',{     
                     'recaudacion': this.recaudacion,
                     'lugar' : this.lugar,
                     'motivo': this.motivo,
                     'telefono' : this.telefono,
+                    'email' : this.direccion,
                     'direccion' : this.direccion,
+                    'fechaInicio' : this.fechaInicio,
+                    'fechaFin' : this.fechaFin,
+
                 }).then(function (response) {
                      console.log('EXITO!!');    
                 }).catch(function (error) {
@@ -492,7 +545,9 @@
                     text:  'La información a sido publicada',
                 })
             },
-
+            customFormatter(date) {
+                return moment(date).format('MMMM Do YYYY');
+            },
             editar(id) {
                 this.templateEditar();
                 this.template=3; //abro el template para editar
@@ -514,7 +569,6 @@
                 });
 
             },
-
             actualizar(){
                  if (this.validarDatos()){
                     return;
@@ -552,7 +606,12 @@
                 this.errorMostrarMsj = [];
                 if (!this.recaudacion) this.errorMostrarMsj.push("El campo recaudacion no puede estar vacio");
                 if (!this.lugar) this.errorMostrarMsj.push("El campo lugar no puede estar vacio");
+                if (!this.motivo) this.errorMostrarMsj.push("El campo motivo no puede estar vacio");
+                if (!this.fechaInicio) this.errorMostrarMsj.push("Debe de elegir una fecha de inicio");
+                if (!this.fechaFin) this.errorMostrarMsj.push("Debe de elegir una fecha de finalización");
                 if (!this.telefono) this.errorMostrarMsj.push("El campo telefono no puede estar vacio");
+                if (!this.direccion) this.errorMostrarMsj.push("El campo dirección no puede estar vacio");
+                if (!this.email) this.errorMostrarMsj.push("El campo telefono no puede estar vacio");
 
                 if (this.errorMostrarMsj.length) this.errorValidacion = 1;
                 return this.errorValidacion;
@@ -576,8 +635,7 @@
 
             },
             templateRegistrar() {
-            
-                this.obtenerEstado();
+        
                 this.template = 1;
                 let me = this;
            
@@ -611,30 +669,6 @@
                         console.log(error);
                     });
             },
-            obtenerEstado() {
-                let me = this;
-                this.template = 2;
-               
-                var url = '/donacion/estado';
-                axios.get(url).then(function(response) {
-                    var respuesta = response.data.donacion;
-                    if (me.respuesta=1) {
-                         swal({
-                            title: 'ok!!',
-                            type:  'info',
-                            text:  'xxxxxxx',
-                        })
-                    }
-
-                    }).then(function (response) {
-                    console.log('ok' + me.respuesta);  
-                     console.log('EXITO!!');    
-                }).catch(function (error) {
-                    console.log('error de ingreso!!');
-                    console.log('ok221' + me.respuesta);
-                });
-
-            },
         },
         mounted() {
             this.listar(1, this.buscar, this.criterio);
@@ -642,9 +676,25 @@
     }
 </script>
 <style>
+    #select {
+    padding: 0.75em 0.5em;
+    font-size: 100%;
+    border: 1px solid #ccc;
+    width: 100%;
+     height: 2.5em;
+    }
+
+
     .modal-content {
         width: 100% !important;
         position: absolute !important;
+    }
+
+     #imagen{
+        width: 100px;
+        height: 150px;
+
+        text-align: right;
     }
 
     #labelContacto {
