@@ -2,9 +2,14 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Unete al rescate y proteccion animal">
+        <meta name="author" content="Veterinaria Dobaltoff">
+        <meta name="keyword" content="Veterinaria Dobaltoff rescate animal">
+        <link rel="shortcut icon" href="img/unnamed.jpg">
 
-        <title>Veterinaria D</title>
+        <title>Veterinaria Dobaltoff</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -84,7 +89,7 @@
             <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
                 <span class="navbar-toggler-icon"></span>
                 <a href="{{ url('/') }}">
-                <span class="logo-mini"><i> Veterinaria D</i></span>
+                <span class="logo-mini"><i> Veterinaria Dobaltoff</i></span>
             </a>
             </button>
            
@@ -99,7 +104,7 @@
                     @auth
                      <!--  <a href="{{ url('/home') }}">Home</a>-->
                     @else
-                        <a href="{{ route('login') }}">Iniciar Seseón</a>
+                        <a href="{{ route('login') }}">Iniciar Sesión</a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Registrarse</a>
@@ -112,16 +117,23 @@
         <div class="app-body">    
             @include('sidebarGeneral')           
             <template v-if="menu==0">
-                <usuarios></usuarios>
+            <h1>Informacionmmnnnnnnnnnnnnnnnnn</h1>
             </template>
             <template v-if="menu==1">
-                <quienes></quienes>
+                <h1>Informacionmmnnnnnnnnnnnnnnnnn</h1>
+            </template>
+            <template v-if="menu==2">
+                <visualizar-donaciones></visualizar-donaciones>
+            </template>
+            <template v-if="menu==3">
+                <quienes-somos></quienes-somos>
             </template>
         </div>
-    </div>
+    </div> <!---fin div app --->
 
    
-    
+        <!---Desarrollado por Jonathan Guevara 2020--->
+        
         <!-- Bootstrap and necessary plugins-->
         <script src="js/app.js"></script> 
 

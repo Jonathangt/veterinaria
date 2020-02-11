@@ -15,7 +15,7 @@
                                 <div class="form-group centerTabla"><br>
                                     <h3><center>Veterinaria Dobaltoff</center> </h3><br>
                                     <P ALIGN="justify">
-                                        Veterinaria <strong>Dobaltoff</strong> fundada al 12 Enero del 2019 por la 
+                                         <strong>Veterinaria Dobaltoff</strong> fundada al 12 Enero del 2019 por la 
                                         <strong>Dra. Carolina Hidalgo</strong> en la Ciudad de Guayaquil, creada con 
                                         gran esfuerzo con el fin de prestar de sus servicios las 24/7  
                                         y una atención personalizada para los amigos de cuatro  
@@ -23,32 +23,30 @@
                                         prestados ya que aparte de ser una clínica veterinaria ayuda 
                                         a los amigos de cuatro patas rescatados dándole hogares  
                                         temporales hasta ser adoptados.  
-                                        Para lograr el objetivo de fundar <strong>Dobaltoff</strong> se recaudó dinero  >
+                                        Para lograr el objetivo de fundar <strong>Dobaltoff</strong> se recaudó dinero
                                         durante toda la carrera universitaria de la <strong> Dra. Carolina 
                                         Hidalgo</strong> guiada por su padre quien la instruyo y motivó desde  
                                         muy joven a lograr el objetivo el que hoy en día es fundar 
-                                        una veterinaria 
+                                        una veterinaria.
                                     </P><br>
                                     
                                     <h6><p id="red" class="centerTabla">TU ACCIÓN PUEDE CAMBIAR VIDAS, ADOPTA UN MASCOTA</p></h6>
                                 </div>
                             </div>
-                              <div class="col-md-2">
+                            <div class="col-md-2">
                                 <div class="form-group">
-                                   <div>
-                                            <img src="img/quienesSomos.jpg" alt="LogoUG" id="imagen">
+                                   <div><br><br>
+                                            <img src="img/About.jpg" alt="Dobaltoff" id="imagen">
                                     </div>
                                 </div>
                             </div>
                         </div>  
                         <div>
                             <label for=""><i>Conoce más de nosotros</i></label><br>
-                            <a target="_blank" href="https://www.google.es/"> <button type="button" class="btn btn-facebook">Fa</button></a>
-                            <a target="_blank" href="https://www.google.es/"> <button type="button" class="btn btn-instagram">Fa</button></a>
+                            <a target="_blank" href="https://www.facebook.com/vetdobaltoff/"> <button type="button" class="btn btn-facebook">Fa</button></a>
+                            <a target="_blank" href="https://www.instagram.com/veterinariadobaltoff/"> <button type="button" class="btn btn-instagram">Fa</button></a>
                             <a target="_blank" href="https://www.google.es/"> <button type="button" class="btn btn-twitter">Fa</button></a>
-                            
                         </div>
-                                          
                     </div>
                     <br>
                 </template>
@@ -60,30 +58,8 @@
 
 <style>
 
-    #btnFacebook{
-        color: #fff;
-        background-color: #4e71ba;
-        border-color: #4e71ba;
-    }
-
     #red{
          color: #F0380A;
-    }
-
-
-
-    #btnInstagram{
-        color: #fff;
-        background-color: rgb(253,29,29);
-        border-color: rgb(253,29,29);
-        }
-
-  
-
-    #btnTwitter{
-        color: #fff;
-        background-color: #00acee;
-        border-color: #00acee;
     }
 
     
@@ -92,37 +68,38 @@
         margin-top: 1%;
         margin-left: 2%;
         margin-right: 2%;
-        }
+    }
 
-        #logo2{
+    #logo2{
         float: right;
         margin-top: 1%;
         margin-left: 2%;
         margin-right: 2%;
-        }
-        
-        #imagen{
-        width: 250px;
+    }
+    
+    #imagen{
+        width: 340px;
         text-align: right;
-        }
+    }
 
-           #datos{
+    #datos{
         float: left;
         margin-top: 0%;
         margin-left: 2%;
         margin-right: 2%;
         /*text-align: justify;*/
-        }
- 
-        #encabezado{
+    }
+
+    #encabezado{
         text-align: center;
         margin-left: 10%;
         margin-right: 35%;
         font-size: 15px;
-        
-        }
-          .centerTabla {
-        text-align: left;
+    
+    }
+    
+    .centerTabla {
+    text-align: left;
     }
 
  

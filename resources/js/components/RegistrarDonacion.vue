@@ -342,7 +342,6 @@
                 offset: 3,
                 criterio: 'motivo',
                 buscar: '',
-                estadoGet: 2,
             }
         },
         computed: {
@@ -579,6 +578,7 @@
             templateRegistrar() {
             
                 this.obtenerEstado();
+                this.template = 1;
                 let me = this;
            
                 this.template = 0;
@@ -612,32 +612,27 @@
                     });
             },
             obtenerEstado() {
-                let me = this;//metodo para mostrar los datos
+                let me = this;
                 this.template = 2;
                
                 var url = '/donacion/estado';
                 axios.get(url).then(function(response) {
                     var respuesta = response.data.donacion;
-
-                    
-                    if (this.respuesta>1) {
+                    if (me.respuesta=1) {
                          swal({
-                            title: 'Donación Registrada!!',
-                            type:  'success',
-                            text:  'La información a sido publicada',
+                            title: 'ok!!',
+                            type:  'info',
+                            text:  'xxxxxxx',
                         })
                     }
 
-
                     }).then(function (response) {
-                    console.log(me.respuesta);  
-                    console.log(this.respuesta);  
+                    console.log('ok' + me.respuesta);  
                      console.log('EXITO!!');    
                 }).catch(function (error) {
                     console.log('error de ingreso!!');
-                    console.log(me.respuesta);
+                    console.log('ok221' + me.respuesta);
                 });
-
 
             },
         },

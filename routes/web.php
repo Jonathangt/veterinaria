@@ -41,6 +41,7 @@ Route::get('/mascotas', 'MascotasController@index');
 
 //Modulo donacion
 Route::get('/donacion', 'DonacionesController@index');
+Route::get('/donacion/mostrar', 'DonacionesController@mostrarDonacion');
 Route::post('/donacion/registrar', 'DonacionesController@store');
 Route::put('/donacion/actualizar', 'DonacionesController@update');
 Route::get('/donacion/obtener', 'DonacionesController@obtenerDatos');

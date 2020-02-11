@@ -71,9 +71,6 @@ class UserController extends Controller{
         try{
             DB::beginTransaction();
             $usuario = User::findOrFail($request->id);
-
-
-            $usuario = new User();
             $usuario->name = $request->name;
             $usuario->email = $request->email;
             $usuario->rol = '1';//administrador

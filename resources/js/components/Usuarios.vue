@@ -261,7 +261,13 @@
                     me.listar(1,'','name');
                 }).catch(function (error) {
                     console.log(error);
-                }); 
+                });
+                
+                swal({
+                    title: 'Registro Actualizado!!',
+                    type:  'success',
+                    text:  'Se a actualizado el usuario!!',
+                })
             },            
             validar(){
                 this.errorValidacion=0;

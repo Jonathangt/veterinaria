@@ -1899,6 +1899,129 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DonacionOpcion.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DonacionOpcion.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      name: '',
+      email: '',
+      motivo: '',
+      recaudacion: '',
+      lugar: '',
+      telefono: '',
+      direccion: '',
+      idDonacion: 0,
+      data: [],
+      arrayRegistros: [],
+      arrayMostrarDatos: [],
+      errorMostrarMsj: [],
+      errorValidacion: 0,
+      pagination: {
+        'total': 0,
+        'current_page': 0,
+        'per_page': 0,
+        'last_page': 0,
+        'from': 0,
+        'to': 0
+      },
+      template: 1,
+      offset: 3,
+      criterio: 'motivo',
+      buscar: ''
+    };
+  },
+  computed: {
+    isActived: function isActived() {
+      return this.pagination.current_page;
+    },
+    //Calcula los elementos de la paginación
+    pagesNumber: function pagesNumber() {
+      if (!this.pagination.to) {
+        return [];
+      }
+
+      var from = this.pagination.current_page - this.offset;
+
+      if (from < 1) {
+        from = 1;
+      }
+
+      var to = from + this.offset * 2;
+
+      if (to >= this.pagination.last_page) {
+        to = this.pagination.last_page;
+      }
+
+      var pagesArray = [];
+
+      while (from <= to) {
+        pagesArray.push(from);
+        from++;
+      }
+
+      return pagesArray;
+    }
+  },
+  methods: {
+    listar: function listar() {
+      var me = this;
+      var url = '/donacion/mostrar';
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.arrayRegistros = respuesta.donacion.data;
+      })["catch"](function (error) {
+        console.log(me.getID);
+        console.log(error);
+      });
+    },
+    cambiarPagina: function cambiarPagina(page, buscar, criterio) {
+      var me = this; //Actualiza la página actual
+
+      me.pagination.current_page = page; //Envia la petición para visualizar la data de esa página
+
+      me.listar(page, buscar, criterio);
+    }
+  },
+  mounted: function mounted() {
+    this.listar();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RegistrarAdopcion.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RegistrarAdopcion.vue?vue&type=script&lang=js& ***!
@@ -2878,8 +3001,7 @@ __webpack_require__.r(__webpack_exports__);
       template: 1,
       offset: 3,
       criterio: 'motivo',
-      buscar: '',
-      estadoGet: 2
+      buscar: ''
     };
   },
   computed: {
@@ -3089,6 +3211,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     templateRegistrar: function templateRegistrar() {
       this.obtenerEstado();
+      this.template = 1;
       var me = this;
       this.template = 0;
       me.recaudacion = '';
@@ -3119,27 +3242,25 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     obtenerEstado: function obtenerEstado() {
-      var me = this; //metodo para mostrar los datos
-
+      var me = this;
       this.template = 2;
       var url = '/donacion/estado';
       axios.get(url).then(function (response) {
         var respuesta = response.data.donacion;
 
-        if (this.respuesta > 1) {
+        if (me.respuesta = 1) {
           swal({
-            title: 'Donación Registrada!!',
-            type: 'success',
-            text: 'La información a sido publicada'
+            title: 'ok!!',
+            type: 'info',
+            text: 'xxxxxxx'
           });
         }
       }).then(function (response) {
-        console.log(me.respuesta);
-        console.log(this.respuesta);
+        console.log('ok' + me.respuesta);
         console.log('EXITO!!');
       })["catch"](function (error) {
         console.log('error de ingreso!!');
-        console.log(me.respuesta);
+        console.log('ok221' + me.respuesta);
       });
     }
   },
@@ -3420,6 +3541,11 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+      swal({
+        title: 'Registro Actualizado!!',
+        type: 'success',
+        text: 'Se a actualizado el usuario!!'
+      });
     },
     validar: function validar() {
       this.errorValidacion = 0;
@@ -3504,6 +3630,172 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.listar(1, this.buscar, this.criterio);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/VisualizarDonacion.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/VisualizarDonacion.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      name: '',
+      email: '',
+      motivo: '',
+      recaudacion: '',
+      lugar: '',
+      telefono: '',
+      direccion: '',
+      idDonacion: 0,
+      data: [],
+      arrayRegistros: [],
+      arrayMostrarDatos: [],
+      errorMostrarMsj: [],
+      errorValidacion: 0,
+      pagination: {
+        'total': 0,
+        'current_page': 0,
+        'per_page': 0,
+        'last_page': 0,
+        'from': 0,
+        'to': 0
+      },
+      template: 1,
+      offset: 3,
+      criterio: 'motivo',
+      buscar: ''
+    };
+  },
+  computed: {
+    isActived: function isActived() {
+      return this.pagination.current_page;
+    },
+    //Calcula los elementos de la paginación
+    pagesNumber: function pagesNumber() {
+      if (!this.pagination.to) {
+        return [];
+      }
+
+      var from = this.pagination.current_page - this.offset;
+
+      if (from < 1) {
+        from = 1;
+      }
+
+      var to = from + this.offset * 2;
+
+      if (to >= this.pagination.last_page) {
+        to = this.pagination.last_page;
+      }
+
+      var pagesArray = [];
+
+      while (from <= to) {
+        pagesArray.push(from);
+        from++;
+      }
+
+      return pagesArray;
+    }
+  },
+  methods: {
+    listar: function listar() {
+      var me = this;
+      var url = '/donacion/mostrar';
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.arrayRegistros = respuesta.donacion.data;
+      })["catch"](function (error) {
+        console.log(me.getID);
+        console.log(error);
+      });
+    },
+    cambiarPagina: function cambiarPagina(page, buscar, criterio) {
+      var me = this; //Actualiza la página actual
+
+      me.pagination.current_page = page; //Envia la petición para visualizar la data de esa página
+
+      me.listar(page, buscar, criterio);
+    }
+  },
+  mounted: function mounted() {
+    this.listar();
   }
 });
 
@@ -8052,7 +8344,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#btnFacebook{\n    color: #fff;\n    background-color: #4e71ba;\n    border-color: #4e71ba;\n}\n#red{\n     color: #F0380A;\n}\n#btnInstagram{\n    color: #fff;\n    background-color: rgb(253,29,29);\n    border-color: rgb(253,29,29);\n}\n#btnTwitter{\n    color: #fff;\n    background-color: #00acee;\n    border-color: #00acee;\n}\n#logo{\n    float: left;\n    margin-top: 1%;\n    margin-left: 2%;\n    margin-right: 2%;\n}\n#logo2{\n    float: right;\n    margin-top: 1%;\n    margin-left: 2%;\n    margin-right: 2%;\n}\n#imagen{\n    width: 250px;\n    text-align: right;\n}\n#datos{\n    float: left;\n    margin-top: 0%;\n    margin-left: 2%;\n    margin-right: 2%;\n    /*text-align: justify;*/\n}\n#encabezado{\n    text-align: center;\n    margin-left: 10%;\n    margin-right: 35%;\n    font-size: 15px;\n}\n.centerTabla {\n    text-align: left;\n}\n\n\n", ""]);
+exports.push([module.i, "\n#red{\n     color: #F0380A;\n}\n#logo{\n    float: left;\n    margin-top: 1%;\n    margin-left: 2%;\n    margin-right: 2%;\n}\n#logo2{\n    float: right;\n    margin-top: 1%;\n    margin-left: 2%;\n    margin-right: 2%;\n}\n#imagen{\n    width: 340px;\n    text-align: right;\n}\n#datos{\n    float: left;\n    margin-top: 0%;\n    margin-left: 2%;\n    margin-right: 2%;\n    /*text-align: justify;*/\n}\n#encabezado{\n    text-align: center;\n    margin-left: 10%;\n    margin-right: 35%;\n    font-size: 15px;\n}\n.centerTabla {\ntext-align: left;\n}\n\n\n", ""]);
 
 // exports
 
@@ -8110,6 +8402,25 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 // module
 exports.push([module.i, "\n.modal-content{\n    width: 100% !important;\n    position: absolute !important;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: red !important;\n    font-weight: bold;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/VisualizarDonacion.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/VisualizarDonacion.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#labelContacto {\n    display: inline-block !important;\n    margin-bottom: .5rem !important;\n}\n#imagen{\n    width: 340px;\n    text-align: right;\n}\n#red{\n     color: #F0380A;\n}\n#letra{\n     color: #EA9A3B;\n}\n.centerTabla {\n    text-align: center;\n}\n\n\n", ""]);
 
 // exports
 
@@ -39072,6 +39383,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/VisualizarDonacion.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/VisualizarDonacion.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./VisualizarDonacion.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/VisualizarDonacion.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -39656,6 +39997,77 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DonacionOpcion.vue?vue&type=template&id=419fe7f4&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DonacionOpcion.vue?vue&type=template&id=419fe7f4& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    _vm._l(_vm.arrayRegistros, function(registro) {
+      return _c("div", { key: registro.id, staticClass: "form-group row" }, [
+        _c("div", [
+          _c("label", [_vm._v("Publicado por")]),
+          _vm._v(" "),
+          _c("label", { domProps: { textContent: _vm._s(registro.name) } }),
+          _c("br"),
+          _vm._v(" "),
+          _c("label", [_vm._v("recaudacion ")]),
+          _vm._v(" "),
+          _c("label", {
+            domProps: { textContent: _vm._s(registro.recaudacion) }
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c("label", [_vm._v("lugar ")]),
+          _vm._v(" "),
+          _c("label", { domProps: { textContent: _vm._s(registro.lugar) } }),
+          _c("br"),
+          _vm._v(" "),
+          _c("label", [_vm._v("motivo ")]),
+          _vm._v(" "),
+          _c("label", { domProps: { textContent: _vm._s(registro.motivo) } }),
+          _c("br"),
+          _vm._v(" "),
+          _c("label", [_vm._v("telefono ")]),
+          _vm._v(" "),
+          _c("label", { domProps: { textContent: _vm._s(registro.telefono) } }),
+          _c("br"),
+          _vm._v(" "),
+          _c("label", [_vm._v("direccion ")]),
+          _vm._v(" "),
+          _c("label", {
+            domProps: { textContent: _vm._s(registro.direccion) }
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c("label", [_vm._v("email ")]),
+          _vm._v(" "),
+          _c("label", { domProps: { textContent: _vm._s(registro.email) } }),
+          _c("br")
+        ])
+      ])
+    }),
+    0
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Inicio.vue?vue&type=template&id=2bdc2210&":
 /*!*********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Inicio.vue?vue&type=template&id=2bdc2210& ***!
@@ -39741,10 +40153,7 @@ var render = function() {
                       _c("br"),
                       _vm._v(" "),
                       _c("P", { attrs: { ALIGN: "justify" } }, [
-                        _vm._v(
-                          "\n                                    Veterinaria "
-                        ),
-                        _c("strong", [_vm._v("Dobaltoff")]),
+                        _c("strong", [_vm._v("Veterinaria Dobaltoff")]),
                         _vm._v(
                           " fundada al 12 Enero del 2019 por la \n                                    "
                         ),
@@ -39754,7 +40163,7 @@ var render = function() {
                         ),
                         _c("strong", [_vm._v("Dobaltoff")]),
                         _vm._v(
-                          " se recaudó dinero  >\n                                    durante toda la carrera universitaria de la "
+                          " se recaudó dinero\n                                    durante toda la carrera universitaria de la "
                         ),
                         _c("strong", [
                           _vm._v(
@@ -39762,7 +40171,7 @@ var render = function() {
                           )
                         ]),
                         _vm._v(
-                          " guiada por su padre quien la instruyo y motivó desde  \n                                    muy joven a lograr el objetivo el que hoy en día es fundar \n                                    una veterinaria \n                                "
+                          " guiada por su padre quien la instruyo y motivó desde  \n                                    muy joven a lograr el objetivo el que hoy en día es fundar \n                                    una veterinaria.\n                                "
                         )
                       ]),
                       _c("br"),
@@ -39814,8 +40223,11 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-md-2" }, [
       _c("div", { staticClass: "form-group" }, [
         _c("div", [
+          _c("br"),
+          _c("br"),
+          _vm._v(" "),
           _c("img", {
-            attrs: { src: "img/quienesSomos.jpg", alt: "LogoUG", id: "imagen" }
+            attrs: { src: "img/About.jpg", alt: "Dobaltoff", id: "imagen" }
           })
         ])
       ])
@@ -39831,21 +40243,39 @@ var staticRenderFns = [
       ]),
       _c("br"),
       _vm._v(" "),
-      _c("a", { attrs: { target: "_blank", href: "https://www.google.es/" } }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-facebook", attrs: { type: "button" } },
-          [_vm._v("Fa")]
-        )
-      ]),
+      _c(
+        "a",
+        {
+          attrs: {
+            target: "_blank",
+            href: "https://www.facebook.com/vetdobaltoff/"
+          }
+        },
+        [
+          _c(
+            "button",
+            { staticClass: "btn btn-facebook", attrs: { type: "button" } },
+            [_vm._v("Fa")]
+          )
+        ]
+      ),
       _vm._v(" "),
-      _c("a", { attrs: { target: "_blank", href: "https://www.google.es/" } }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-instagram", attrs: { type: "button" } },
-          [_vm._v("Fa")]
-        )
-      ]),
+      _c(
+        "a",
+        {
+          attrs: {
+            target: "_blank",
+            href: "https://www.instagram.com/veterinariadobaltoff/"
+          }
+        },
+        [
+          _c(
+            "button",
+            { staticClass: "btn btn-instagram", attrs: { type: "button" } },
+            [_vm._v("Fa")]
+          )
+        ]
+      ),
       _vm._v(" "),
       _c("a", { attrs: { target: "_blank", href: "https://www.google.es/" } }, [
         _c(
@@ -42854,6 +43284,222 @@ var staticRenderFns = [
         _c("th", [_vm._v("Email")]),
         _vm._v(" "),
         _c("th", [_vm._v("Estado")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/VisualizarDonacion.vue?vue&type=template&id=6082b220&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/VisualizarDonacion.vue?vue&type=template&id=6082b220& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("main", { staticClass: "main" }, [
+    _c("ol"),
+    _vm._v(" "),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c(
+        "div",
+        { staticClass: "card" },
+        [
+          _c("div", { staticClass: "card-header" }),
+          _vm._v(" "),
+          [
+            _c(
+              "div",
+              { staticClass: "card-body" },
+              [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group centerTabla" },
+                      [
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "h3",
+                          [_c("center", [_vm._v("Veterinaria Dobaltoff")])],
+                          1
+                        ),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("center", [
+                          _c("h6", { attrs: { id: "letra" } }, [
+                            _vm._v(
+                              "ÚNETE AL RESCATE PROTECCIóN Y BIENESTAR ANIMAL"
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("center", [
+                          _c("img", {
+                            attrs: {
+                              src: "img/About.jpg",
+                              alt: "Dobaltoff",
+                              id: "imagen"
+                            }
+                          })
+                        ])
+                      ],
+                      1
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                [
+                  _c(
+                    "div",
+                    _vm._l(_vm.arrayRegistros, function(registro) {
+                      return _c(
+                        "div",
+                        { key: registro.id, staticClass: "blog-item" },
+                        [
+                          _c("p", [_vm._v("Publicado por")]),
+                          _vm._v(" "),
+                          _c("p", {
+                            domProps: { textContent: _vm._s(registro.name) }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("recaudacion ")]),
+                          _vm._v(" "),
+                          _c("p", {
+                            domProps: {
+                              textContent: _vm._s(registro.recaudacion)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("lugar ")]),
+                          _vm._v(" "),
+                          _c("p", {
+                            domProps: { textContent: _vm._s(registro.lugar) }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("motivo ")]),
+                          _vm._v(" "),
+                          _c("p", {
+                            domProps: { textContent: _vm._s(registro.motivo) }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("telefono ")]),
+                          _vm._v(" "),
+                          _c("p", {
+                            domProps: { textContent: _vm._s(registro.telefono) }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("direccion ")]),
+                          _vm._v(" "),
+                          _c("p", {
+                            domProps: {
+                              textContent: _vm._s(registro.direccion)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("email ")]),
+                          _vm._v(" "),
+                          _c("p", {
+                            domProps: { textContent: _vm._s(registro.email) }
+                          })
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ],
+                _vm._v(" "),
+                _vm._m(0),
+                _vm._v(" "),
+                _vm._m(1)
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c("br")
+          ]
+        ],
+        2
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h6", [
+      _c("p", { staticClass: "centerTabla", attrs: { id: "red" } }, [
+        _vm._v("TU ACCIÓN PUEDE CAMBIAR VIDAS, ADOPTA UN MASCOTA")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "centerTabla" }, [
+      _c("br"),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "" } }, [
+        _c("i", [_vm._v("Conoce más de nosotros")])
+      ]),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          attrs: {
+            target: "_blank",
+            href: "https://www.facebook.com/vetdobaltoff/"
+          }
+        },
+        [
+          _c(
+            "button",
+            { staticClass: "btn btn-facebook", attrs: { type: "button" } },
+            [_vm._v("Fa")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          attrs: {
+            target: "_blank",
+            href: "https://www.instagram.com/veterinariadobaltoff/"
+          }
+        },
+        [
+          _c(
+            "button",
+            { staticClass: "btn btn-instagram", attrs: { type: "button" } },
+            [_vm._v("Fa")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("a", { attrs: { target: "_blank", href: "https://www.google.es/" } }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-twitter", attrs: { type: "button" } },
+          [_vm._v("Fa")]
+        )
       ])
     ])
   }
@@ -55036,6 +55682,8 @@ Vue.component('usuarios', __webpack_require__(/*! ./components/Usuarios.vue */ "
 Vue.component('inicio', __webpack_require__(/*! ./components/Inicio.vue */ "./resources/js/components/Inicio.vue")["default"]);
 Vue.component('adopcion', __webpack_require__(/*! ./components/RegistrarAdopcion.vue */ "./resources/js/components/RegistrarAdopcion.vue")["default"]);
 Vue.component('donaciones', __webpack_require__(/*! ./components/RegistrarDonacion.vue */ "./resources/js/components/RegistrarDonacion.vue")["default"]);
+Vue.component('visualizar-donaciones', __webpack_require__(/*! ./components/VisualizarDonacion.vue */ "./resources/js/components/VisualizarDonacion.vue")["default"]);
+Vue.component('donacion-dos', __webpack_require__(/*! ./components/DonacionOpcion.vue */ "./resources/js/components/DonacionOpcion.vue")["default"]);
 var app = new Vue({
   el: '#app',
   data: {
@@ -55087,6 +55735,75 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/DonacionOpcion.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/DonacionOpcion.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DonacionOpcion_vue_vue_type_template_id_419fe7f4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DonacionOpcion.vue?vue&type=template&id=419fe7f4& */ "./resources/js/components/DonacionOpcion.vue?vue&type=template&id=419fe7f4&");
+/* harmony import */ var _DonacionOpcion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DonacionOpcion.vue?vue&type=script&lang=js& */ "./resources/js/components/DonacionOpcion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DonacionOpcion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DonacionOpcion_vue_vue_type_template_id_419fe7f4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DonacionOpcion_vue_vue_type_template_id_419fe7f4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/DonacionOpcion.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/DonacionOpcion.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/DonacionOpcion.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DonacionOpcion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DonacionOpcion.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DonacionOpcion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DonacionOpcion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/DonacionOpcion.vue?vue&type=template&id=419fe7f4&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/DonacionOpcion.vue?vue&type=template&id=419fe7f4& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DonacionOpcion_vue_vue_type_template_id_419fe7f4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./DonacionOpcion.vue?vue&type=template&id=419fe7f4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DonacionOpcion.vue?vue&type=template&id=419fe7f4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DonacionOpcion_vue_vue_type_template_id_419fe7f4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DonacionOpcion_vue_vue_type_template_id_419fe7f4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -55470,6 +56187,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Usuarios_vue_vue_type_template_id_0d357df0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Usuarios_vue_vue_type_template_id_0d357df0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/VisualizarDonacion.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/VisualizarDonacion.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _VisualizarDonacion_vue_vue_type_template_id_6082b220___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VisualizarDonacion.vue?vue&type=template&id=6082b220& */ "./resources/js/components/VisualizarDonacion.vue?vue&type=template&id=6082b220&");
+/* harmony import */ var _VisualizarDonacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VisualizarDonacion.vue?vue&type=script&lang=js& */ "./resources/js/components/VisualizarDonacion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _VisualizarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./VisualizarDonacion.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/VisualizarDonacion.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _VisualizarDonacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _VisualizarDonacion_vue_vue_type_template_id_6082b220___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _VisualizarDonacion_vue_vue_type_template_id_6082b220___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/VisualizarDonacion.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/VisualizarDonacion.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/VisualizarDonacion.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VisualizarDonacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./VisualizarDonacion.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/VisualizarDonacion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VisualizarDonacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/VisualizarDonacion.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/VisualizarDonacion.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_VisualizarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./VisualizarDonacion.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/VisualizarDonacion.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_VisualizarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_VisualizarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_VisualizarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_VisualizarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_VisualizarDonacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/VisualizarDonacion.vue?vue&type=template&id=6082b220&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/VisualizarDonacion.vue?vue&type=template&id=6082b220& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VisualizarDonacion_vue_vue_type_template_id_6082b220___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./VisualizarDonacion.vue?vue&type=template&id=6082b220& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/VisualizarDonacion.vue?vue&type=template&id=6082b220&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VisualizarDonacion_vue_vue_type_template_id_6082b220___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VisualizarDonacion_vue_vue_type_template_id_6082b220___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

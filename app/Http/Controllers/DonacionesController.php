@@ -114,14 +114,50 @@ class DonacionesController extends Controller
         $donacion->save();
     }
 
+    public function mostrarDonacion(Request $request)    {
+        // if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
+         
+        /*$donacion = Donaciones::join('users', 'donaciones.idUsuario', 'users.id')
+        ->select('donaciones.id', 'donaciones.idUsuario', 'donaciones.recaudacion', 'donaciones.lugar',
+                'donaciones.motivo', 'donaciones.telefono', 'donaciones.direccion', 'donaciones.estado', 'users.name', 'users.email')
+        ->orderBy('donaciones.id', 'desc')->take(1)->get();
+        return[ 'donacion'=>$donacion];*/
+
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+        
+        if ($buscar==''){
+            $donacion = Donaciones::join('users', 'donaciones.idUsuario', 'users.id')
+                                    ->select('donaciones.id', 'donaciones.idUsuario', 'donaciones.recaudacion', 'donaciones.lugar',
+                                            'donaciones.motivo', 'donaciones.telefono', 'donaciones.direccion', 'donaciones.estado', 'users.name', 'users.email')
+                                    ->orderBy('donaciones.id', 'desc')->paginate(10);
+        }
+       
+        
+
+        return [//atributos del objecto data para la paginacion
+            'pagination' => [
+                'total'        => $donacion->total(),
+                'current_page' => $donacion->currentPage(),
+                'per_page'     => $donacion->perPage(),
+                'last_page'    => $donacion->lastPage(),
+                'from'         => $donacion->firstItem(),
+                'to'           => $donacion->lastItem(),
+            ],
+            'donacion' => $donacion
+        ];
+
+        
+     }
+
+
+   
+
     public function obtenerEstado(Request $request)    {
        // if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
         
-
         $donacion=DB::table('donaciones as p')
-        ->select( DB::raw('SUM(p.estado) as total') ) ->get();
-
-      
+        ->select( DB::raw('SUM(p.estado) as total'))->get();
         return[ 'donacion'=>$donacion];
         
     }
