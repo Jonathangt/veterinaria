@@ -3725,8 +3725,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -9160,7 +9158,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#select {\npadding: 0.75em 0.5em;\nfont-size: 100%;\nborder: 1px solid #ccc;\nwidth: 100%;\n height: 2.5em;\n}\n.modal-content {\n    width: 100% !important;\n    position: absolute !important;\n}\n#imagen{\n    width: 100px;\n    height: 150px;\n\n    text-align: right;\n}\n#labelContacto {\n    display: inline-block !important;\n    margin-bottom: .5rem !important;\n}\n.mostrar {\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error {\n    display: flex;\n    justify-content: center;\n}\n.text-error {\n    color: red !important;\n    font-weight: bold;\n}\n@media (min-width: 600px) {\n.btnagregar {\n        margin-top: 2rem;\n}\n}\n\n/*#div1 {\n    overflow:scroll;\n    width:1900px;\n}\n#div1 table {\n    width:1900px;\n}\ntd {\n    \n    width: 300px;\n    text-align: center;\n} */\n.centerTabla {\n    text-align: center;\n}\n.swal2-title {\n  font-size: 20px !important;\n}\n.swal2-content {\n  font-size: 15px !important;\n}\n", ""]);
+exports.push([module.i, "\ntextarea{\n    resize:none;\n}\n#select {\npadding: 0.75em 0.5em;\nfont-size: 100%;\nborder: 1px solid #ccc;\nwidth: 100%;\n height: 2.5em;\n}\n.modal-content {\n    width: 100% !important;\n    position: absolute !important;\n}\n#imagen{\n    width: 100px;\n    height: 150px;\n\n    text-align: right;\n}\n#labelContacto {\n    display: inline-block !important;\n    margin-bottom: .5rem !important;\n}\n.mostrar {\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error {\n    display: flex;\n    justify-content: center;\n}\n.text-error {\n    color: red !important;\n    font-weight: bold;\n}\n@media (min-width: 600px) {\n.btnagregar {\n        margin-top: 2rem;\n}\n}\n\n/*#div1 {\n    overflow:scroll;\n    width:1900px;\n}\n#div1 table {\n    width:1900px;\n}\ntd {\n    \n    width: 300px;\n    text-align: center;\n} */\n.centerTabla {\n    text-align: center;\n}\n.swal2-title {\n  font-size: 20px !important;\n}\n.swal2-content {\n  font-size: 15px !important;\n}\n", ""]);
 
 // exports
 
@@ -44734,8 +44732,9 @@ var render = function() {
                             staticClass: "form-control",
                             attrs: {
                               rows: "4",
-                              placeholder: "Para que se esta recaudando",
-                              cols: "50"
+                              cols: "50",
+                              maxlength: "200",
+                              placeholder: "Para que se esta recaudando"
                             },
                             domProps: { value: _vm.motivo },
                             on: {
@@ -45123,8 +45122,9 @@ var render = function() {
                             staticClass: "form-control",
                             attrs: {
                               rows: "4",
-                              placeholder: "Para que se esta recaudando",
-                              cols: "50"
+                              cols: "50",
+                              maxlength: "200",
+                              placeholder: "Para que se esta recaudando"
                             },
                             domProps: { value: _vm.motivo },
                             on: {

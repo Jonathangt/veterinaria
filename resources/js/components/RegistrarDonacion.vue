@@ -126,7 +126,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <Label>Motivo(*)</Label>
-                                    <textarea rows="4" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando" cols="50" > </textarea> 
+                                    <textarea rows="4" cols="50" maxlength="200" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando"> </textarea> 
                                 </div>
                             </div>
 
@@ -236,7 +236,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <Label>Motivo(*)</Label>
-                                    <textarea rows="4" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando" cols="50" > </textarea> 
+                                    <textarea rows="4" cols="50" maxlength="200" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando"> </textarea> 
                                 </div>
                             </div>
 
@@ -402,8 +402,6 @@
             </div>
             <!-- Fin ejemplo de tabla Listado -->
         </div>
-
-
       
     </main>
     
@@ -792,6 +790,12 @@
     }
 </script>
 <style>
+
+    textarea{
+        resize:none;
+
+    }
+
     #select {
     padding: 0.75em 0.5em;
     font-size: 100%;
