@@ -20,7 +20,7 @@ class CreateAdoptarTable extends Migration
             $table->string('nombreMacota', 45)->nullable();
             $table->string('especie', 45)->nullable();
             $table->string('raza', 30)->nullable();
-            $table->dateTime('fechaNacimiento')->nullable();
+            $table->string('fechaNacimiento', 25)->nullable();
             $table->string('edad', 4)->nullable();
             $table->string('observacion', 200)->nullable();
             $table->string('imagen')->nullable();

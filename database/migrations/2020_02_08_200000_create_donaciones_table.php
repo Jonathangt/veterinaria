@@ -23,8 +23,8 @@ class CreateDonacionesTable extends Migration
             $table->string('telefono', 10)->nullable();
             $table->string('email', 200)->nullable();
             $table->string('direccion', 200)->nullable();
-            $table->string('fechaInicio')->nullable();
-            $table->string('fechaFin')->nullable();
+            $table->string('fechaInicio', 25)->nullable();
+            $table->string('fechaFin', 25)->nullable();
             //$table->boolean('estado')->default(1);    
             //$table->timestamps();
         });

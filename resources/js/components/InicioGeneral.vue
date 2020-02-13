@@ -16,7 +16,7 @@
                             <div class="col-md-12">
                                 <div class="form-group centerTabla"><br>
                                 <!--    <h2>Veterinaria Dobaltoff</h2><br>-->
-                                    <h6 id="letra">ÚNETE AL RESCATE PROTECCIóN Y BIENESTAR ANIMAL</h6>
+                                    <h5 >ÚNETE AL RESCATE PROTECCIóN Y BIENESTAR ANIMAL</h5>
                                     <div class="form-group">
                                         <img src="img/About.jpg" alt="Dobaltoff" width="300" height="200">
                                     </div>
@@ -24,6 +24,20 @@
                             </div>
 
                         </div><!--- fin form group-------->
+
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <div class="form-group centerTabla"><br>
+                                <!--    <h2>Veterinaria Dobaltoff</h2><br>-->
+                                    <h6 id="red">¿DESEA ADOPTAR O DAR EN ADOPCIÓN UNA MASCOTA? 
+                                        <a href="/register">Registrese</a> ó 
+                                        <a href="/login">Inicie Sesión</a></h6>
+                                   
+                                </div>
+                            </div>
+
+                        </div><!--- fin form group-------->
+
 
                         <!-------carousel de imagenes------->
 

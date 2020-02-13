@@ -3719,13 +3719,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       es: vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_1__["es"],
-      date: new Date(2016, 9, 16),
       name: '',
       email: '',
       motivo: '',
@@ -41297,6 +41304,8 @@ var render = function() {
               [
                 _vm._m(0),
                 _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
                 _c("inicio-imagenes"),
                 _vm._v(" "),
                 _c("br"),
@@ -41330,17 +41339,17 @@ var render = function() {
                 _c("br"),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(1),
-                _vm._v(" "),
                 _vm._m(2),
                 _vm._v(" "),
                 _vm._m(3),
                 _vm._v(" "),
                 _vm._m(4),
                 _vm._v(" "),
+                _vm._m(5),
+                _vm._v(" "),
                 _c("visualizar-donaciones"),
                 _vm._v(" "),
-                _vm._m(5)
+                _vm._m(6)
               ],
               1
             ),
@@ -41363,9 +41372,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "form-group centerTabla" }, [
           _c("br"),
           _vm._v(" "),
-          _c("h6", { attrs: { id: "letra" } }, [
-            _vm._v("ÚNETE AL RESCATE PROTECCIóN Y BIENESTAR ANIMAL")
-          ]),
+          _c("h5", [_vm._v("ÚNETE AL RESCATE PROTECCIóN Y BIENESTAR ANIMAL")]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _c("img", {
@@ -41376,6 +41383,27 @@ var staticRenderFns = [
                 height: "200"
               }
             })
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "form-group centerTabla" }, [
+          _c("br"),
+          _vm._v(" "),
+          _c("h6", { attrs: { id: "red" } }, [
+            _vm._v(
+              "¿DESEA ADOPTAR O DAR EN ADOPCIÓN UNA MASCOTA? \n                                    "
+            ),
+            _c("a", { attrs: { href: "/register" } }, [_vm._v("Registrese")]),
+            _vm._v(" ó \n                                    "),
+            _c("a", { attrs: { href: "/login" } }, [_vm._v("Inicie Sesión")])
           ])
         ])
       ])
@@ -45373,20 +45401,7 @@ var render = function() {
             : _vm.template == 2
             ? [
                 _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "div",
-                      { staticClass: "col-md-12" },
-                      [
-                        _c("center", [
-                          _c("h5", [_vm._v("VETERINARIA DOBALTOFF")])
-                        ]),
-                        _vm._v(" "),
-                        _c("label", { attrs: { for: "" } })
-                      ],
-                      1
-                    )
-                  ]),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c("div", { staticClass: "table-responsive col-md-8" }, [
                     _c(
@@ -45478,7 +45493,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", {
                                 domProps: {
-                                  textContent: _vm._s(mostrarDatos.fechaInicio)
+                                  textContent: _vm._s(mostrarDatos.fechaFin)
                                 }
                               })
                             ]),
@@ -45512,6 +45527,8 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group row" }, [
                     _c("div", { staticClass: "col-md-12" }, [
+                      _c("br"),
+                      _vm._v(" "),
                       _c(
                         "button",
                         {
@@ -45620,6 +45637,31 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", [
       _c("span", [_vm._v("Los campos con (*) son obligatorios")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "col-md-2" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("div", [
+              _c("br"),
+              _vm._v(" "),
+              _c("img", {
+                attrs: {
+                  src: "img/About.jpg",
+                  alt: "Dobaltoff",
+                  width: "300",
+                  height: "200"
+                }
+              })
+            ])
+          ])
+        ])
+      ])
     ])
   }
 ]

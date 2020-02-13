@@ -320,8 +320,16 @@
                     <div class="card-body">
                         <div class="form-group">
                             <div class="col-md-12">
-                                <center><h5>VETERINARIA DOBALTOFF</h5></center>
-                                <label for=""></label>
+                              <!--  <center><h5>VETERINARIA DOBALTOFF</h5></center>
+                                <label for=""></label>-->
+
+                                 <div class="col-md-2">
+                                    <div class="form-group">
+                                        <div> <br>
+                                            <img src="img/About.jpg" alt="Dobaltoff" width="300" height="200">
+                                        </div>
+                                    </div>
+                                </div>
                               
                             </div>
 
@@ -366,7 +374,7 @@
 
                                     <tr>
                                         <td>Fecha de Finalización</td>
-                                        <td v-text="mostrarDatos.fechaInicio"></td>
+                                        <td v-text="mostrarDatos.fechaFin"></td>
                                     </tr>
 
                                     <tr>
@@ -384,7 +392,7 @@
 
                       
                         <div class="form-group row">
-                            <div class="col-md-12">
+                            <div class="col-md-12"><br>
                                 <button type="button" @click="cerrarTemplateRegistro()" class="btn btn-secondary">Cerrar</button>
                             </div>
                         </div>
@@ -412,7 +420,6 @@
         data() {
             return {
                 es: es,
-                date: new Date(2016, 9, 16),
                 name: '',
                 email: '',
                 motivo: '',

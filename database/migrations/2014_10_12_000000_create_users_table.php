@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id')->onDelete('cascade');
             $table->string('name', 15);
             $table->string('email', 40)->unique();
-            $table->bigInteger ('rol');
+            $table->boolean ('rol');
             $table->boolean('estado')->default(1);    
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
