@@ -1,133 +1,52 @@
 <template>
-    <main class="main">
-        <ol>        
-        </ol>
-        <div class="container-fluid">
-            <!-- Ejemplo de tabla Listado -->
-            <div class="card">
-                <div class="card-header">
-                 <!--    <i class="icon-paper-clip"></i> ¿Quiénes somos? -->
-                </div>
-                <template>
-                    <div class="card-body">
+    <div> <!-- primer div------->
+    
 
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <div class="form-group centerTabla"><br>
-                                    <h3><center>Veterinaria Dobaltoff</center> </h3><br>
-                                    <center><h6 id="letra">ÚNETE AL RESCATE PROTECCIóN Y BIENESTAR ANIMAL</h6></center>
-                                    <center> <img src="img/About.jpg" alt="Dobaltoff" id="imagen"></center>
-                                </div>
-                            </div>
-                        </div>
-                        
+         <div v-for="registro in arrayRegistros" :key="registro.id">
+             <div class="blog-card">
+
+                <div class="meta">
+                    <div class="photo"
+                        style="background-image: url(img/donaciones.jpg)"></div>
+                    <ul class="details">
+                        <li class="author"><span>Email: <span v-text="registro.email"></span></span></li>
+                        <li class="date"><span>Desde: <span v-text="registro.fechaInicio"></span></span></li>
+                        <li class="date"><span>Hasta: <span v-text="registro.fechaFin"></span></span></li>
                        
-                      <template>
-                        <div>
-                            <div class="blog-item" v-for="registro in arrayRegistros" :key="registro.id">
-                                <p>Publicado por</p>
-                                <p v-text="registro.name"></p>
-                                <p>recaudacion </p>
-                                <p v-text="registro.recaudacion"></p>
-                                <p>lugar </p>
-                                <p v-text="registro.lugar"></p>
-                                <p>motivo </p>
-                                <p v-text="registro.motivo"></p>
-                                <p>telefono </p>
-                                <p v-text="registro.telefono"></p>
-                                <p>direccion </p>
-                                <p v-text="registro.direccion"></p>
-                                <p>email </p>
-                                <p v-text="registro.email"></p>
-
-                            </div>        
-                        </div>
-                    </template>
-                                
-                
-                 
-                    
-                        <h6><p id="red" class="centerTabla">TU ACCIÓN PUEDE CAMBIAR VIDAS, ADOPTA UN MASCOTA</p></h6> 
-                        <div class="centerTabla"><br>
-                            <label for=""><i>Conoce más de nosotros</i></label><br>
-                            <a target="_blank" href="https://www.facebook.com/vetdobaltoff/"> <button type="button" class="btn btn-facebook">Fa</button></a>
-                            <a target="_blank" href="https://www.instagram.com/veterinariadobaltoff/"> <button type="button" class="btn btn-instagram">Fa</button></a>
-                            <a target="_blank" href="https://www.google.es/"> <button type="button" class="btn btn-twitter">Fa</button></a>
-                        </div>
-                    </div>
-                    <br>
-                </template>
+                    </ul>
+                </div>
+                <div class="description">
+                    <h1 v-text="registro.recaudacion"></h1>
+                    <h2 v-text="registro.lugar"></h2>
+                    <p v-text="registro.motivo"></p><br>
+                    <b>Dirección: <span v-text="registro.direccion"></span></b>
+                   
+                </div>
             </div>
-            <!-- Fin ejemplo de tabla Listado -->
-        </div>
-    </main>
+
+     </div> <!-- fin div for------>
+
+
+
+
+
+
+    </div> <!--- fin primer div----->
+    
+
+    
 </template>
-
-
-
-
+       
+            
+                
 <script>
    
     export default {
         data() {
             return {
-                name: '',
-                email: '',
-                motivo: '',
-                recaudacion: '',
-                lugar: '',
-                telefono: '',
-                direccion: '',
-                idDonacion: 0,
-                data: [],
                 arrayRegistros: [],
-                arrayMostrarDatos: [],
-                errorMostrarMsj: [],
-                errorValidacion: 0,
-                pagination: {
-                    'total': 0,
-                    'current_page': 0,
-                    'per_page': 0,
-                    'last_page': 0,
-                    'from': 0,
-                    'to': 0,
-                },
-                template: 1,
-                offset: 3,
-                criterio: 'motivo',
-                buscar: '',
             }
         },
-        computed: {
-            isActived: function() {
-                return this.pagination.current_page;
-            },
-            //Calcula los elementos de la paginación
-            pagesNumber: function() {
-                if (!this.pagination.to) {
-                    return [];
-                }
-
-                var from = this.pagination.current_page - this.offset;
-                if (from < 1) {
-                    from = 1;
-                }
-
-                var to = from + (this.offset * 2);
-                if (to >= this.pagination.last_page) {
-                    to = this.pagination.last_page;
-                }
-
-                var pagesArray = [];
-                while (from <= to) {
-                    pagesArray.push(from);
-                    from++;
-                }
-                return pagesArray;
-            },
-           
-        }, 
-    
         methods: {
             listar() {
                 let me = this;
@@ -135,27 +54,12 @@
                 axios.get(url).then(function(response) {
                         var respuesta = response.data;
                         me.arrayRegistros = respuesta.donacion.data;
-                
-                    })
-                    .catch(function(error) {
-                         console.log(me.getID);
-                        console.log(error);
-                    });
-            },
-           
-           
-          
-           
-                      
-            cambiarPagina(page, buscar, criterio) {
-                let me = this;
-                //Actualiza la página actual
-                me.pagination.current_page = page;
-                //Envia la petición para visualizar la data de esa página
-                me.listar(page, buscar, criterio);
-            }, 
-           
-        
+
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            },        
         },
         mounted() {
             this.listar();
@@ -165,30 +69,203 @@
 
 <style>
     
-    #labelContacto {
-        display: inline-block !important;
-        margin-bottom: .5rem !important;
-    }
+ 
+.blog-card {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  margin: 1rem auto;
+  box-shadow: 0 3px 7px -1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.6%;
+  background: #fff;
+  line-height: 1.4;
+  font-family: sans-serif;
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 0;
+}
+.blog-card a {
+  color: inherit;
+}
+.blog-card a:hover {
+  color: #74B2ED;
+}
+.blog-card:hover .photo {
+  -webkit-transform: scale(1.3) rotate(3deg);
+          transform: scale(1.3) rotate(3deg);
+}
+.blog-card .meta {
+  position: relative;
+  z-index: 0;
+  height: 200px;
+}
+.blog-card .photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center;
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
+}
+.blog-card .details,
+.blog-card .details ul {
+  margin: auto;
+  padding: 0;
+  list-style: none;
+}
+.blog-card .details {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -100%;
+  margin: auto;
+  -webkit-transition: left 0.2s;
+  transition: left 0.2s;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 10px;
+  width: 100%;
+  font-size: 0.9rem;
+}
+.blog-card .details a {
+  -webkit-text-decoration: dotted underline;
+          text-decoration: dotted underline;
+}
+.blog-card .details ul li {
+  display: inline-block;
+}
+.blog-card .details .author:before {
+  font-family: FontAwesome;
+  margin-right: 10px;
+  content: "\f007";
+}
+.blog-card .details .date:before {
+  font-family: FontAwesome;
+  margin-right: 10px;
+  content: "\f133";
+}
+.blog-card .details .tags ul:before {
+  font-family: FontAwesome;
+  content: "\f02b";
+  margin-right: 10px;
+}
+.blog-card .details .tags li {
+  margin-right: 2px;
+}
+.blog-card .details .tags li:first-child {
+  margin-left: -4px;
+}
+.blog-card .description {
+  padding: 1rem;
+  background: #fff;
+  position: relative;
+  z-index: 1;
+}
+.blog-card .description h1,
+.blog-card .description h2 {
+  font-family: Poppins, sans-serif;
+}
+.blog-card .description h1 {
+  line-height: 1;
+  margin: 0;
+  font-size: 1.7rem;
+}
+.blog-card .description h2 {
+  font-size: 1rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  color: #a2a2a2;
+  margin-top: 5px;
+}
+.blog-card .description .read-more {
+  text-align: right;
+}
+.blog-card .description .read-more a {
+  color: #74B2ED;
+  display: inline-block;
+  position: relative;
+}
+.blog-card .description .read-more a:after {
+  content: "\f061";
+  font-family: FontAwesome;
+  margin-left: -10px;
+  opacity: 0;
+  vertical-align: middle;
+  -webkit-transition: margin 0.3s, opacity 0.3s;
+  transition: margin 0.3s, opacity 0.3s;
+}
+.blog-card .description .read-more a:hover:after {
+  margin-left: 5px;
+  opacity: 1;
+}
+.blog-card p {
+  position: relative;
+  margin: 1rem 0 0;
+}
+.blog-card p:first-of-type {
+  margin-top: 1.25rem;
+}
+.blog-card p:first-of-type:before {
+  content: "";
+  position: absolute;
+  height: 5px;
+  background: #74B2ED;
+  width: 35px;
+  top: -0.75rem;
+  border-radius: 3px;
+}
+.blog-card:hover .details {
+  left: 0%;
+}
+@media (min-width: 640px) {
+  .blog-card {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+    max-width: 700px;
+  }
+  .blog-card .meta {
+    flex-basis: 40%;
+    height: auto;
+  }
+  .blog-card .description {
+    flex-basis: 60%;
+  }
+  .blog-card .description:before {
+    -webkit-transform: skewX(-3deg);
+            transform: skewX(-3deg);
+    content: "";
+    background: #fff;
+    width: 30px;
+    position: absolute;
+    left: -10px;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+  .blog-card.alt {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+            flex-direction: row-reverse;
+  }
+  .blog-card.alt .description:before {
+    left: inherit;
+    right: -10px;
+    -webkit-transform: skew(3deg);
+            transform: skew(3deg);
+  }
+  .blog-card.alt .details {
+    padding-left: 25px;
+  }
+}
 
-      
-    #imagen{
-        width: 340px;
-        text-align: right;
-    }
-
-    #red{
-         color: #F0380A;
-    }
-
-    
-   
-    #letra{
-         color: #EA9A3B;
-    }
-
-    .centerTabla {
-        text-align: center;
-    }
 
 
 </style> 

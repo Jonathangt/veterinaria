@@ -15,75 +15,33 @@
                          <div class="form-group row">
                             <div class="col-md-12">
                                 <div class="form-group centerTabla"><br>
-                                    <h2>Veterinaria Dobaltoff</h2><br>
+                                <!--    <h2>Veterinaria Dobaltoff</h2><br>-->
                                     <h6 id="letra">ÚNETE AL RESCATE PROTECCIóN Y BIENESTAR ANIMAL</h6>
                                     <div class="form-group">
-                                        <img src="img/About.png" alt="Dobaltoff" id="imagen">
+                                        <img src="img/About.jpg" alt="Dobaltoff" width="300" height="200">
                                     </div>
                                 </div>
                             </div>
+
+                        </div><!--- fin form group-------->
+
+                        <!-------carousel de imagenes------->
+
+                         <inicio-imagenes></inicio-imagenes>
+
+
+            
+                        <br>
+                        <br>
+                        <center>
+                            <div class="col-md-12">
+                            <video  width="400" height="400" controls>
+                                <source src="video/VID-20200212-WA0018.mp4" type="video/mp4">
+                                <source src="movie.ogg" type="video/ogg">
+                                    Su navegador no soporta la etiqueta de vídeo.
+                                </video>
                         </div>
-
-
-                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">                            
-                                <img  width="100" height="400" src="img/inicio/inicio_2.jpeg" alt="">
-                            </div>
-                            <div class="carousel-item active">                            
-                                <img  width="100" height="400" src="img/inicio/inicio_4.jpeg" alt="">
-                            </div>
-                            <div class="carousel-item">
-                                <img  width="800" height="400" src="img/inicio/inicio_5.jpeg" alt="">
-                            </div>
-                            <div class="carousel-item">
-                                <img  width="800" height="400" src="img/inicio/inicio_6.jpeg" alt="">
-                            </div>
-                             <div class="carousel-item">
-                                <img  width="800" height="400" src="img/inicio/inicio_7.jpeg" alt="">
-                            </div>
-                            <div class="carousel-item">
-                                <img  width="800" height="400" src="img/inicio/inicio_8.jpeg" alt="">
-                            </div>
-                            <div class="carousel-item">
-                                <img  width="800" height="400" src="img/inicio/inicio_9.jpeg" alt="">
-                            </div>
-                            <div class="carousel-item">
-                                <img  width="800" height="400" src="img/inicio/inicio_10.jpeg" alt="">
-                            </div>
-                            <div class="carousel-item">
-                                <img  width="800" height="400" src="img/inicio/inicio_11.png" alt="">
-                            </div>
-                            <div class="carousel-item">
-                                <img  width="800" height="400" src="img/inicio/inicio_12.png" alt="">
-                            </div>
-                            <div class="carousel-item">
-                                <img  width="800" height="400" src="img/inicio/Screenshot_55.png" alt="">
-                            </div>
-                            <div class="carousel-item">
-                                <img  width="800" height="400" src="img/inicio/Screenshot_56.png" alt="">
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                        </div>
-
-
+                        </center>
 
                         <br><br>
                         <!--seccion footer-->
@@ -91,7 +49,7 @@
 
                         <div  class="centerTabla">
                             <p>Estamos ubicados en Mucho Lote 2 (12,18 km) Guayaquil   <i class="icon-phone"> 0990423246</i> </p>
-                            <p>De Luenes a Viernes nuestro horario de atención: 10:00 - 19:00</p>
+                            <p>De Luenes a Viernes nuestro horario de atención desde: 10:00 am hasta las 19:00 pm</p>
                         </div>
 
                         <div class="centerTabla">
@@ -108,9 +66,15 @@
                                 <li><b>Baños medicados 🚿 Baños en seco🐈</b></li>
                                 <li><b>Cirugías📁</b></li>
                                 <li><b>Tratamientos</b></li>
-                                <li><b>Vacunas💉 Desparasita</b></li>
+                                <li><b>Vacunas💉 Desparasita</b></li><br><br>
                             </ul>
                         </div>
+
+                       
+                           
+                              <visualizar-donaciones></visualizar-donaciones>
+                           
+                        
 
 
                         <div class="centerTabla"><br>
@@ -134,32 +98,26 @@
 <!-- End Bootstrap Carousel HEAD section -->
 
 
-
-
 <style>
-    .carousel-inner img {
-        width: 100%;
-        max-height: 560px;
+
+    #Comunicate{
+         color:  #F08022 
     }
 
      ul.navega li {
         display: inline;
     }
 
-      #Comunicate{
-         color:  #F08022 
-    }
-
    
 
-    .carousel-inner{
+  /*  .carousel-inner{
     height: 400px;
     }
 
     #imagenCarousel {
         width: 70%;
         height: 700%;
-    }
+    }*/
 
     
     #labelContacto {

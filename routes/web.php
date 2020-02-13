@@ -37,6 +37,10 @@ Route::delete('/personas/delete/{id}', 'PersonasController@destroy');
 
 //Modulo registrar adopcion - mascota 
 Route::get('/mascotas', 'MascotasController@index');
+Route::get('/mascotas/id', 'MascotasController@getMascota');/*ruta para obtener el id de la mascota en el registro
+                                  de diagnostico  */
+Route::get('/mascotas/personas', 'MascotasController@obtenerMascota');
+Route::get('/mascotas/getMascota', 'MascotasController@obtenerMascotaID');
 
 
 //Modulo donacion
@@ -45,6 +49,7 @@ Route::get('/donacion/mostrar', 'DonacionesController@mostrarDonacion');
 Route::post('/donacion/registrar', 'DonacionesController@store');
 Route::put('/donacion/actualizar', 'DonacionesController@update');
 Route::get('/donacion/obtener', 'DonacionesController@obtenerDatos');
-Route::get('/donacion/estado', 'DonacionesController@obtenerEstado');
-Route::put('/donacion/desactivar', 'DonacionesController@desactivar');
-Route::put('/donacion/activar', 'DonacionesController@activar');
+Route::delete('/donacion/delete/{id}', 'DonacionesController@destroy');
+//Route::get('/donacion/estado', 'DonacionesController@obtenerEstado');
+//Route::put('/donacion/desactivar', 'DonacionesController@desactivar');
+//Route::put('/donacion/activar', 'DonacionesController@activar');

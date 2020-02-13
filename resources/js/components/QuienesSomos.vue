@@ -36,10 +36,12 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                    <div><br><br>
-                                            <img src="img/About.jpg" alt="Dobaltoff" id="imagen">
+                                            <img src="img/About.jpg" alt="Dobaltoff" width="300" height="200">
                                     </div>
                                 </div>
                             </div>
+
+                          
                         </div>  
                         <div>
                             <label for=""><i>Conoce más de nosotros</i></label><br>
@@ -51,7 +53,21 @@
                     <br>
                 </template>
             </div>
-            <!-- Fin ejemplo de tabla Listado -->
+            <!-- Fin ejemplo de tabla Listado
+            
+            <div id="img-contenedor">
+                              <img  src="img/inicio/inicio_2.jpeg" onmouseover="this.width=300;this.height=300;" 
+                              onmouseout="this.width=250;this.height=250;"
+                              width="200" height="200" alt="" />
+                        </div>
+
+            
+            
+            
+            
+            
+            
+             -->
         </div>
     </main>
 </template>
@@ -78,7 +94,7 @@
     }
     
     #imagen{
-        width: 340px;
+        width: 10%;
         text-align: right;
     }
 

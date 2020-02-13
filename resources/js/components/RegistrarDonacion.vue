@@ -38,9 +38,9 @@
                                     <tr>
                                         <th>Acciones</th>                                        
                                         <th>Usuario</th>
-                                        <th>Email</th>
-                                        <th>Motivo</th>
-                                        <th>Estado</th>
+                                        <th>Recaudación</th>
+                                        <th>Fecha de Inicio</th>
+                                        <th>Fecha de Finalización</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,7 +52,7 @@
                                             <button type="button" @click="editar(registro.id)" class="btn btn-warning btn-sm">
                                                 <i class="icon-pencil"></i>
                                             </button>&nbsp;
-                                             <template v-if="registro.estado">
+                                          <!--   <template v-if="registro.estado">
                                                 <button type="button" class="btn btn-danger btn-sm" @click="desactivar(registro.id)">
                                                     <i class="icon-trash"></i>
                                                 </button>
@@ -61,20 +61,18 @@
                                                 <button type="button" class="btn btn-info btn-sm" @click="activar(registro.id)">
                                                     <i class="icon-check"></i>
                                                 </button>
-                                            </template>
+                                            </template>-->
+
+                                              <button type="button" class="btn btn-danger btn-sm" @click="eliminar(registro.id)">
+                                                <i class="icon-trash"></i>
+                                            </button>  
+
                                         </td>
                                        <!-- <td v-text="persona.nombres + ' ' + persona.apellidos"></td>-->
                                         <td v-text="registro.name"></td>
-                                        <td v-text="registro.email"></td>
-                                        <td v-text="registro.motivo"></td>
-                                        <td>
-                                            <div v-if="registro.estado">
-                                                <td class="badge badge-success centerTabla">Activa</td>
-                                            </div>
-                                            <div v-else>
-                                                <td class="badge badge-danger centerTabla">Inactiva</td>
-                                            </div>
-                                        </td>
+                                        <td v-text="registro.recaudacion"></td>
+                                        <td v-text="registro.fechaInicio"></td>
+                                        <td v-text="registro.fechaFin"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -119,7 +117,7 @@
                              <div class="col-md-2">
                                 <div class="form-group">
                                    <div> <br>
-                                        <img src="img/About.jpg" alt="Dobaltoff" id="imagen">
+                                        <img src="img/About.jpg" alt="Dobaltoff" width="300" height="200">
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +146,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <Label>Fecha de Fin(*)</Label>
+                                    <Label>Fecha de Finalización(*)</Label>
                                <!--     <input type="date" class="form-control" v-model="fechaFin"> -->
                                     
                                     <datepicker id="select" placeholder= "Fecha de finalización" v-model="fechaFin" :language="es"></datepicker>
@@ -210,7 +208,7 @@
                 <!-- Edicion de datos-->
                 <template v-else-if="template==3">
                      <div class="text-center"><br>
-                         <Label><b class="labelContacto"> Información a editar</b></Label>
+                         <Label><b class="labelContacto"> Información a publicar</b></Label>
                     </div>
                     <div class="card-body">
                         <div class="form-group row border">
@@ -219,19 +217,49 @@
                                     <Label>Recaudacion(*)</Label>
                                     <input type="text" class="form-control" v-model="recaudacion" placeholder="Recaudacion" maxlength="200"> 
                                 </div>
-                            </div>
 
-                            <div class="col-md-8">
                                 <div class="form-group">
                                     <Label>Lugar de recaudo(*)</Label>
                                     <input type="text" class="form-control" v-model="lugar" placeholder="Lugar" maxlength="200"> 
                                 </div>
                             </div>
 
+                             <div class="col-md-2">
+                                <div class="form-group">
+                                   <div> <br>
+                                         <img src="img/About.jpg" alt="Dobaltoff" width="300" height="200">
+                                    </div>
+                                </div>
+                            </div>
+                           
+
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <Label>Motivo</Label>
-                                     <textarea rows="4" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando" cols="50" > </textarea> 
+                                    <Label>Motivo(*)</Label>
+                                    <textarea rows="4" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando" cols="50" > </textarea> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <Label></Label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <Label>Fecha de Inicio(*)</Label>
+                                 <!--    <input type="date" class="form-control" v-model="fechaInicio"> -->
+                                 <datepicker id="select" placeholder= "Fecha de inico" v-model="fechaInicio" :language="es"></datepicker>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <Label>Fecha de Finalización(*)</Label>
+                               <!--     <input type="date" class="form-control" v-model="fechaFin"> -->
+                                    
+                                    <datepicker id="select" placeholder= "Fecha de finalización" v-model="fechaFin" :language="es"></datepicker>
                                 </div>
                             </div>
                         </div>
@@ -252,8 +280,15 @@
 
                             <div class="col-md-8">
                                 <div class="form-group"><br>
-                                    <Label>Dirección</Label>
-                                    <input type="text" class="form-control" v-model="direccion" placeholder="Dirección" maxlength="200"> 
+                                    <Label>Dirección (*)</Label>
+                                    <input type="text" class="form-control" v-model="direccion" placeholder="Dirección" maxlength="100"> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="form-group"><br>
+                                    <Label>Email (*)</Label>
+                                    <input type="text" class="form-control" v-model="email" placeholder="Dirección" maxlength="50"> 
                                 </div>
                             </div>
                         </div> <!--fin row borde-->
@@ -272,7 +307,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <button type="button" @click="cerrarTemplateRegistro()" class="btn btn-secondary">Cerrar</button>
-                                <button type="submit" class="btn btn-primary" @click="actualizar()">Actualiar Donación</button>
+                                <button type="submit" class="btn btn-primary" @click="actualizar()">Actualizar Donación</button>
                             </div>
                         </div>
                     </div><!--fin 2do card body-->
@@ -287,48 +322,67 @@
                             <div class="col-md-12">
                                 <center><h5>VETERINARIA DOBALTOFF</h5></center>
                                 <label for=""></label>
-                                <center><h6>Detalle de la Donación</h6></center>
+                              
                             </div>
 
 
                         </div>
-                        <div class="form-group row border">
-                            <div class="table-responsive col-md-12">
+                         
+                             <div class="table-responsive col-md-8">
                                 <table class="table table-bordered table-striped table-sm">
-                                    <thead>
-                                        <tr>                                           
-                                            <th>Usuario</th>
-                                            <th>Email</th>
-                                            <th>Recaudacion</th>
-                                            <th>Lugar</th>
-                                            <th>Motivo</th>
-                                            <th>Teléfono</th>
-                                            <th>Dirección</th>
-                                            <th>Estado</th>
+                                <thead>
+                                        <tr>
+                                            <th colspan="2"><center>Detalle de la donación</center></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr v-for="mostrarDatos in arrayMostrarDatos" :key="mostrarDatos.id">   
+                                    <tbody v-for="mostrarDatos in arrayMostrarDatos" :key="mostrarDatos.id">  
+                                    <tr>
+                                        <td style="width:230px">Usuario</td>
                                         <td v-text="mostrarDatos.name"></td>
-                                        <td v-text="mostrarDatos.email"></td>                                           
+                                    </tr>
+                                    <tr>
+                                        <td>Recaudación</td>
                                         <td v-text="mostrarDatos.recaudacion"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lugar</td>
                                         <td v-text="mostrarDatos.lugar"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Motivo</td>
                                         <td v-text="mostrarDatos.motivo"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Teléfono</td>
                                         <td v-text="mostrarDatos.telefono"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Fecha de Inicio</td>
+                                        <td v-text="mostrarDatos.fechaInicio"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Fecha de Finalización</td>
+                                        <td v-text="mostrarDatos.fechaInicio"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Dirección</td>
                                         <td v-text="mostrarDatos.direccion"></td>
-                                        <td>
-                                            <div v-if="mostrarDatos.estado">
-                                                <td class="badge badge-success centerTabla">Activa</td>
-                                            </div>
-                                            <div v-else>
-                                                <td class="badge badge-danger centerTabla">Inactiva</td>
-                                            </div>
-                                        </td>                     
-                                        </tr>
+                                    </tr>
+
+                                     <tr>
+                                        <td>Email</td>
+                                        <td v-text="mostrarDatos.email"></td><br>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+
+                      
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <button type="button" @click="cerrarTemplateRegistro()" class="btn btn-secondary">Cerrar</button>
@@ -514,18 +568,19 @@
                 }) 
             },*/
             registrar(){
-               /* if (this.validarDatos()) {
+                if (this.validarDatos()) {
                     return;
-                }*/
+                }
                 let me = this;
-                this.customFormatter(this.fechaInicio);
-                 this.customFormatter(this.fechaFin);
+
+
+              
                 axios.post('/donacion/registrar',{     
                     'recaudacion': this.recaudacion,
                     'lugar' : this.lugar,
                     'motivo': this.motivo,
                     'telefono' : this.telefono,
-                    'email' : this.direccion,
+                    'email' : this.email,
                     'direccion' : this.direccion,
                     'fechaInicio' : this.fechaInicio,
                     'fechaFin' : this.fechaFin,
@@ -545,9 +600,7 @@
                     text:  'La información a sido publicada',
                 })
             },
-            customFormatter(date) {
-                return moment(date).format('MMMM Do YYYY');
-            },
+           
             editar(id) {
                 this.templateEditar();
                 this.template=3; //abro el template para editar
@@ -563,6 +616,9 @@
                     me.motivo=arrayEditarDatos[0]['motivo'];
                     me.telefono=arrayEditarDatos[0]['telefono'];
                     me.direccion=arrayEditarDatos[0]['direccion'];
+                    me.email=arrayEditarDatos[0]['email'];
+                    me.fechaInicio=arrayEditarDatos[0]['fechaInicio'];
+                    me.fechaFin=arrayEditarDatos[0]['fechaFin'];
 
                 }).catch(function(error) {
                     console.log(error);
@@ -582,6 +638,9 @@
                     'motivo': this.motivo,
                     'telefono': this.telefono,
                     'direccion': this.direccion,
+                    'email': this.email,
+                    'fechaInicio': this.fechaInicio,
+                    'fechaFin': this.fechaFin,
                     'id': this.idDonacion
                 }).then(function (response) {
                     me.cerrarModal();
@@ -613,6 +672,11 @@
                 if (!this.direccion) this.errorMostrarMsj.push("El campo dirección no puede estar vacio");
                 if (!this.email) this.errorMostrarMsj.push("El campo telefono no puede estar vacio");
 
+                if ( this.fechaFin < this.fechaInicio){
+                    this.errorMostrarMsj.push("La fecha de finalización no puede ser antes de la fecha de inicio");
+                }
+               
+
                 if (this.errorMostrarMsj.length) this.errorValidacion = 1;
                 return this.errorValidacion;
             },            
@@ -632,6 +696,9 @@
                 me.motivo = '';
                 me.telefono = '';
                 me.direccion = '';
+                me.email = '';
+                me.fechaInicio = '';
+                me.fechaFin = '';
 
             },
             templateRegistrar() {
@@ -645,6 +712,9 @@
                 me.motivo = '';
                 me.telefono = '';
                 me.direccion = '';
+                me.email = '';
+                me.fechaInicio = '';
+                me.fechaFin = '';
             },
             templateEditar() {
                 let me = this;
@@ -655,6 +725,9 @@
                 me.motivo = '';
                 me.telefono = '';
                 me.direccion = '';
+                me.email = '';
+                me.fechaInicio = '';
+                me.fechaFin = '';
             },
             obtenerRegistro(id) {
                 let me = this;//metodo para mostrar los datos
@@ -668,6 +741,42 @@
                     .catch(function(error) {
                         console.log(error);
                     });
+            },
+            eliminar(id){
+                swal({
+                    title: 'Esta seguro que desea eliminar el registro?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar!',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger',
+                    buttonsStyling: false,
+                    reverseButtons: true
+                    }).then((result) => {
+                    if (result.value) {
+                        let me = this;
+                        var url = '/donacion/delete/' +id;
+                    axios.delete(url).then(function (response) {
+
+                        me.listar(1,'','name');
+                        swal(
+                        'Eliminado!',
+                        'El registro ha sido eliminado con éxito.',
+                        'success'
+                        )
+                    }).catch(function (error) {
+                        console.log(error);
+                    });                
+                    } else if (
+                        // Read more about handling dismissals
+                        result.dismiss === swal.DismissReason.cancel
+                    ) {
+                        
+                    }
+                    }) 
             },
         },
         mounted() {

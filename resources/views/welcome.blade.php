@@ -17,7 +17,6 @@
         <!-- Styles -->
         <style>
             html, body {
-              
                 color: #636b6f;
                 font-weight: 200;
                 height: 100vh;
@@ -73,7 +72,7 @@
     <link href="css/style.css" rel="stylesheet">
 
 
-    </head>
+   
 
     <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
     
@@ -123,7 +122,7 @@
     </div> <!---fin div app --->
     
 
-        <!---Desarrollado por Jonathan Guevara 2020--->
+        <!---Desarrollado por Jonathan Guevara Torres 2020--->
         
         <!-- Bootstrap and necessary plugins-->
         <script src="js/app.js"></script> 

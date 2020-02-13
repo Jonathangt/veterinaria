@@ -9,14 +9,13 @@ class Mascotas extends Model
     protected $table = 'mascotas';
     protected $fillable = [
         'id',
-        'idUPersona',
+        'idUsuario',
+        'idPersona',
         'nombreMacota',
         'especie',
         'raza',
         'fechaNacimiento',
         'edad',
-        'observacion',
-        'imagen',
 
     ];
     

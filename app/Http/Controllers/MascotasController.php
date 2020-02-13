@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Mascotas;
+use App\Personas;
 use Illuminate\Http\Request;
 
 class MascotasController extends Controller
@@ -14,9 +15,9 @@ class MascotasController extends Controller
         
         if ($buscar==''){
             $mascotas = Mascotas::join('personas', 'mascotas.idPersona', 'personas.id')
+                                    ->join('users', 'mascotas.idUsuario', 'users.id')
                                    ->select('mascotas.id', 'mascotas.idPersona', 'mascotas.nombreMacota', 'mascotas.especie',
-                                            'mascotas.raza', 'mascotas.fechaNacimiento', 'mascotas.edad', 'mascotas.observacion',
-                                            'mascotas.imagen')
+                                            'mascotas.raza', 'mascotas.fechaNacimiento', 'mascotas.edad', 'mascotas.sexo', 'users.name')
                                     ->orderBy('mascotas.id', 'desc')->paginate(10);
         }
         else{
@@ -41,6 +42,26 @@ class MascotasController extends Controller
         ];
     }
 
+    public function obtenerMascota(Request $request)    {
+        //if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
+
+       
+        $personas = Personas::select('id', 'nombre', 'apellidos')->get(); //take para que solo obtenga un registro
+        return ['personas' => $personas];
+    }
+
+    public function obtenerMascotaID(Request $request){
+        //metodo para obtener el periodo lectivo de la malla registrada
+        //if (!$request->ajax()) return redirect('/');
+ 
+        $id = $request->id;
+        $obtenerID = Mascotas::join('personas', 'mascotas.idPersona', 'personas.id')
+                        ->select('mascotas.id', 'mascotas.idPersona', 'mascotas.nombreMacota', 'personas.nombre', 'personas.apellidos')
+                                ->where('mascotas.idPersona','=',$id)->get(); //take para que solo obtenga un registro
+        return ['obtenerID' => $obtenerID];
+        
+    }
+
     public function obtenerID(Request $request){
         //metodo para obtener el periodo lectivo de la malla registrada
         //if (!$request->ajax()) return redirect('/');
@@ -51,6 +72,8 @@ class MascotasController extends Controller
                                 ->where('id','=',$id)->get(); //take para que solo obtenga un registro
         return ['obtenerID' => $obtenerID];
     }
+
+  
 
 
     public function store(Request $request)    {

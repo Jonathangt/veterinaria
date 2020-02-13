@@ -1,16 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.app_ingreso')
 
 @section('content')
 
 <div class="container-fluid">
-    <div class="card">
-        <div class="card-header">
+    <div >
+        <div >
             <br>
         </div>
     </div>
 </div>
-
-
 
 
 <div class="container">
@@ -18,7 +16,11 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="text-center"><br>
-                    <Label><h5> <i>Veterinaria Dobaltoff</i></h5></Label>
+                    <label>
+                        <a href="{{ url('/') }}">
+                        <h5> <i>Veterinaria Dobaltoff</i></h5>
+                        </a>
+                    </label>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">

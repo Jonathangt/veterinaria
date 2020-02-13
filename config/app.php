@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Guayaquil', // se cambia a zona horaria
 
     /*
     |--------------------------------------------------------------------------
