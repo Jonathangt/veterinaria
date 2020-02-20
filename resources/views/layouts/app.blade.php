@@ -23,7 +23,7 @@
        <!-- Styles-->
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/simple-line-icons.min.css" rel="stylesheet"> 
-
+    <!-- <link rel="stylesheet" href="js/bootstrap-fileinput/css/fileinput.min.css"> -->
 
     <link href="css/style.css" rel="stylesheet">
 
@@ -108,6 +108,10 @@
         <script src="js/Chart.min.js"></script>
         <script src="js/template.js"></script>
         <script src="js/sweetalert2.all.js"></script> 
+
+        <!-- <script src="js/bootstrap-fileinput/js/fileinput.min.js"></script>
+        <script src="js/bootstrap-fileinput/js/locales/es.js"></script>
+        <script src="js/bootstrap-fileinput/themes/fas/theme.min.js"></script> -->
 </body>
 
 </html>

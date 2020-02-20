@@ -1,76 +1,130 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Mascotas;
+use App\Adopcion;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
-class MascotasController extends Controller
+class AdopcionController extends Controller
 {
     public function index(Request $request)    {
-        //if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
+        if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
 
         $buscar = $request->buscar;
         $criterio = $request->criterio;
+        $userID = \Auth::user()->id;  ///obtengo el campo id del usuario autenticado
         
         if ($buscar==''){
-            $mascotas = Mascotas::join('personas', 'mascotas.idPersona', 'personas.id')
-                                   ->select('mascotas.id', 'mascotas.idPersona', 'mascotas.nombreMacota', 'mascotas.especie',
-                                            'mascotas.raza', 'mascotas.fechaNacimiento', 'mascotas.edad', 'mascotas.observacion',
-                                            'mascotas.imagen')
-                                    ->orderBy('mascotas.id', 'desc')->paginate(10);
+            $adopcion = Adopcion::join('personas', 'adopcion.idPersona', 'personas.id')
+                                   ->select('adopcion.id', 'adopcion.idPersona', 'adopcion.nombreMascota', 'adopcion.fechaNacimiento', 
+                                            'adopcion.edad', 'adopcion.especie', 'adopcion.estado',
+                                            'personas.nombre', 'personas.apellidos', 'personas.idUsuario')
+                                    ->where('personas.idUsuario', '=', $userID)
+                                    ->orderBy('adopcion.id', 'desc')->paginate(10);
         }
         else{
-            $personas =  Personas::join('users', 'personas.idUsuario', 'users.id')
-                        ->select('users.email', 'personas.id', 'personas.idUsuario', 'personas.nombre', 'personas.apellidos',
-                                'personas.cedula', 'personas.direccion', 'personas.telefono', 'personas.celular')
-                            ->where($criterio, 'like', '%'. $buscar . '%')
-                            ->orderBy('personas.nombre', 'desc')->paginate(10);
+            $adopcion =  Adopcion::join('personas', 'adopcion.idPersona', 'personas.id')
+                                    ->select('adopcion.id', 'adopcion.idPersona', 'adopcion.nombreMascota', 'adopcion.fechaNacimiento', 
+                                            'adopcion.edad', 'adopcion.especie', 'adopcion.estado',
+                                            'personas.nombre', 'personas.apellidos', 'personas.idUsuario')
+                                    ->where('personas.idUsuario', '=', $userID)
+                                    ->where($criterio, 'like', '%'. $buscar . '%')
+                                    ->orderBy('adopcion.id', 'desc')->paginate(10);
         }
         
 
         return [//atributos del objecto data para la paginacion
             'pagination' => [
-                'total'        => $mascotas->total(),
-                'current_page' => $mascotas->currentPage(),
-                'per_page'     => $mascotas->perPage(),
-                'last_page'    => $mascotas->lastPage(),
-                'from'         => $mascotas->firstItem(),
-                'to'           => $mascotas->lastItem(),
+                'total'        => $adopcion->total(),
+                'current_page' => $adopcion->currentPage(),
+                'per_page'     => $adopcion->perPage(),
+                'last_page'    => $adopcion->lastPage(),
+                'from'         => $adopcion->firstItem(),
+                'to'           => $adopcion->lastItem(),
             ],
-            'mascotas' => $mascotas
+            'adopcion' => $adopcion
         ];
     }
 
-    public function obtenerID(Request $request){
-        //metodo para obtener el periodo lectivo de la malla registrada
+    public function obtener(Request $request){//metodo para editar y visualizar los datos
+
         //if (!$request->ajax()) return redirect('/');
  
         $id = $request->id;
-        $obtenerID = User::join('users', 'personas.idUsuario', 'users.id')
-                            ->select('id', 'name')
-                                ->where('id','=',$id)->get(); //take para que solo obtenga un registro
-        return ['obtenerID' => $obtenerID];
+
+        $adopcion = Adopcion::join('personas', 'adopcion.idPersona', 'personas.id')
+                                ->select('adopcion.id', 'adopcion.idPersona', 'adopcion.nombreMascota', 'adopcion.especie',
+                                        'adopcion.raza', 'adopcion.fechaNacimiento', 'adopcion.edad', 
+                                        'adopcion.observacion', 'adopcion.imagen', 
+                                        'personas.nombre', 'personas.apellidos', 'personas.cedula',  'personas.direccion',
+                                        'personas.telefono',  'personas.celular')
+                                ->orderBy('adopcion.id', 'desc')
+                                ->where('adopcion.id','=',$id)->get(); 
+
+        return ['adopcion' => $adopcion];
     }
 
+    public function visualizarMascota(Request $request){//metodo vizualizar las mascotas en adopcion
 
+        if (!$request->ajax()) return redirect('/');
+ 
+        $id = $request->id;
+        $adopcion = Adopcion::join('personas', 'adopcion.idPersona', 'personas.id')
+                                ->select('adopcion.id', 'adopcion.idPersona', 'adopcion.nombreMascota', 'adopcion.especie',
+                                        'adopcion.raza', 'adopcion.fechaNacimiento', 'adopcion.edad', 
+                                        'adopcion.observacion', 'adopcion.imagen', 'adopcion.estado',
+                                        'personas.nombre', 'personas.apellidos', 
+                                        'personas.telefono',  'personas.celular',  'personas.email')
+                                ->orderBy('adopcion.id', 'desc')
+                                ->where('adopcion.estado','=','1')->paginate(5);
+                                //->where('adopcion.id','=',$id)->get(); 
+
+        return [//atributos del objecto data para la paginacion
+            'pagination' => [
+                'total'        => $adopcion->total(),
+                'current_page' => $adopcion->currentPage(),
+                'per_page'     => $adopcion->perPage(),
+                'last_page'    => $adopcion->lastPage(),
+                'from'         => $adopcion->firstItem(),
+                'to'           => $adopcion->lastItem(),
+            ],
+            'adopcion' => $adopcion
+        ];
+    }
+
+    
     public function store(Request $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
 
             DB::beginTransaction();
-        
-            
-            $mascota = new Mascota();
-            $personas->idUsuario = \Auth::user()->id; //obtengo el id del user 
-            $personas->nombre = $request->nombre;
-            $personas->apellidos = $request->apellidos;
-            $personas->cedula = $request->cedula;
-            $personas->direccion = $request->direccion;
-            $personas->telefono = $request->telefono;
-            $personas->celular = $request->celular;
 
-            $personas->save();
+            $now = Carbon::now();
+
+            $exploded = explode(',', $request->imagenMiniatura);
+            $decode = base64_decode($exploded[1]);
+            $imagenName = Str::random(20) . '.jpg';
+            //$path = public_path().'/'.'informacion/'.$imagenName;
+            $path = public_path().'/mascotas/'.$imagenName;
+            file_put_contents($path, $decode);
+        
+            $adopcion = new Adopcion();
+            //$adopcion->idUsuario = \Auth::user()->id; //obtengo el id del user 
+            $adopcion->idPersona = $request->idPersona;
+            $adopcion->nombreMascota = $request->nombreMascota;
+            $adopcion->especie = $request->especie;
+            $adopcion->raza = $request->raza;
+            $adopcion->fechaNacimiento = $now->toFormattedDateString($request->fechaNacimiento); //obtengo la fecha del registro
+            $adopcion->edad = $request->edad;
+            $adopcion->observacion = $request->observacion;
+            $adopcion->imagen = $imagenName;
+            $adopcion->estado = '1';
+            $adopcion->save();
 
             DB::commit();
 
@@ -79,8 +133,18 @@ class MascotasController extends Controller
         }
     }
 
-    public function destroy($id)  {
-        $personas = Personas::findOrFail($id)->delete();
-    } 
+    public function desactivar(Request $request) {
+        if (!$request->ajax()) return redirect('/');
+        $adopcion = Adopcion::findOrFail($request->id);
+        $adopcion->estado = '0';
+        $adopcion->save();
+    }
+
+    public function activar(Request $request)  {
+        if (!$request->ajax()) return redirect('/');
+        $adopcion = Adopcion::findOrFail($request->id);
+        $adopcion->estado = '1';
+        $adopcion->save();
+    }
 
 }

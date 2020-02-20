@@ -142,19 +142,18 @@ class DonacionesController extends Controller
     public function mostrarDonacion(Request $request)    {
         // if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
          
+      
         /*
-        
         $donacion = Donaciones::join('users', 'donaciones.idUsuario', 'users.id')
         ->select('donaciones.id', 'donaciones.idUsuario', 'donaciones.recaudacion', 'donaciones.lugar',
                 'donaciones.motivo', 'donaciones.telefono', 'donaciones.direccion', 
                 'donaciones.email', 'donaciones.fechaInicio', 'donaciones.fechaFin', 'users.name')
         ->orderBy('donaciones.id', 'desc')->take(1)->get();
         return[ 'donacion'=>$donacion];
-        */
+      
 
-        /* $donacion= Donaciones::all()->last();
+       $donacion= Donaciones::all()->last();
         return[ $donacion];*/
-
         
        
         $donacion = Donaciones::join('users', 'donaciones.idUsuario', 'users.id')
@@ -174,8 +173,6 @@ class DonacionesController extends Controller
         $donacion = Donaciones::findOrFail($id)->delete();
     } 
 
-
-   
 
    /* public function obtenerEstado(Request $request)    {
         if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax

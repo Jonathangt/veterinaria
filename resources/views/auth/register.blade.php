@@ -30,7 +30,7 @@
                           <!--  <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>-->
 
                             <div class="col-md-8 offset-md-2">
-                                <input id="name" placeholder="Usuario" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" placeholder="Usuario" maxlength="15" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -44,7 +44,7 @@
                           <!--    <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>-->
 
                             <div class="col-md-8 offset-md-2">
-                                <input id="email" placeholder="Correo" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" maxlength="30" placeholder="Correo" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -58,7 +58,7 @@
                            <!--   <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>-->
 
                            <div class="col-md-8 offset-md-2">
-                                <input id="password" placeholder="Contraseña" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" maxlength="20" placeholder="Contraseña" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -72,7 +72,7 @@
                           <!--    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>-->
 
                           <div class="col-md-8 offset-md-2">
-                                <input id="password-confirm" placeholder="Confirmación contraseña" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" maxlength="20" placeholder="Confirmación contraseña" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 

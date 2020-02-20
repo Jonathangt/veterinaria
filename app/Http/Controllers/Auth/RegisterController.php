@@ -72,7 +72,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'rol' => 0, //Cuando se registra por el login de registro siempre se le asignara el rol 0 // usuario
+            'rol' => 1, //Cuando se registra por el login de registro siempre se le asignara el rol 1 // usuario
+                    //Rol 0 admin -- rol 1  user --- rol 2 cliente
         ]);
     }
 }

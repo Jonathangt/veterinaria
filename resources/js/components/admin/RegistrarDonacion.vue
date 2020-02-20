@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i> Registro de diagnostico del sistema
+                    <i class="icon-chart"></i> Donaciones
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->
@@ -24,7 +24,7 @@
                                     <button type="submit" @click="listar(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                    
                                     <div class="btn-group col-md-2">
-                                        <button id='terms' type="button" @click="templateRegistrar()" class="btn btn-secondary">
+                                        <button id='terms' type="button" @click="templateRegistrar()" class="btn btn-primary">
                                             <i class="icon-plus"></i>&nbsp;Registrar Donación
                                         </button>
                                         
@@ -117,7 +117,7 @@
                              <div class="col-md-2">
                                 <div class="form-group">
                                    <div> <br>
-                                        <img src="img/About.jpg" alt="Dobaltoff" id="imagen">
+                                        <img src="img/About.jpg" alt="Dobaltoff" width="300" height="200">
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <Label>Motivo(*)</Label>
-                                    <textarea rows="4" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando" cols="50" > </textarea> 
+                                    <textarea rows="4" cols="50" maxlength="200" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando"> </textarea> 
                                 </div>
                             </div>
 
@@ -146,7 +146,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <Label>Fecha de Fin(*)</Label>
+                                    <Label>Fecha de Finalización(*)</Label>
                                <!--     <input type="date" class="form-control" v-model="fechaFin"> -->
                                     
                                     <datepicker id="select" placeholder= "Fecha de finalización" v-model="fechaFin" :language="es"></datepicker>
@@ -196,7 +196,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <button type="button" @click="cerrarTemplateRegistro()" class="btn btn-secondary">Cerrar</button>
+                                <button type="button" @click="cerrarTemplateRegistro()" class="btn btn-primary">Cerrar</button>
                                 <button type="submit" class="btn btn-primary" @click="registrar()">Registrar Donación</button>
                             </div>
                         </div>
@@ -208,7 +208,7 @@
                 <!-- Edicion de datos-->
                 <template v-else-if="template==3">
                      <div class="text-center"><br>
-                         <Label><b class="labelContacto"> Información a publicar</b></Label>
+                         <Label><b class="labelContacto"> Edición de la Información a publicar</b></Label>
                     </div>
                     <div class="card-body">
                         <div class="form-group row border">
@@ -227,7 +227,7 @@
                              <div class="col-md-2">
                                 <div class="form-group">
                                    <div> <br>
-                                        <img src="img/About.jpg" alt="Dobaltoff" id="imagen">
+                                         <img src="img/About.jpg" alt="Dobaltoff" width="300" height="200">
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +236,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <Label>Motivo(*)</Label>
-                                    <textarea rows="4" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando" cols="50" > </textarea> 
+                                    <textarea rows="4" cols="50" maxlength="200" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando"> </textarea> 
                                 </div>
                             </div>
 
@@ -256,7 +256,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <Label>Fecha de Fin(*)</Label>
+                                    <Label>Fecha de Finalización(*)</Label>
                                <!--     <input type="date" class="form-control" v-model="fechaFin"> -->
                                     
                                     <datepicker id="select" placeholder= "Fecha de finalización" v-model="fechaFin" :language="es"></datepicker>
@@ -306,8 +306,8 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <button type="button" @click="cerrarTemplateRegistro()" class="btn btn-secondary">Cerrar</button>
-                                <button type="submit" class="btn btn-primary" @click="actualizar()">Registrar Donación</button>
+                                <button type="button" @click="cerrarTemplateRegistro()" class="btn btn-primary">Cerrar</button>
+                                <button type="submit" class="btn btn-primary" @click="actualizar()">Actualizar Donación</button>
                             </div>
                         </div>
                     </div><!--fin 2do card body-->
@@ -315,20 +315,28 @@
                  <!-- fin  Edicion de datos-->
 
                 <!-----------------------------Tabla para visualizar el registro completo--->
-               
                 <template v-else-if="template==2">
                     <div class="card-body">
                         <div class="form-group">
                             <div class="col-md-12">
-                                <center><h5>VETERINARIA DOBALTOFF</h5></center>
-                                <label for=""></label>
+                              <!--  <center><h5>VETERINARIA DOBALTOFF</h5></center>
+                                <label for=""></label>-->
+
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div> <br>
+                                          <center>  <img src="img/About.jpg" alt="Dobaltoff" width="300" height="200"></center>
+                                        </div>
+                                    </div>
+                                </div>
                               
                             </div>
 
 
                         </div>
                          
-                             <div class="table-responsive col-md-8">
+                            <center>
+                                 <div class="table-responsive col-md-8">
                                 <table class="table table-bordered table-striped table-sm">
                                 <thead>
                                         <tr>
@@ -366,7 +374,7 @@
 
                                     <tr>
                                         <td>Fecha de Finalización</td>
-                                        <td v-text="mostrarDatos.fechaInicio"></td>
+                                        <td v-text="mostrarDatos.fechaFin"></td>
                                     </tr>
 
                                     <tr>
@@ -382,10 +390,11 @@
                                 </table>
                             </div>
 
+                            </center>
                       
                         <div class="form-group row">
-                            <div class="col-md-12">
-                                <button type="button" @click="cerrarTemplateRegistro()" class="btn btn-secondary">Cerrar</button>
+                            <div class="col-md-12"><br>
+                                <button type="button" @click="cerrarTemplateRegistro()" class="btn btn-primary">Cerrar</button>
                             </div>
                         </div>
                     </div>
@@ -394,8 +403,6 @@
             </div>
             <!-- Fin ejemplo de tabla Listado -->
         </div>
-
-
       
     </main>
     
@@ -404,15 +411,12 @@
 
 
 <script>
-   
-
     import Datepicker from 'vuejs-datepicker';
     import { es } from 'vuejs-datepicker/dist/locale'
     export default {
         data() {
             return {
                 es: es,
-                date: new Date(2016, 9, 16),
                 name: '',
                 email: '',
                 motivo: '',
@@ -485,8 +489,12 @@
                         me.pagination = respuesta.pagination;
 
                     })
-                    .catch(function(error) {
-                         console.log(me.getID);
+                    .catch((error) =>{
+                        swal({
+                            title: 'Error al obtener los datos!!',
+                            type:  'error',
+                            text:  'No se pudo obtener los registros',
+                        }) 
                         console.log(error);
                     });
             },
@@ -573,8 +581,6 @@
                 }
                 let me = this;
 
-
-              
                 axios.post('/donacion/registrar',{     
                     'recaudacion': this.recaudacion,
                     'lugar' : this.lugar,
@@ -585,20 +591,27 @@
                     'fechaInicio' : this.fechaInicio,
                     'fechaFin' : this.fechaFin,
 
-                }).then(function (response) {
-                     console.log('EXITO!!');    
-                }).catch(function (error) {
-                    console.log('error de ingreso!!');
+                }).then((response) => {
+                    this.listar(1,'','motivo');
+                    this.cerrarTemplateRegistro();
+
+                    swal({
+                        title: 'Donación Registrada!!',
+                        type:  'success',
+                        text:  'La información a sido publicada',
+                    })
+
+                }).catch((error) =>{
+                    swal({
+                        title: 'Donación no registrada!!',
+                        type:  'error',
+                        text:  'La información no a sido publicada',
+                    })
                     console.log(error);
                 });
-              this.listar(1,'','motivo');
-              this.cerrarTemplateRegistro();
+              
 
-              swal({
-                    title: 'Donación Registrada!!',
-                    type:  'success',
-                    text:  'La información a sido publicada',
-                })
+             
             },
            
             editar(id) {
@@ -620,13 +633,19 @@
                     me.fechaInicio=arrayEditarDatos[0]['fechaInicio'];
                     me.fechaFin=arrayEditarDatos[0]['fechaFin'];
 
-                }).catch(function(error) {
-                    console.log(error);
+                }).catch((error) => {
+                    swal({
+                        title: 'Error al obtener los datos!!',
+                        type:  'error',
+                        text:  'No se pudo obtener el registro',
+                    }) 
+                    console.log(error); 
+                   
                 });
 
             },
             actualizar(){
-                 if (this.validarDatos()){
+                if (this.validarDatos()){
                     return;
                 }
                 
@@ -642,22 +661,26 @@
                     'fechaInicio': this.fechaInicio,
                     'fechaFin': this.fechaFin,
                     'id': this.idDonacion
-                }).then(function (response) {
-                    me.cerrarModal();
-                    me.listar(1,'','name');
-                }).catch(function (error) {
-                   
-                    console.log(error);
-                }); 
-
-                this.listar(1,'','motivo');
-                this.cerrarTemplateRegistro();
-
-                swal({
-                        title: 'Donación Editada!!',
+                }).then( (response) =>{
+                    this.cerrarTemplateRegistro();
+                    this.listar(1,'','motivo');
+                    
+                    swal({
+                        title: 'Donación Actualizada!!',
                         type:  'success',
                         text:  'La información a sido actualizada',
                     })
+                }).catch( (error) =>{
+                    swal({
+                        title: 'Error al actualizadar!!',
+                        type:  'error',
+                        text:  'La información no a sido actualizada',
+                    }) 
+                    console.log(error);
+                }); 
+
+                
+
 
             },         
             validarDatos() {//Validaciones para el registro de los datos
@@ -670,7 +693,7 @@
                 if (!this.fechaFin) this.errorMostrarMsj.push("Debe de elegir una fecha de finalización");
                 if (!this.telefono) this.errorMostrarMsj.push("El campo telefono no puede estar vacio");
                 if (!this.direccion) this.errorMostrarMsj.push("El campo dirección no puede estar vacio");
-                if (!this.email) this.errorMostrarMsj.push("El campo telefono no puede estar vacio");
+                if (!this.email) this.errorMostrarMsj.push("El campo email no puede estar vacio");
 
                 if ( this.fechaFin < this.fechaInicio){
                     this.errorMostrarMsj.push("La fecha de finalización no puede ser antes de la fecha de inicio");
@@ -699,13 +722,11 @@
                 me.email = '';
                 me.fechaInicio = '';
                 me.fechaFin = '';
+                me.errorMostrarMsj = '';
 
             },
             templateRegistrar() {
-        
-                this.template = 1;
                 let me = this;
-           
                 this.template = 0;
                 me.recaudacion = '';
                 me.lugar = '';              
@@ -715,10 +736,10 @@
                 me.email = '';
                 me.fechaInicio = '';
                 me.fechaFin = '';
+                me.errorMostrarMsj = '';
             },
             templateEditar() {
                 let me = this;
-           
                 this.template = 3;
                 me.recaudacion = '';
                 me.lugar = '';              
@@ -728,6 +749,7 @@
                 me.email = '';
                 me.fechaInicio = '';
                 me.fechaFin = '';
+                me.errorMostrarMsj = '';
             },
             obtenerRegistro(id) {
                 let me = this;//metodo para mostrar los datos
@@ -738,8 +760,13 @@
                     var respuesta = response.data;
                     me.arrayMostrarDatos = respuesta.donacion;
                     })
-                    .catch(function(error) {
-                        console.log(error);
+                    .catch((error) => {
+                        swal({
+                            title: 'Error al obtener los datos!!',
+                            type:  'error',
+                            text:  'No se pudo obtener el registro',
+                        }) 
+                        console.log(error);   
                     });
             },
             eliminar(id){
@@ -767,7 +794,12 @@
                         'El registro ha sido eliminado con éxito.',
                         'success'
                         )
-                    }).catch(function (error) {
+                    }).catch((error) =>{
+                        swal(
+                            'Error al eliminar!',
+                            'El registro no ha sido eliminado.',
+                            'error'
+                        )
                         console.log(error);
                     });                
                     } else if (
@@ -785,12 +817,18 @@
     }
 </script>
 <style>
+
+    textarea{
+        resize:none;
+
+    }
+
     #select {
-    padding: 0.75em 0.5em;
-    font-size: 100%;
-    border: 1px solid #ccc;
-    width: 100%;
-     height: 2.5em;
+        padding: 0.75em 0.5em;
+        font-size: 100%;
+        border: 1px solid #ccc;
+        width: 100%;
+        height: 2.5em;
     }
 
 
@@ -852,7 +890,6 @@
     .centerTabla {
         text-align: center;
     }
-
 
     .swal2-title {
       font-size: 20px !important;

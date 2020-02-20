@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Personas;
+use App\Http\Requests\StoreUsuarios;
+use App\Http\Requests\UpdateUsuarios;
+
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
@@ -44,7 +47,7 @@ class UserController extends Controller{
         ];
     }
 
-    public function store(Request $request)    {
+    public function store(StoreUsuarios $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
@@ -65,15 +68,16 @@ class UserController extends Controller{
         }
     }
 
-    public function update(Request $request)    {
+    public function updateAdmin(UpdateUsuarios $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
+
             DB::beginTransaction();
             $usuario = User::findOrFail($request->id);
             $usuario->name = $request->name;
             $usuario->email = $request->email;
-            $usuario->rol = '1';//administrador
+            $usuario->rol = '0';//Administrador
             $usuario->estado = '1'; //activo
             $usuario->password = bcrypt( $request->password);//el password se almacena encritado por seguridad
             $usuario->save();
@@ -93,7 +97,7 @@ class UserController extends Controller{
         $usuario->save();
     }
 
-    public function activar(Request $request)  {
+    public function activar(UpdateUsuarios $request)  {
         if (!$request->ajax()) return redirect('/');
         $usuario = User::findOrFail($request->id);
         $usuario->estado = '1';
@@ -101,6 +105,30 @@ class UserController extends Controller{
     }
 
     public function destroy($id)  {
+
+       /* $usuario = User::where("condicion", $id)->first();
+        $persona = Personas::where("id", $usuario)->delete();
+        $usuario = User::findOrFail($id)->delete();*/
+
+
         $usuario = User::findOrFail($id)->delete();
+
+        /*//$cod = User::select('condicion')->where('id', '=', $id )->first();
+
+        $cod = DB::table('users')->select('condicion')->where('condicion', '=', $id )->first();
+        
+       /* $persona = Personas::join('users', 'personas.idUsuario', 'users.id')
+                        ->select('personas.id', 'users.condicion')
+                        ->where('users.condicion', '=', $cod)
+                        ->delete(); //elimino al usuario del cliente
+
+                        $usuario = User::findOrFail($id)->delete();*/
+
+       /* $personas = Personas::select('personas.id')
+        ->where('id', '=', $cod)->delete();
+
+        $usuario = User::findOrFail($id)->delete();*/
+
+           
     } 
 }

@@ -16,8 +16,8 @@ class CreateAdopcionTable extends Migration
         Schema::create('adopcion', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger ('idPersona')->unsigned();
-            $table->foreign('idPersona')->references('id')->on('personas');
-            $table->string('nombreMacota', 45)->nullable();
+            $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade');
+            $table->string('nombreMascota', 45)->nullable();
             $table->string('especie', 45)->nullable();
             $table->string('raza', 30)->nullable();
             $table->string('fechaNacimiento', 25)->nullable();

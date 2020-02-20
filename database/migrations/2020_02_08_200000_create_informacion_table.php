@@ -20,7 +20,7 @@ class CreateInformacionTable extends Migration
             $table->string('tema', 200)->nullable();
             $table->string('capacitador', 200)->nullable();
             $table->string('conoce', 200)->nullable();
-            $table->string('imgaen')->nullable();
+            $table->string('imagen')->nullable();
             //$table->boolean('estado')->default(1);    
             //$table->timestamps();
         });

@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i> Registro de Mascotas para adopción
+                    <i class="icon-chart"></i> Mascotas para adopción
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->

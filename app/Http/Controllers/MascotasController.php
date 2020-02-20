@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Mascotas;
 use App\Personas;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MascotasController extends Controller
@@ -15,17 +17,22 @@ class MascotasController extends Controller
         
         if ($buscar==''){
             $mascotas = Mascotas::join('personas', 'mascotas.idPersona', 'personas.id')
-                                    ->join('users', 'mascotas.idUsuario', 'users.id')
-                                   ->select('mascotas.id', 'mascotas.idPersona', 'mascotas.nombreMacota', 'mascotas.especie',
-                                            'mascotas.raza', 'mascotas.fechaNacimiento', 'mascotas.edad', 'mascotas.sexo', 'users.name')
-                                    ->orderBy('mascotas.id', 'desc')->paginate(10);
+                                ->join('users', 'mascotas.idUsuario', 'users.id')
+                                ->select('mascotas.id', 'mascotas.idPersona', 'mascotas.nombreMascota', 'mascotas.especie',
+                                            'mascotas.raza', 'mascotas.fechaNacimiento', 'mascotas.edad', 'mascotas.sexo',
+                                            'personas.nombre', 'personas.apellidos', 'personas.cedula', 'personas.direccion', 'personas.telefono',
+                                            'personas.celular')
+                                ->orderBy('mascotas.id', 'desc')->paginate(10);
         }
         else{
-            $personas =  Personas::join('users', 'personas.idUsuario', 'users.id')
-                        ->select('users.email', 'personas.id', 'personas.idUsuario', 'personas.nombre', 'personas.apellidos',
-                                'personas.cedula', 'personas.direccion', 'personas.telefono', 'personas.celular')
-                            ->where($criterio, 'like', '%'. $buscar . '%')
-                            ->orderBy('personas.nombre', 'desc')->paginate(10);
+            $personas =  Mascotas::join('personas', 'mascotas.idPersona', 'personas.id')
+                                ->join('users', 'mascotas.idUsuario', 'users.id')
+                                ->select('mascotas.id', 'mascotas.idPersona', 'mascotas.nombreMascota', 'mascotas.especie',
+                                            'mascotas.raza', 'mascotas.fechaNacimiento', 'mascotas.edad', 'mascotas.sexo',
+                                            'personas.nombre', 'personas.apellidos', 'personas.cedula', 'personas.direccion', 'personas.telefono',
+                                            'personas.celular')
+                                ->where($criterio, 'like', '%'. $buscar . '%')
+                                ->orderBy('personas.apellidos', 'desc')->paginate(10);
         }
         
 
@@ -41,6 +48,119 @@ class MascotasController extends Controller
             'mascotas' => $mascotas
         ];
     }
+
+
+    public function store(Request $request)    {
+        if (!$request->ajax()) return redirect('/');
+        
+        try{
+            DB::beginTransaction();
+
+            $mascotas = new Mascotas();
+            $mascotas->idUsuario = \Auth::user()->id; //obtengo el id del user 
+            $mascotas->idPersona = $request->idPersona;
+            $mascotas->nombreMascota = $request->nombreMascota;
+            $mascotas->especie = $request->especie;
+            $mascotas->raza = $request->raza;
+            $mascotas->fechaNacimiento = Carbon::parse($request->fechaNacimiento)->format('d-m-Y');
+            $mascotas->edad = $request->edad;
+            $mascotas->sexo = $request->sexo;
+            $mascotas->save();
+            DB::commit();
+
+        } catch (Exception $e){
+            DB::rollBack();
+        }
+    }
+
+    public function update(Request $request)    {
+        if (!$request->ajax()) return redirect('/');
+        
+        try{
+            
+            $mascotas = new Mascotas();
+            $mascotas->idUsuario = \Auth::user()->id; //obtengo el id del user 
+            $mascotas->idPersona = $request->idPersona;
+            $mascotas->nombreMascota = $request->nombreMascota;
+            $mascotas->especie = $request->especie;
+            $mascotas->raza = $request->raza;
+            $mascotas->fechaNacimiento = Carbon::parse($request->fechaNacimiento)->format('d-m-Y');
+            $mascotas->edad = $request->edad;
+            $mascotas->sexo = $request->sexo;
+            $mascotas->save();
+
+            DB::commit();
+
+        } catch (Exception $e){
+            DB::rollBack();
+        }
+
+    }
+
+    public function destroy($id)  {
+        $mascotas = Mascotas::findOrFail($id)->delete();
+    } 
+
+    public function obtener(Request $request){ //metodo para obtener el registro y editarlo
+        if (!$request->ajax()) return redirect('/');
+ 
+        $id = $request->id;
+        $mascotas = Mascotas::join('personas', 'mascotas.idPersona', 'personas.id')
+                       // ->join('users', 'mascotas.idUsuario', 'users.id')
+                       -> select('mascotas.id', 'mascotas.idPersona', 'mascotas.nombreMascota', 'mascotas.especie',
+                                    'mascotas.raza', 'mascotas.fechaNacimiento', 'mascotas.edad', 'mascotas.sexo',
+                                    'personas.nombre', 'personas.apellidos', 'personas.cedula', 'personas.direccion', 'personas.telefono',
+                                    'personas.celular')
+                        ->where('mascotas.id','=',$id)->get(); 
+        return ['mascotas' => $mascotas];
+    }
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function obtenerDatos(Request $request){//metodo para editar y visualizar los datos
+        //if (!$request->ajax()) return redirect('/');
+
+        $id = $request->id;
+        $mascotas = Mascotas::join('personas', 'mascotas.idPersona', 'personas.id')
+                    ->join('users', 'mascotas.idUsuario', 'users.id')
+                    ->select('mascotas.id', 'mascotas.idPersona', 'mascotas.nombreMascota', 'mascotas.especie',
+                                'mascotas.raza', 'mascotas.fechaNacimiento', 'mascotas.edad', 'mascotas.sexo',
+                                'users.name', 'users.email', 'users.rol', 'users.estado', 'users.password',  
+                                'personas.nombre', 'personas.apellidos', 'personas.cedula', 'personas.direccion', 'personas.telefono',
+                                'personas.celular')
+                                ->where('mascotas.id','=',$id)->get();
+        return ['mascotas' => $mascotas];
+
+    }
+
+
 
     public function obtenerMascota(Request $request)    {
         //if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
@@ -76,34 +196,5 @@ class MascotasController extends Controller
   
 
 
-    public function store(Request $request)    {
-        if (!$request->ajax()) return redirect('/');
-        
-        try{
-
-            DB::beginTransaction();
-        
-            
-            $mascota = new Mascota();
-            $personas->idUsuario = \Auth::user()->id; //obtengo el id del user 
-            $personas->nombre = $request->nombre;
-            $personas->apellidos = $request->apellidos;
-            $personas->cedula = $request->cedula;
-            $personas->direccion = $request->direccion;
-            $personas->telefono = $request->telefono;
-            $personas->celular = $request->celular;
-
-            $personas->save();
-
-            DB::commit();
-
-        } catch (Exception $e){
-            DB::rollBack();
-        }
-    }
-
-    public function destroy($id)  {
-        $personas = Personas::findOrFail($id)->delete();
-    } 
 
 }

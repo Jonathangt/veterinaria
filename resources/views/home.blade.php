@@ -4,78 +4,111 @@
 
 
 <div class="app-body">
-    @if (session('status'))
+  <!--  @if (session('status'))
         <div class="alert alert-success" role="alert">
             {{ session('status') }}
         </div>
-    @endif
+    @endif-->
 
 
     @if(Auth::check())
-        @if (Auth::user()->rol == 1)
+        @if (Auth::user()->rol == 0)
             @include('sidebarAdministrador') <!---Administrador-->        
             <template v-if="menu==0">
-                <inicio-general></inicio-general>
+               <!--  <inicio-general></inicio-general> -->
+               <registrar-adopcion></registrar-adopcion> <!-----TODOS LOS USUARIOS--->
             </template>
+
             <template v-if="menu==1">
-                <h1>modulo clientes</h1>
+                <registrar-clientes></registrar-clientes>
             </template>
+
             <template v-if="menu==2">
-                <h1>modulo consulta</h1>
+                <registrar-mascota></registrar-mascota>
             </template>
+
             <template v-if="menu==3">
-                <h1>modulo informacion</h1>
+                <registrar-consulta></registrar-consulta>
             </template>
+
+
             <template v-if="menu==4">
-                <registrar-donaciones></registrar-donaciones>
+                <registrar-informacion></registrar-informacion>
             </template>
             <template v-if="menu==5">
+                <registrar-donaciones></registrar-donaciones>
+            </template>
+
+            <template v-if="menu==6">
+                <registrar-datos></registrar-datos> <!-----TODOS LOS USUARIOS--->
+            </template>
+
+            <template v-if="menu==7">
+                <registrar-adopcion></registrar-adopcion> <!-----TODOS LOS USUARIOS--->
+            </template>
+
+            <template v-if="menu==8">
+                <inicio-adopcion></inicio-adopcion> <!-----TODOS LOS USUARIOS--->
+            </template>
+
+            <template v-if="menu==9">
                 <registrar-usuarios></registrar-usuarios>
             </template>
-            <template v-if="menu==6">
+            <template v-if="menu==10">
                 <quienes-somos></quienes-somos>
             </template>
+
             
-        @elseif (Auth::user()->rol == 2)<!---Cliente-->
+            
+        @elseif (Auth::user()->rol == 2)<!---Cliente Rol 2-->
             @include('sidebarCliente') 
             <template v-if="menu==0">
-                <inicio-general></inicio-general>
+                 <inicio-general></inicio-general> 
             </template>
             <template v-if="menu==1">
                 <informacion-general></informacion-general>
             </template>
             <template v-if="menu==2">
-                <h1>visualizar consulta</h1>
+                <vizualizar-consulta></vizualizar-consulta>
             </template>
             <template v-if="menu==3">
-                <h1>modulo dar en adopcionnnnnnnnnnn</h1>
+                <inicio-adopcion></inicio-adopcion> <!-----TODOS LOS USUARIOS--->
             </template>
             <template v-if="menu==4">
-                <h1>modulo adopcionnnnnnnnnnnnn</h1>
+                <registrar-datos></registrar-datos> <!-----TODOS LOS USUARIOS--->
             </template>
             <template v-if="menu==5">
+                <registrar-adopcion></registrar-adopcion> <!-----TODOS LOS USUARIOS--->
+            </template>
+            <template v-if="menu==6">
+                <edicion-usuarios></edicion-usuarios>
+            </template>
+            <template v-if="menu==7">
                 <quienes-somos></quienes-somos>
             </template>
             
 
         @else
-            @include('sidebarUsuario')<!---Usuario-->
+            @include('sidebarUsuario')<!---Usuario --- Rol 1-->
             <template v-if="menu==0">
-                <inicio-general></inicio-general>
+                 <inicio-general></inicio-general> 
             </template>
             <template v-if="menu==1">
                 <informacion-general></informacion-general>
             </template>
             <template v-if="menu==2">
-                <h1>modulo de adopcion</h1>
+                <inicio-adopcion></inicio-adopcion> <!-----TODOS LOS USUARIOS--->
             </template>
             <template v-if="menu==3">
-                <h1>modulo dar en adopcion</h1>
+                <registrar-datos></registrar-datos> <!-----TODOS LOS USUARIOS--->
             </template>
             <template v-if="menu==4">
-                <h1>visualizar consulta</h1>
+                <registrar-adopcion></registrar-adopcion> <!-----TODOS LOS USUARIOS--->
             </template>
             <template v-if="menu==5">
+                <edicion-usuarios></edicion-usuarios>
+            </template>
+            <template v-if="menu==6">
                 <quienes-somos></quienes-somos>
             </template>
         @endif

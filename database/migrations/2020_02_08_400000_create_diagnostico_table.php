@@ -19,12 +19,14 @@ class CreateDiagnosticoTable extends Migration
             $table->foreign('idUsuario')->references('id')->on('users');
             $table->bigInteger ('idPersona')->unsigned();
             $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade');
-
+            $table->bigInteger ('idMascota')->unsigned();
+            $table->foreign('idMascota')->references('id')->on('mascotas')->onDelete('cascade');
+            $table->string('esterilizado', 5)->nullable();
             $table->string('tipoProcedimiento', 45)->nullable();
             $table->string('modoOptencion', 40)->nullable();
             $table->string('observacionDiagnostico', 200)->nullable();
-            $table->string('fechaAtencion', 40)->nullable();
-            $table->string('horaAtencion',10)->nullable();
+            $table->string('fechaAtencion', 25)->nullable();
+            $table->string('horaAtencion',25)->nullable();
             $table->string('medicamento',200)->nullable();
             $table->string('horario',200)->nullable();
             $table->string('observacionReceta',200)->nullable();          

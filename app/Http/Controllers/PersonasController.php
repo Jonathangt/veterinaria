@@ -57,6 +57,8 @@ class PersonasController extends Controller
         return ['obtenerID' => $obtenerID];
     }
 
+    
+
 
     public function store(Request $request)    {
         if (!$request->ajax()) return redirect('/');

@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "sweetalert2": "^9.7.2",
+        "vue-select": "^3.4.0",
         "vuejs-datepicker": "^1.6.2"
     }
 }

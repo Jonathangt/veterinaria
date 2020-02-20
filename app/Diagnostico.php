@@ -11,6 +11,7 @@ class Diagnostico extends Model
         'id',
         'idUsuario',
         'idPersona',
+        'esterilizado',
         'tipoProcedimiento',
         'modoOptencion',
         'observacionDiagnostico',

@@ -60,13 +60,6 @@
                               onmouseout="this.width=250;this.height=250;"
                               width="200" height="200" alt="" />
                         </div>
-
-            
-            
-            
-            
-            
-            
              -->
         </div>
     </main>

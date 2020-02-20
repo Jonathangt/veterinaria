@@ -11,7 +11,7 @@ class Mascotas extends Model
         'id',
         'idUsuario',
         'idPersona',
-        'nombreMacota',
+        'nombreMascota',
         'especie',
         'raza',
         'fechaNacimiento',

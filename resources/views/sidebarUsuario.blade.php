@@ -7,16 +7,36 @@
             <li @click="menu=1" class="nav-item">
                 <a class="nav-link" href="#"><i class="icon-doc"></i> Información</a> 
             </li>
-            
-            <li @click="menu=2" class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-info"></i> Dar en Adopción</a> 
-            </li>  
 
-            <li @click="menu=3" class="nav-item">
+            <li @click="menu=2" class="nav-item">
                 <a class="nav-link" href="#"><i class="icon-info"></i> Adoptar</a> 
-            </li>  
+            </li> 
+
+
+
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-pie-chart"></i> Registrar Adopciópn</a>
+                <ul class="nav-dropdown-items">
+                    <li @click="menu=3" class="nav-item">
+                        <a class="nav-link" href="i#"><i class="icon-doc"></i> Datos</a>
+                    </li>
+                    <li @click="menu=4" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-map"></i> Mascota</a>
+                    </li>
+                </ul>
+            </li> 
+
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-key"></i> Acceso</a>
+                <ul class="nav-dropdown-items">                  							
+                    <li @click="menu=5" class="nav-item">
+                        <a class="nav-link" href="i#"><i class="icon-people"></i> Usuario</a>
+                    </li>
+                </ul>
+            </li> 
+
     
-            <li @click="menu=4" class="nav-item">
+            <li @click="menu=6" class="nav-item">
                 <a class="nav-link" href="#"><i class="icon-info"></i> Quienes Somos</a> 
             </li>
         </ul>

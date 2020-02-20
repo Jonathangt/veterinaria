@@ -1,9 +1,12 @@
 <template>
     <div> <!-- primer div------->
     
-
+      
          <div v-for="registro in arrayRegistros" :key="registro.id">
+            <center> <h4>Se aceptan dondaciones</h4></center>
              <div class="blog-card">
+
+              
 
                 <div class="meta">
                     <div class="photo"
@@ -50,7 +53,7 @@
         methods: {
             listar() {
                 let me = this;
-                var url = '/donacion/mostrar';
+                var url = '/donacion/mostrar-donacion';
                 axios.get(url).then(function(response) {
                         var respuesta = response.data;
                         me.arrayRegistros = respuesta.donacion.data;

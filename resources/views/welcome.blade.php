@@ -14,6 +14,8 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+        <!-- <link rel="stylesheet" href="js/bootstrap-fileinput/css/fileinput.min.css"> -->
+
         <!-- Styles -->
         <style>
             html, body {
@@ -134,7 +136,11 @@
         <script src="js/Chart.min.js"></script>
         <script src="js/template.js"></script> 
         <script src="js/sweetalert2.all.js"></script> 
-        
+
+        <!-- <script src="js/bootstrap-fileinput/js/fileinput.min.js"></script>
+        <script src="js/bootstrap-fileinput/js/locales/es.js"></script>
+        <script src="js/bootstrap-fileinput/themes/fas/theme.min.js"></script>
+         -->
 </body>
 
 </html>

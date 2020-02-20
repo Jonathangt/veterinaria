@@ -19,11 +19,11 @@ class CreateMascotasTable extends Migration
             $table->foreign('idUsuario')->references('id')->on('users');
             $table->bigInteger ('idPersona')->unsigned();
             $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade');
-            $table->string('nombreMacota', 30)->nullable();
+            $table->string('nombreMascota', 30)->nullable();
             $table->string('especie', 45)->nullable();
             $table->string('raza', 30)->nullable();
             $table->string('fechaNacimiento', 40)->nullable();
-            $table->string('edad', 5)->nullable();
+            $table->string('edad', 15)->nullable();
             $table->string('sexo', 20)->nullable();
             //$table->boolean('estado')->default(1);    
             //$table->timestamps();

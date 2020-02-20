@@ -7,7 +7,7 @@
     <meta name="description" content="Unete al rescate y proteccion animal">
     <meta name="author" content="Veterinaria Dobaltoff">
     <meta name="keyword" content="Veterinaria Dobaltoff rescate animal">
-    <link rel="shortcut icon" href="img/unnamed.jpg">
+    <link rel="shortcut icon" href="../../img/unnamed.jpg">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -44,14 +44,14 @@
     </div> 
 
 
-        <script src="../js/jquery.min.js"></script>
-        <script src="../js/app.js" ></script> 
-        <script src="../js/popper.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/pace.min.js"></script>
-        <script src="../js/Chart.min.js"></script>
-        <script src="../js/template.js"></script>
-        <script src="../js/sweetalert2.all.js"></script> 
+        <script src="../../js/jquery.min.js"></script>
+        <script src="../../js/app.js" ></script> 
+        <script src="../../js/popper.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/pace.min.js"></script>
+        <script src="../../js/Chart.min.js"></script>
+        <script src="../../js/template.js"></script>
+        <script src="../../js/sweetalert2.all.js"></script> 
 
 </body>
 

@@ -18,7 +18,7 @@
                                 <input type="text" v-model="buscar" @keyup.enter="listar(1,buscar,criterio)" class="form-control col-md-4" placeholder="Nombre a buscar">
                                 <button type="submit" @click="listar(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                 <div class="btn-group col-md-3">
-                                    <button type="button" @click="abrirModal('usuario','registrar')" class="btn btn-secondary"><i class="icon-plus"></i>&nbsp;Agregar Usuario</button>
+                                    <button type="button" @click="abrirModal('usuario','registrar')" class="btn btn-primary"><i class="icon-plus"></i>&nbsp;Agregar Usuario</button>
                                 </div>
                            </div>                         
                     </div>
@@ -35,27 +35,32 @@
                             <tbody>
                                 <tr v-for="usuario in arrayUsuario" :key="usuario.id">
                                     <td style="width:125px"> 
-                                        <span v-if="usuario.rol">
-                                                <button type="button" @click="abrirModal('usuario','actualizar',usuario)" class="btn btn-warning btn-sm">
+                                        <span v-if="!usuario.rol"> <!------entra rol 0----------->
+                                              <button type="button" @click="abrirModal('usuario','actualizar',usuario)" class="btn btn-warning btn-sm">
                                                 <i class="icon-pencil"></i>
                                                 </button>&nbsp;
                                         </span>
-                                        <span v-else> </span>
-
-                                   <!--     <span v-if="usuario.estado">
-                                                <button type="button" class="btn btn-danger btn-sm" @click="desactivar(usuario.id)">
+                                         <span v-else>
+                                              <button type="button" class="btn btn-danger btn-sm" @click="eliminar(usuario.id)">
                                                 <i class="icon-trash"></i>
                                             </button>
                                         </span>
+
+
+                                       <span v-if="usuario.estado">
+                                                <button type="button" class="btn btn-secondary btn-sm" @click="desactivar(usuario.id)">
+                                                <i class="icon-info"></i>
+                                            </button>
+                                        </span>
                                         <span v-else>
-                                            <button type="button" class="btn btn-info btn-sm" @click="activar(usuario.id)">
+                                            <button type="button" class="btn btn-success btn-sm" @click="activar(usuario.id)">
                                             <i class="icon-check"></i>
                                             </button>
-                                        </span>-->
+                                        </span>
 
-                                        <button type="button" class="btn btn-danger btn-sm" @click="eliminar(usuario.id)">
+                                        <!--<button type="button" class="btn btn-danger btn-sm" @click="eliminar(usuario.id)">
                                                 <i class="icon-trash"></i>
-                                            </button>  
+                                            </button>  -->
 
 
                                     </td>
@@ -104,28 +109,28 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Usuario (*)</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="name" class="form-control" placeholder="Nombre" maxlength="15">                                         
+                                        <input type="text" v-model="name" class="form-control" placeholder="Usuario" maxlength="15">                                         
                                     </div>
                                 </div>                          
                           
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="email-input">Email (*)</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="email" class="form-control" placeholder="Email" maxlength="40"> 
+                                        <input type="text" v-model="email" class="form-control" placeholder="Email" maxlength="30"> 
                                     </div>
                                 </div>     
                                 
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="email-input">Password (*)</label>
                                     <div class="col-md-9">
-                                        <input type="password" v-model="password" class="form-control" placeholder="Password de acceso">
+                                        <input type="password" v-model="password" class="form-control" placeholder="Password" maxlength="20"> 
                                     </div>
                                 </div>
 
                                 <div v-show="errorValidacion" class="form-group row div-error">
                                     <div class="text-center text-error">
                                         <div v-for="error in errorMostrarMsj" :key="error" v-text="error">
-
+                                             
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +139,7 @@
                         </div>
                         <div class="modal-footer">
                             <span >Los campos con (*) son obligatorios</span>
-                            <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
+                            <button type="button" class="btn btn-primary" @click="cerrarModal()">Cerrar</button>
                             <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrar()">Guardar</button>
                             <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizar()">Actualizar</button>
                         </div>
@@ -214,7 +219,12 @@
                     me.arrayUsuario = respuesta.usuario.data;
                     me.pagination= respuesta.pagination;
                 })
-                .catch(function (error) {
+                .catch((error) =>{
+                   swal({
+                        title: 'Error al obtener los datos!!',
+                        type:  'error',
+                        text:  'No se pudo obtener los registros',
+                    })
                     console.log(error);
                 });
             },
@@ -229,51 +239,79 @@
                 if (this.validar()){
                     return;
                 }
-                
-                let me = this;
 
                 axios.post('/users/registrar',{
-                    'name': this.name,
-                    'email' : this.email,
-                    'password' : this.password,
+                    name: this.name,
+                    email: this.email,
+                    password: this.password,
 
-                }).then(function (response) {
-                    me.cerrarModal();
-                    me.listar(1,'','name');
-                }).catch(function (error) {
-                    console.log(error);
+                }).then(response => {
+                    this.cerrarModal();
+                    this.listar(1,'','name'); 
+                    swal({
+                        title: 'Usuario Registrado!!',
+                        type:  'success',
+                        text:  'La información a sido guardada',
+                    })
+
+               })
+               .catch(error => {
+                    const { status, errors } = error.response
+			        this.errorValidacion = 0
+                    const response = error.response
+                     if (status === 500) {
+                        console.log(response.data)
+                    }else if (status === 422) {
+                        this.errorValidacion = 1
+                        //this.errorMostrarMsj = errors.email.slice(0)
+                        this.errorMostrarMsj.push(response.data.errors.email);
+                        console.clear()
+                    } else {
+                        console.log(error)
+                    }
                 });
             },
             actualizar(){
                if (this.validar()){
                     return;
                 }
-                
-                let me = this;
 
-                axios.put('/users/actualizar',{
-                    'name': this.name,
-                    'email' : this.email,
-                    'password' : this.password,
-                    'id': this.idUser,
-                }).then(function (response) {
-                    me.cerrarModal();
-                    me.listar(1,'','name');
-                }).catch(function (error) {
-                    console.log(error);
+                axios.put('/users/actualizarAdmin',{
+                    name: this.name,
+                    email : this.email,
+                    password : this.password,
+                    id: this.idUser,
+                }).then(response => {
+                    this.cerrarModal();
+                    this.listar(1,'','name'); 
+                    swal({
+                        title: 'Usuario Actualizado!!',
+                        type:  'success',
+                        text:  'La información a sido guardada',
+                    })
+
+               }).catch(error => {
+                    const { status, errors } = error.response
+			        this.errorValidacion = 0
+                    const response = error.response
+                     if (status === 500) {
+                        console.log(response.data)
+                    }else if (status === 422) {
+                        this.errorValidacion = 1
+                        //this.errorMostrarMsj = errors.email.slice(0)
+                        this.errorMostrarMsj.push(response.data.errors.email);
+                        console.clear()
+                    } else {
+                        console.log(error)
+                    }
                 });
-                
-                swal({
-                    title: 'Registro Actualizado!!',
-                    type:  'success',
-                    text:  'Se a actualizado el usuario!!',
-                })
+
             },            
             validar(){
                 this.errorValidacion=0;
                 this.errorMostrarMsj =[];
 
-                if (!this.name) this.errorMostrarMsj.push("El nombre de uusuario no puede estar vacío");
+                if (!this.name) this.errorMostrarMsj.push("El usuario no puede estar vacío");
                 if (!this.email) this.errorMostrarMsj.push("El email no puede estar vacío");
                 if (!this.password) this.errorMostrarMsj.push("El password no puede estar vacío");
                 if (this.errorMostrarMsj.length) this.errorValidacion = 1;
@@ -317,9 +355,96 @@
                     }
                 }
             },
+            desactivar(id){
+                swal({
+                    title: 'Esta seguro de desactivar este usuario?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar!',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger',
+                    buttonsStyling: false,
+                    reverseButtons: true
+                    }).then((result) => {
+                    if (result.value) {
+                        let me = this;
+
+                        axios.put('/users/desactivar',{
+                            'id': id
+                        }).then( (response) =>{
+                            me.listar(1,'','name');
+                            swal(
+                            'Desactivado!',
+                            'El registro ha sido desactivado con éxito.',
+                            'success'
+                            )
+                        }).catch((error) =>{
+                             swal({
+                                title: 'No Desactivado!!',
+                                type:  'error',
+                                text:  'Ha ocurrido un error al desactivar el usuario',
+                            })
+                            console.log(error);
+                        });
+                       
+                    } else if (
+                        // Read more about handling dismissals
+                        result.dismiss === swal.DismissReason.cancel
+                    ) {
+                        
+                    }
+                    }) 
+            },
+            activar(id){
+                swal({
+                    title: 'Esta seguro de activar este usuario?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar!',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger',
+                    buttonsStyling: false,
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        let me = this;
+
+                        axios.put('/users/activar',{
+                            'id': id
+                        }).then( (response) =>{
+                            me.listar(1,'','apellidos');
+                            swal(
+                            'Activado!',
+                            'El registro ha sido activado con éxito.',
+                            'success'
+                            )
+                        }).catch( (error) =>{
+                            swal({
+                                title: 'No Activado!!',
+                                type:  'error',
+                                text:  'Ha ocurrido un error al activar el usuario',
+                            })
+                            console.log(error);
+                        });
+                        
+                        
+                    } else if (
+                        // Read more about handling dismissals
+                        result.dismiss === swal.DismissReason.cancel
+                    ) {
+                        
+                    }
+                }) 
+            },
             eliminar(id){
                 swal({
-                    title: 'Esta seguro que desea eliminar este usuario?',
+                    title: 'Esta seguro que desea eliminar el registro?',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -336,13 +461,18 @@
                         var url = '/users/delete/' +id;
                     axios.delete(url).then(function (response) {
 
-                        me.listar(1,'','name');
+                        me.listar(1,'','apellidos');
                         swal(
                         'Eliminado!',
                         'El registro ha sido eliminado con éxito.',
                         'success'
                         )
-                    }).catch(function (error) {
+                    }).catch((error) => {
+                        swal(
+                            'Error al eliminar!',
+                            'El registro no ha sido eliminado.',
+                            'error'
+                        )
                         console.log(error);
                     });                
                     } else if (
@@ -353,6 +483,7 @@
                     }
                     }) 
             },
+            
         },
         mounted() {
             this.listar(1,this.buscar,this.criterio);
