@@ -112,7 +112,7 @@ class DonacionesController extends Controller
     }
 
     public function obtenerDatos(Request $request){//metodo para editar y visualizar los datos
-       // if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
 
         $id = $request->id;
         $donacion = Donaciones::join('users', 'donaciones.idUsuario', 'users.id')
@@ -139,23 +139,10 @@ class DonacionesController extends Controller
         $donacion->save();
     }*/
 
-    public function mostrarDonacion(Request $request)    {
-        // if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
+    public function mostrarDonacion(Request $request)    { //mostrara la ultima donacion ingresada en el inicio de la pag
+         if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
          
-      
-        /*
-        $donacion = Donaciones::join('users', 'donaciones.idUsuario', 'users.id')
-        ->select('donaciones.id', 'donaciones.idUsuario', 'donaciones.recaudacion', 'donaciones.lugar',
-                'donaciones.motivo', 'donaciones.telefono', 'donaciones.direccion', 
-                'donaciones.email', 'donaciones.fechaInicio', 'donaciones.fechaFin', 'users.name')
-        ->orderBy('donaciones.id', 'desc')->take(1)->get();
-        return[ 'donacion'=>$donacion];
-      
 
-       $donacion= Donaciones::all()->last();
-        return[ $donacion];*/
-        
-       
         $donacion = Donaciones::join('users', 'donaciones.idUsuario', 'users.id')
         ->select('donaciones.id', 'donaciones.idUsuario', 'donaciones.recaudacion', 'donaciones.lugar',
                 'donaciones.motivo', 'donaciones.telefono', 'donaciones.direccion', 
@@ -172,13 +159,4 @@ class DonacionesController extends Controller
      public function destroy($id)  {
         $donacion = Donaciones::findOrFail($id)->delete();
     } 
-
-
-   /* public function obtenerEstado(Request $request)    {
-        if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
-        $donacion=DB::table('donaciones as p')
-        ->select( DB::raw('SUM(p.estado) as total'))->get();
-        return[ 'donacion'=>$donacion];
-    }*/
-
 }

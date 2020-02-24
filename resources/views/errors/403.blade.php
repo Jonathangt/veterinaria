@@ -7,7 +7,6 @@
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="shortcut icon" href="img/unnamed.jpg">
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -471,7 +470,7 @@
                     <p class="text-grey-darker text-2xl md:text-3xl font-light mb-8 leading-normal">
                         Acceso no permitido </p>
 
-                    <a href="{{ url('/') }}">
+                    <a href="{{ url('/home') }}">
                         <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
                            Regrese al inicio
                         </button>

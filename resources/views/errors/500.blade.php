@@ -471,7 +471,7 @@
                     <p class="text-grey-darker text-2xl md:text-3xl font-light mb-8 leading-normal">
                     Vaya, algo salió mal en el servidor. </p>
 
-                    <a href="{{ url('/') }}">
+                    <a href="{{ url('/home') }}">
                         <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
                            Regrese al inicio
                         </button>

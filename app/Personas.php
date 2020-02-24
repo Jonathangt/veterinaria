@@ -17,6 +17,7 @@ class Personas extends Model
         'telefono',
         'celular',
         'email',//solo se registrara cuando lo haga el admin
+        'estado',
 
     ];
     

@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i> Consulta
+                    <i class="icon-chart"></i>  Administración de Consultas
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->
@@ -16,8 +16,8 @@
                             <div class="col-md-11">
                                 <div class="input-group"><!--Criterios de busqueda -->
                                     <select class="form-control col-md-2" v-model="criterio">
-                                        <option value="apellidos">Apellido</option> 
-                                        <option value="cedula">Cédula</option> 
+                                        <option value="apellidos">Apellido del Cliente</option> 
+                                        <option value="cedula">Nombre de Mascota</option> 
                                     </select>
 
                                     <input type="text" v-model="buscar" @keyup.enter="listar(1,buscar,criterio)" class="form-control col-md-4" placeholder="Busqueda">
@@ -36,9 +36,9 @@
                                     <tr>
                                         <th>Acciones</th>                                        
                                         <th>Cliente</th>
-                                        <th>Cédula</th>
                                         <th>Mascota</th>
                                         <th>Fecha y hora de Atentión</th>
+                                        <th>Próxima Consulta</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -59,9 +59,9 @@
 
                                         </td>
                                         <td v-text="registro.nombre + ' ' + registro.apellidos"></td>
-                                        <td v-text="registro.cedula"></td>
                                         <td v-text="registro.nombreMascota"></td>
                                         <td v-text="registro.fechaAtencion + ' ' + registro.horaAtencion"></td>
+                                        <td v-text="registro.fechaSgtConsulta"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -101,8 +101,9 @@
                             <div class="col-md-4">
                                 <div class="form-group"><br>
                                     <label>Seleccione el Cliente(*)</label>
-                                    <select v-model="idPersona"  @click="getMascota()" class="form-control col-md-12" onmousedown="if(this.options.length>10){this.size=5;}" onchange='this.size=0;' onblur="this.size=0;">
-                                        <option v-for="registro in arrayPersona" :key="registro.id" :value="registro.id" v-text="registro.apellidos + ' ' + registro.nombre">
+                                    <select v-model="idCliente"  @click="getMascota()" class="form-control col-md-12" onmousedown="if(this.options.length>10){this.size=5;}" onchange='this.size=0;' onblur="this.size=0;">
+                                        <option v-for="registro in arrayPersona" :key="registro.id" :value="registro.id"
+                                         v-text="registro.apellidos + ' ' + registro.nombre">
                                         </option>
                                     </select>
                                 </div>
@@ -112,8 +113,8 @@
                                 <div class="form-group"><br>
                                     <label>Seleccione la Macota(*)</label>
                                     <select v-model="idMascota" class="form-control col-md-12">
-                                        <!-- <option value="0">Seleccione</option> -->
-                                        <option v-for="registro in arrayMascotas" :key="registro.id" :value="registro.id" v-text="registro.nombreMascota">
+                                        <option v-for="registro in arrayMascotas" :key="registro.id" :value="registro.id"
+                                             v-text="registro.nombreMascota">
                                         </option>
                                     </select>
                                 </div>
@@ -148,6 +149,13 @@
                                         <option value="Nacido en casa">Nacido en casa</option>
                                         <option value="Adoptado">Adoptado</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group"><br>
+                                    <label>Peso(*)</label>
+                                        <input type="text" class="form-control" v-model="peso" placeholder="Peso" maxlength="15">                                   
                                 </div>
                             </div>
 
@@ -187,6 +195,19 @@
                                     <textarea rows="4" cols="50" maxlength="200" class="form-control" v-model="observacionReceta" placeholder="Observación de la receta"> </textarea>
                                 </div>
                             </div>
+
+                             <div class="col-md-4">
+                                <div class="form-group">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Próxima Consulta(*)</label>
+                                    <datepicker id="select" placeholder= "Fecha" v-model="fechaSgtConsulta" :language="es"></datepicker>
+                                </div>
+                            </div>
+                            
                         </div>
                         <!--fin row borde-->
                         <div><span>Los campos con (*) son obligatorios</span></div><br>
@@ -229,8 +250,9 @@
                             <div class="col-md-4">
                                 <div class="form-group"><br>
                                     <label>Seleccione el Cliente(*)</label>
-                                    <select v-model="idPersona"  @click="getMascota()" class="form-control col-md-12" onmousedown="if(this.options.length>10){this.size=5;}" onchange='this.size=0;' onblur="this.size=0;">
-                                        <option v-for="registro in arrayPersona" :key="registro.id" :value="registro.id" v-text="registro.apellidos + ' ' + registro.nombre">
+                                    <select v-model="idCliente"  @click="getMascota()" class="form-control col-md-12" onmousedown="if(this.options.length>10){this.size=5;}" onchange='this.size=0;' onblur="this.size=0;">
+                                        <option v-for="registro in arrayPersona" :key="registro.id" :value="registro.id"
+                                            v-text="registro.apellidos + ' ' + registro.nombre">
                                         </option>
                                     </select>
                                 </div>
@@ -241,7 +263,8 @@
                                     <label>Seleccione la Macota(*)</label>
                                     <select v-model="idMascota" class="form-control col-md-12">
                                         <!-- <option value="0">Seleccione</option> -->
-                                        <option v-for="registro in arrayMascotas" :key="registro.id" :value="registro.id" v-text="registro.nombreMascota">
+                                        <option v-for="registro in arrayMascotas" :key="registro.id" :value="registro.id"
+                                             v-text="registro.nombreMascota">
                                         </option>
                                     </select>
                                 </div>
@@ -257,6 +280,8 @@
                                 </div>
                             </div>
 
+
+
                             <div class="col-md-4">
                                 <div class="form-group"><br>
                                     <label>Tipo de Procedimiento(*)</label>
@@ -267,6 +292,8 @@
                                 </div>
                             </div>
 
+                          
+
                             <div class="col-md-4">
                                 <div class="form-group"><br>
                                     <label>Modo de Optención(*)</label>
@@ -276,6 +303,13 @@
                                         <option value="Nacido en casa">Nacido en casa</option>
                                         <option value="Adoptado">Adoptado</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group"><br>
+                                    <label>Peso(*)</label>
+                                        <input type="text" class="form-control" v-model="peso" placeholder="Peso" maxlength="15">                                   
                                 </div>
                             </div>
 
@@ -315,6 +349,19 @@
                                     <textarea rows="4" cols="50" maxlength="200" class="form-control" v-model="observacionReceta" placeholder="Observación de la receta"> </textarea>
                                 </div>
                             </div>
+
+                             <div class="col-md-4">
+                                <div class="form-group">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Próxima Consulta(*)</label>
+                                    <datepicker id="select" placeholder= "Fecha" v-model="fechaSgtConsulta" :language="es"></datepicker>
+                                </div>
+                            </div>
+
                         </div>
                         <!--fin row borde-->
                         <div><span>Los campos con (*) son obligatorios</span></div><br>
@@ -331,7 +378,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <button type="button" @click="cerrarTemplateRegistro()" class="btn btn-primary">Cerrar</button>
-                                <button type="submit" class="btn btn-primary" @click="registrar()">Registrar Consulta</button>
+                                <button type="submit" class="btn btn-primary" @click="actualizar()">Actualizar Consulta</button>
                             </div>
                         </div>
                     </div>
@@ -366,11 +413,11 @@
                                     </thead>
                                     <tbody v-for="mostrarDatos in arrayMostrarDatos" :key="mostrarDatos.id">
                                     <tr>
-                                        <td style="width:230px"><b>Atendido Por</b></td>
+                                        <td style="width:230px"><b>Doctor (a)</b></td>
                                         <td v-text="mostrarDatos.name"></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Fecha y Hora</b></td>
+                                        <td><b>Fecha y Hora de Consulta</b></td>
                                         <td v-text="mostrarDatos.fechaAtencion + ' ' + mostrarDatos.horaAtencion"></td>
                                     </tr>
                                     <tr>
@@ -393,6 +440,11 @@
                                     <tr>
                                         <td><b>Modo de Obtención</b></td>
                                         <td v-text="mostrarDatos.modoOptencion"></td>
+                                    </tr>
+
+                                     <tr>
+                                        <td><b>Peso</b></td>
+                                        <td v-text="mostrarDatos.peso"></td>
                                     </tr>
 
                                     <tr>
@@ -423,7 +475,11 @@
                                     <tr>
                                         <td><b>Observación Receta</b></td>
                                         <td v-text="mostrarDatos.observacionReceta"></td>
-                                    </tr>                                   
+                                    </tr>  
+                                    <tr>
+                                        <td><b>Siguiente Consulta</b></td>
+                                        <td v-text="mostrarDatos.fechaSgtConsulta"></td>
+                                    </tr>                                 
                                     </tbody>
                                 </table>
                             </div>
@@ -447,15 +503,19 @@
 
 
 <script>
+    import Datepicker from 'vuejs-datepicker';
+    import { es } from 'vuejs-datepicker/dist/locale';
+
     export default {
         data() {
             return {
-                idPersona: '',
+                es: es,
+                idCliente: '',
                 idMascota: '',
                 esterilizado: '',
                 tipoProcedimiento: '',
-                recaudacion: '',
-                lugar: '',
+                peso: '',
+                fechaSgtConsulta: '',
                 modoOptencion: '',
                 observacionDiagnostico: '',
                 medicamento: '',
@@ -511,11 +571,15 @@
             },
            
         }, 
+        components: {
+            Datepicker,
+           //vSelect
+        },
     
         methods: {
             getPersona() {
                 let me = this;
-                var url = '/diagnostico/select-cliente';
+                var url = '/consulta/select-cliente';
                 axios.get(url).then(function(response) {
                     var respuesta = response.data;
                     me.arrayPersona = respuesta.personas;
@@ -530,10 +594,10 @@
                         console.log(error);  
                     });
             },
-            getMascota(idPersona) { 
+            getMascota(idCliente) { 
                 let me = this;                
                 
-                var url= '/diagnostico/select-mascotas?id=' + this.idPersona;
+                var url= '/consulta/select-mascotas?id=' + this.idCliente;
                 
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
@@ -550,10 +614,10 @@
             },
             listar(page, buscar, criterio) {
                 let me = this;
-                var url = '/diagnostico?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/consulta?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function(response) {
                         var respuesta = response.data;
-                        me.arrayRegistros = respuesta.diagnostico.data;
+                        me.arrayRegistros = respuesta.consulta.data;
                         me.pagination = respuesta.pagination;
                     })
                     .catch((error) =>{
@@ -571,16 +635,18 @@
                 }
                 let me = this;
 
-                axios.post('/diagnostico/registrar',{     
-                    'idPersona' : this.idPersona,
-                    'idMascota': this.idMascota,
-                    'esterilizado' : this.esterilizado,
-                    'tipoProcedimiento' : this.tipoProcedimiento,
-                    'modoOptencion' : this.modoOptencion,
-                    'observacionDiagnostico' : this.observacionDiagnostico,
-                    'medicamento' : this.medicamento,
-                    'horario' : this.horario,
-                    'observacionReceta' : this.observacionReceta,
+                axios.post('/consulta/registrar',{     
+                    idCliente : this.idCliente,
+                    idMascota: this.idMascota,
+                    esterilizado : this.esterilizado,
+                    tipoProcedimiento : this.tipoProcedimiento,
+                    modoOptencion : this.modoOptencion,
+                    observacionDiagnostico : this.observacionDiagnostico,
+                    peso : this.peso,
+                    medicamento : this.medicamento,
+                    horario : this.horario,
+                    observacionReceta : this.observacionReceta,
+                    fechaSgtConsulta : this.fechaSgtConsulta,
                 }).then((response) => {
                     this.listar(1,'','apellidos');
                     this.cerrarTemplateRegistro();
@@ -604,24 +670,26 @@
                 this.templateEditar();
                 this.template=3; //abro el template para editar
                 let me = this;
-                var url = '/diagnostico/obtener?id=' + id;
+                var url = '/consulta/obtener?id=' + id;
                 var arrayEditarDatos=[];
                 axios.get(url).then(function(response) {
                     var respuesta= response.data;
-                    arrayEditarDatos = respuesta.diagnostico;
+                    arrayEditarDatos = respuesta.consulta;
                     me.id_diagnostico = arrayEditarDatos[0]['id'];
-                    me.idPersona = arrayEditarDatos[0]['idPersona'];
+                    me.idCliente = arrayEditarDatos[0]['idCliente'];
                     me.idMascota = arrayEditarDatos[0]['idMascota'];
                     me.esterilizado = arrayEditarDatos[0]['esterilizado'];
                     me.tipoProcedimiento = arrayEditarDatos[0]['tipoProcedimiento'];
                     me.modoOptencion = arrayEditarDatos[0]['modoOptencion'];
+                    me.peso = arrayEditarDatos[0]['peso'];
                     me.observacionDiagnostico = arrayEditarDatos[0]['observacionDiagnostico'];
                     me.medicamento = arrayEditarDatos[0]['medicamento'];
                     me.horario = arrayEditarDatos[0]['horario'];
                     me.observacionReceta = arrayEditarDatos[0]['observacionReceta'];
+                    me.fechaSgtConsulta = arrayEditarDatos[0]['fechaSgtConsulta'];
 
                 }).then( (response) =>{
-                    this.getMascota(this.idPersona);
+                    this.getMascota(this.idCliente);
                 }).catch((error) => {
                     swal({
                         title: 'Error al obtener los datos!!',
@@ -640,17 +708,19 @@
                 
                 let me = this;
 
-                axios.put('/diagnostico/actualizar',{
-                    'idPersona' : this.idPersona,
-                    'idMascota': this.idMascota,
-                    'esterilizado' : this.esterilizado,
-                    'tipoProcedimiento' : this.tipoProcedimiento,
-                    'modoOptencion' : this.modoOptencion,
-                    'observacionDiagnostico' : this.observacionDiagnostico,
-                    'medicamento' : this.medicamento,
-                    'horario' : this.horario,
-                    'observacionReceta' : this.observacionReceta,                    
-                    'id': this.id_diagnostico
+                axios.put('/consultas/actualizar',{
+                    idCliente : this.idCliente,
+                    idMascota: this.idMascota,
+                    esterilizado : this.esterilizado,
+                    tipoProcedimiento : this.tipoProcedimiento,
+                    modoOptencion : this.modoOptencion,
+                    observacionDiagnostico : this.observacionDiagnostico,
+                    peso : this.peso,
+                    medicamento : this.medicamento,
+                    horario : this.horario,
+                    observacionReceta : this.observacionReceta,
+                    fechaSgtConsulta : this.fechaSgtConsulta,                   
+                    id: this.id_diagnostico
                 }).then( (response) =>{
                     this.cerrarTemplateRegistro();
                     this.listar(1,'','apellidos');
@@ -662,7 +732,7 @@
                     })
                 }).catch( (error) =>{
                     swal({
-                        title: 'Error al actualizadar!!',
+                        title: 'Error al actualizar!!',
                         type:  'error',
                         text:  'La información no a sido actualizada',
                     }) 
@@ -673,15 +743,17 @@
             validarDatos() {//Validaciones para el registro de los datos
                 this.errorValidacion = 0;
                 this.errorMostrarMsj = [];
-                if (!this.idPersona) this.errorMostrarMsj.push("Debe de seleccionar un cliente");
-                if (!this.idMascota)  this.errorMostrarMsj.push("Debe de seleccionar una mascota");               
+                if (!this.idCliente) this.errorMostrarMsj.push("Debe de seleccionar el cliente de la consulta");
+                if (!this.idMascota)  this.errorMostrarMsj.push("Debe de seleccionar la mascota del cliente");               
                 if (!this.esterilizado) this.errorMostrarMsj.push("Debe de seleccionar si la mascota esta esterilizado (a)");
                 if (!this.tipoProcedimiento) this.errorMostrarMsj.push("Debe de seleccionar una un tipo de procedimiento");
+                if (!this.peso) this.errorMostrarMsj.push("Debe agregar el peso de la mascota");
                 if (!this.modoOptencion) this.errorMostrarMsj.push("Debe de seleccionar un modo de obtencion de la mascota");
                 if (!this.observacionDiagnostico) this.errorMostrarMsj.push("Debe agregar la observación de la consulta");
                 if (!this.medicamento) this.errorMostrarMsj.push("Debe agregar el medicamento de la receta");
                 if (!this.horario) this.errorMostrarMsj.push("Debe agregar el horario de la receta");
                 if (!this.observacionReceta) this.errorMostrarMsj.push("Debe agregar la observacion de la receta");
+                if (!this.fechaSgtConsulta) this.errorMostrarMsj.push("Debe agregar la fecha de la próxima consulta");
 
                 if (this.errorMostrarMsj.length) this.errorValidacion = 1;
                 return this.errorValidacion;
@@ -697,15 +769,17 @@
                 let me = this;
            
                 this.template = 1;
-                me.idPersona = '';
+                me.idCliente = '';
                 me.idMascota = '';    
                 me.esterilizado = '';     
                 me.tipoProcedimiento = '';
                 me.modoOptencion = '';
+                me.peso = '';
                 me.observacionDiagnostico = '';
                 me.medicamento = '';
                 me.horario = '';
                 me.observacionReceta = '';
+                me.fechaSgtConsulta = '';
                 me.errorMostrarMsj = '';
 
             },
@@ -713,29 +787,33 @@
                 this.getPersona();
                 let me = this;
                 this.template = 0;
-                me.idPersona = '';
+                me.idCliente = '';
                 me.idMascota = '';    
                 me.esterilizado = '';     
                 me.tipoProcedimiento = '';
                 me.modoOptencion = '';
+                me.peso = '';
                 me.observacionDiagnostico = '';
                 me.medicamento = '';
                 me.horario = '';
                 me.observacionReceta = '';
+                me.fechaSgtConsulta = '';
                 me.errorMostrarMsj = '';
             },
             templateEditar() {
                 let me = this;
                 this.template = 3;
-                me.idPersona = '';
+                me.idCliente = '';
                 me.idMascota = '';    
                 me.esterilizado = '';     
                 me.tipoProcedimiento = '';
                 me.modoOptencion = '';
+                me.peso = '';
                 me.observacionDiagnostico = '';
                 me.medicamento = '';
                 me.horario = '';
                 me.observacionReceta = '';
+                me.fechaSgtConsulta = '';
                 me.errorMostrarMsj = '';
                 this.getPersona();
                 
@@ -744,10 +822,10 @@
                 let me = this;//metodo para mostrar los datos
                 this.template = 2;
 
-                var url = '/diagnostico/obtener?id=' + id;
+                var url = '/consulta/obtener?id=' + id;
                 axios.get(url).then(function(response) {
                     var respuesta = response.data;
-                    me.arrayMostrarDatos = respuesta.diagnostico;
+                    me.arrayMostrarDatos = respuesta.consulta;
                     })
                     .catch((error) => {
                         swal({
@@ -774,7 +852,7 @@
                     }).then((result) => {
                     if (result.value) {
                         let me = this;
-                        var url = '/diagnostico/delete/' +id;
+                        var url = '/consulta/delete/' +id;
                     axios.delete(url).then(function (response) {
 
                         me.listar(1,'','apellidos');
@@ -800,7 +878,7 @@
                     }) 
             },
             obtenerReceta(id){
-                window.open('http://localhost:8000/diagnostico/pdf/'+ id + ',' + '_blank');//_blank para que se muestre en una nueva pestaña
+                window.open('http://localhost:8000/consulta/pdf/'+ id + ',' + '_blank');//_blank para que se muestre en una nueva pestaña
             },
         },
         mounted() {

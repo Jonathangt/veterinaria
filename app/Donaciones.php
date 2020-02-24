@@ -18,8 +18,7 @@ class Donaciones extends Model
         'telefono',
         'celular',
         'fechaInicio',
-        'fechaFin'
-
+        'fechaFin',
     ];
     
     public $timestamps = false;

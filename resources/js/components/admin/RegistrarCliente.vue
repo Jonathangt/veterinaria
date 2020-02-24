@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i> Clientes
+                    <i class="icon-chart"></i> Administración de Clientes
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->
@@ -47,13 +47,13 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="registro in arrayRegistros" :key="registro.id">
-                                        <td style="width:110px">
+                                        <td style="width:90px">
                                             <button type="button" @click="editar(registro.id)" class="btn btn-warning btn-sm">
                                                 <i class="icon-pencil"></i>
                                             </button>&nbsp;
-                                              <button type="button" class="btn btn-danger btn-sm" @click="eliminar(registro.id)">
+                                           <!--    <button type="button" class="btn btn-danger btn-sm" @click="eliminar(registro.id)">
                                                 <i class="icon-trash"></i>
-                                            </button>  
+                                            </button>   -->
 
                                         </td>
                                         <td v-text="registro.nombre + ' ' + registro.apellidos"></td>
@@ -366,7 +366,7 @@
                     'cedula': this.cedula,
                     'direccion' : this.direccion,
                     'telefono' : this.telefono,
-                    'celular' : this.cedula,
+                    'celular' : this.celular,
                     'email' : this.email,
 
                 }).then((response)=>  {
@@ -429,7 +429,7 @@
                     'cedula': this.cedula,
                     'direccion' : this.direccion,
                     'telefono' : this.telefono,
-                    'celular' : this.cedula,
+                    'celular' : this.celular,
                     'email' : this.email,
                     'id': this.idPersona
                 }).then((response)=>  {
@@ -443,7 +443,7 @@
                     })
                 }).catch((error) =>  {
                     swal({
-                        title: 'Error al actualizadar!!',
+                        title: 'Error al actualizar!!',
                         type:  'error',
                         text:  'La información no a sido actualizada',
                     }) 
@@ -453,12 +453,13 @@
             validarDatos() {//Validaciones para el registro de los datos 
                 this.errorValidacion = 0;
                 this.errorMostrarMsj = [];
-                if (!this.nombre) this.errorMostrarMsj.push("El campo nombre no puede estar vacio");
-                if (!this.apellidos) this.errorMostrarMsj.push("El campo apellido no puede estar vacio");
-                if (!this.direccion) this.errorMostrarMsj.push("El campo direccion no puede estar vacio");
-                if (!this.cedula) this.errorMostrarMsj.push("El campo cedula no puede estar vacio");
-                if (!this.telefono) this.errorMostrarMsj.push("El campo telefono no puede estar vacio");
-                if (!this.celular) this.errorMostrarMsj.push("El campo celular no puede estar vacio");
+                if (!this.nombre) this.errorMostrarMsj.push("El nombre del cliente es requerido");
+                if (!this.apellidos) this.errorMostrarMsj.push("El apellido del cliente es requerido");
+                if (!this.direccion) this.errorMostrarMsj.push("La direccion del cliente es requerido");
+                if (!this.cedula) this.errorMostrarMsj.push("El cedula del cliente es requerido");
+                if (!this.telefono) this.errorMostrarMsj.push("El telefono del cliente es requerido");
+                if (!this.celular) this.errorMostrarMsj.push("El celular del cliente es requerido");
+                if (!this.email) this.errorMostrarMsj.push("El email del cliente es requerido");
         
                 if (this.errorMostrarMsj.length) this.errorValidacion = 1;
                 return this.errorValidacion;
@@ -480,6 +481,7 @@
                 me.direccion = '';
                 me.telefono = '';
                 me.celular = '';  
+                me.email = '';  
                 me.errorMostrarMsj = '';      
             },
             templateRegistrar() {
@@ -491,6 +493,7 @@
                 me.direccion = '';
                 me.telefono = '';
                 me.celular = ''; 
+                me.email = '';  
                 me.errorMostrarMsj = '';
             },
             templateEditar() {
@@ -502,6 +505,7 @@
                 me.direccion = '';
                 me.telefono = '';
                 me.celular = ''; 
+                me.email = '';  
                 me.errorMostrarMsj = '';
             },
             eliminar(id){

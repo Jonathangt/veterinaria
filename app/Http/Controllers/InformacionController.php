@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Informacion;
 use Illuminate\Http\Request;
+use File;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -57,10 +58,7 @@ class InformacionController extends Controller
         try{
 
             DB::beginTransaction();
-            //$path = Storage::disk('public')->put('informacion', $request->file('imagenMiniatura'));
-           // $post ->fill(['imagenMiniatura' => asset($path)]);
-
-
+        
             $exploded = explode(',', $request->imagenMiniatura);
             $decode = base64_decode($exploded[1]);
             $imagenName = Str::random(20) . '.jpg';
@@ -83,30 +81,54 @@ class InformacionController extends Controller
     }
 
     public function update(Request $request)    {
-        if (!$request->ajax()) return redirect('/');
-        
-        try{
-                
+      
+        try{            
             $informacion = Informacion::findOrFail($request->id);
 
-            
-
-            $exploded = explode(',', $request->imagenMiniatura);
-            $decode = base64_decode($exploded[1]);
-            $imagenName = Str::random(20) . '.jpg';
-            //$path = public_path().'/'.'informacion/'.$imagenName;
-            $path = public_path().'/informacion/'.$imagenName;
-            file_put_contents($path, $decode);
             
 
             $informacion->idUsuario = \Auth::user()->id; //obtengo el id del user 
             $informacion->tema = $request->tema;
             $informacion->capacitador = $request->capacitador;
             $informacion->conoce = $request->conoce;
-            $informacion->imagen = $imagenName;
+
+            if(strncmp($request->imagenMiniatura, 'http://localhost:8000/informacion/', 33) === 0){
+                $exploded = substr($request->imagenMiniatura, -24);
+                $informacion->imagen = $exploded;
+
+            }else{
+
+                $currentPhoto = $informacion->imagen;
+                $photo = public_path('informacion/').$currentPhoto;
+            
+                if(file_exists($photo)) {
+                    @unlink($photo);
+                }//eliminamos la foto anterior y guardamos la actual
+
+                    
+                $exploded = explode(',', $request->imagenMiniatura);
+                $decode = base64_decode($exploded[1]);
+                $imagenName = Str::random(20) . '.jpg';
+                //$path = public_path().'/'.'informacion/'.$imagenName;
+                $path = public_path().'/informacion/'.$imagenName;
+                file_put_contents($path, $decode);
+                $informacion->imagen = $imagenName;
+            }
+
+
+
+
+           /* $exploded = explode(',', $request->imagenMiniatura);
+            $decode = base64_decode($exploded[1]);
+            $imagenName = Str::random(20) . '.jpg';
+            //$path = public_path().'/'.'informacion/'.$imagenName;
+            $path = public_path().'/informacion/'.$imagenName;
+            file_put_contents($path, $decode);
+            $informacion->imagen = $imagenName;*/
+            
             $informacion->save();
 
-            DB::commit();
+            DB::commit();            
 
         } catch (Exception $e){
             DB::rollBack();
@@ -144,9 +166,46 @@ class InformacionController extends Controller
         ];
     }
 
+    
+    public function pruebsdsadx(Request $request)  {
+        //  $informacion = Informacion::findOrFail($id)->delete();
+
+        $frase = "http://localhost:8000/informacion/LLHCg5zAyjK9tn6WCOIX.jpg";
+
+        if(strncmp($frase, 'http://localhost:8000/informacion/', 33) === 0){
+            
+            $exploded = substr("http://localhost:8000/informacion/LLHCg5zAyjK9tn6WCOIX.jpg", -24);
+
+            return ['exploded' => $exploded];
+
+        }else{
+            $exploded = explode('/informacion/', "http://localhost:8000/informacion/LLHCg5zAyjK9tn6WCOIX.jpg");
+            return ['exploded' => $exploded];
+        }
+       
+  
+    } 
+  
+
+
+
 
     public function destroy($id)  {
-        $informacion = Informacion::findOrFail($id)->delete();
+    
+        $informacion = Informacion::findOrFail($id);
+
+
+        $informacion->delete();
+
+        $currentPhoto = $informacion->imagen;
+
+        $photo = public_path('informacion/').$currentPhoto;
+
+        if(file_exists($photo)) {
+
+            @unlink($photo);
+                
+        }
     } 
 
 }

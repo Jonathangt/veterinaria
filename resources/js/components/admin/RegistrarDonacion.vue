@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i> Donaciones
+                    <i class="icon-chart"></i> Registro de Donaciones para mostrar en el inicio del sitio web
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->

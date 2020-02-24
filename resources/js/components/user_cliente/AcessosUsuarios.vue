@@ -5,22 +5,13 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="icon-people"></i> Administración de Usuarios del Sistema Dobaltoff  <!---fa fa-align-justify ** icono-->                  
+                        <i class="icon-people"></i> Información de su usuario    <!---fa fa-align-justify ** icono-->                  
                     </div>
+
                     <div class="card-body">
                           <div class="form-group row">
                     <div class="col-md-9">
-                            <div class="input-group"><!--Criterios de busqueda-->
-                                <select class="form-control col-md-2" v-model="criterio" style="font-size: 12px">
-                                    <option value="name">Usuario</option>
-                                    <option value="email">Email</option>
-                                </select>
-                                <input type="text" v-model="buscar" @keyup.enter="listar(1,buscar,criterio)" class="form-control col-md-4" placeholder="Nombre a buscar">
-                                <button type="submit" @click="listar(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
-                                <div class="btn-group col-md-3">
-                                    <button type="button" @click="abrirModal('usuario','registrar')" class="btn btn-primary"><i class="icon-plus"></i>&nbsp;Agregar Usuario</button>
-                                </div>
-                           </div>                         
+                                              
                     </div>
                 </div>
                         <table class="table table-bordered table-striped table-sm">
@@ -34,31 +25,12 @@
                             </thead>
                             <tbody>
                                 <tr v-for="usuario in arrayUsuario" :key="usuario.id">
-                                    <td style="width:125px"> <!------entra rol 0----------->
-                                     <!--    <span v-if="!usuario.rol"> 
+                                    <td style="width:125px"> 
+                                        <span>
                                               <button type="button" @click="abrirModal('usuario','actualizar',usuario)" class="btn btn-warning btn-sm">
                                                 <i class="icon-pencil"></i>
                                                 </button>&nbsp;
                                         </span>
-                                         <span v-else>
-                                              <button type="button" class="btn btn-danger btn-sm" @click="eliminar(usuario.id)">
-                                                <i class="icon-trash"></i>
-                                            </button>
-                                        </span> -->
-
-                                      <span v-if="usuario.rol"> 
-                                              
-                                        </span>
-                                         <span v-else>
-                                             <button type="button" @click="abrirModal('usuario','actualizar',usuario)" class="btn btn-warning btn-sm">
-                                                <i class="icon-pencil"></i>
-                                                </button>&nbsp;
-                                        </span> 
-
-                                        
-
-
-
                                        <span v-if="usuario.estado">
                                                 <button type="button" class="btn btn-secondary btn-sm" @click="desactivar(usuario.id)">
                                                 <i class="icon-info"></i>
@@ -69,12 +41,6 @@
                                             <i class="icon-check"></i>
                                             </button>
                                         </span>
-
-                                        <!--<button type="button" class="btn btn-danger btn-sm" @click="eliminar(usuario.id)">
-                                                <i class="icon-trash"></i>
-                                            </button>  -->
-
-
                                     </td>
                                     <td v-text="usuario.name"></td>
                                     <td v-text="usuario.email"></td>
@@ -89,19 +55,7 @@
                                 </tr>                                
                             </tbody>
                         </table>
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item" v-if="pagination.current_page > 1">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)">Ant</a>
-                                </li>
-                                <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(page,buscar,criterio)" v-text="page"></a>
-                                </li>
-                                <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)">Sig</a>
-                                </li>
-                            </ul>
-                        </nav>
+                       
                     </div>
                 </div>
                 <!-- Fin ejemplo de tabla Listado -->
@@ -178,58 +132,17 @@
                 tituloModal : '',
                 tipoAccion : 0,
                 errorValidacion : 0,
-                errorMostrarMsj : [],
-                pagination : {
-                    'total' : 0,
-                    'current_page' : 0,
-                    'per_page' : 0,
-                    'last_page' : 0,
-                    'from' : 0,
-                    'to' : 0,
-                },
-                offset : 3,
-                criterio : 'name',
-                buscar : ''
-            }
-
-        },
-        computed:{
-            isActived: function(){
-                return this.pagination.current_page;
-            },
-            //Calcula los elementos de la paginación
-            pagesNumber: function() {
-                if(!this.pagination.to) {
-                    return [];
-                }
-                
-                var from = this.pagination.current_page - this.offset; 
-                if(from < 1) {
-                    from = 1;
-                }
-
-                var to = from + (this.offset * 2); 
-                if(to >= this.pagination.last_page){
-                    to = this.pagination.last_page;
-                }  
-
-                var pagesArray = [];
-                while(from <= to) {
-                    pagesArray.push(from);
-                    from++;
-                }
-                return pagesArray;             
-
+                errorMostrarMsj : [],              
             }
         },
+        
         methods : {
-            listar (page,buscar,criterio){
+            listar (){
                 let me=this;
-                var url= '/users?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio;
+                var url= '/indexUsuario';
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
                     me.arrayUsuario = respuesta.usuario.data;
-                    me.pagination= respuesta.pagination;
                 })
                 .catch((error) =>{
                    swal({
@@ -240,55 +153,12 @@
                     console.log(error);
                 });
             },
-            cambiarPagina(page,buscar,criterio){
-                let me = this;
-                //Actualiza la página actual
-                me.pagination.current_page = page;
-                //Envia la petición para visualizar la data de esa página
-                me.listar(page,buscar,criterio);
-            },
-            registrar(){
-                if (this.validar()){
-                    return;
-                }
-
-                axios.post('/users/registrar',{
-                    name: this.name,
-                    email: this.email,
-                    password: this.password,
-
-                }).then(response => {
-                    this.cerrarModal();
-                    this.listar(1,'','name'); 
-                    swal({
-                        title: 'Usuario Registrado!!',
-                        type:  'success',
-                        text:  'La información a sido guardada',
-                    })
-
-               })
-               .catch(error => {
-                    const { status, errors } = error.response
-			        this.errorValidacion = 0
-                    const response = error.response
-                     if (status === 500) {
-                        console.log(response.data)
-                    }else if (status === 422) {
-                        this.errorValidacion = 1
-                        //this.errorMostrarMsj = errors.email.slice(0)
-                        this.errorMostrarMsj.push(response.data.errors.email);
-                        console.clear()
-                    } else {
-                        console.log(error)
-                    }
-                });
-            },
             actualizar(){
                if (this.validar()){
                     return;
                 }
 
-                axios.put('/users/actualizarAdmin',{
+                axios.put('/users/actualizarUsuario',{
                     name: this.name,
                     email : this.email,
                     password : this.password,
@@ -323,12 +193,10 @@
                 this.errorValidacion=0;
                 this.errorMostrarMsj =[];
 
-                if (!this.name) this.errorMostrarMsj.push("El nombre de usuario es requerido");
-                if (!this.email) this.errorMostrarMsj.push("El email es requerido");
-                if (!this.password) this.errorMostrarMsj.push("El password es requerido");
+               if (!this.name) this.errorMostrarMsj.push("Su nombre de usuario es requerido");
+                if (!this.email) this.errorMostrarMsj.push("Su email es requerido");
+                if (!this.password) this.errorMostrarMsj.push("Su password es requerido");
                 if (this.errorMostrarMsj.length) this.errorValidacion = 1;
-
-
                 return this.errorValidacion;
             },
             cerrarModal(){
@@ -344,15 +212,6 @@
                 switch(modelo){
                     case "usuario":{
                         switch(accion){
-                            case 'registrar':{
-                                this.modal = 1;
-                                this.tituloModal = 'Registrar Usuario';
-                                this.name= '';
-                                this.email='';
-                                this.password='';
-                                this.tipoAccion = 1;
-                                break;
-                            }
                             case 'actualizar':{
                                 this.modal=1;
                                 this.tituloModal='Actualizar Usuario';
@@ -369,8 +228,8 @@
             },
             desactivar(id){
                 swal({
-                    title: 'Esta seguro de desactivar este usuario?',
-                    text:'El usuario no podrá volver a iniciar sesión',
+                    title: 'Esta seguro de desactivar su usuario?',
+                    text:'Al cerrar sessión no podra volver a ingresar a su cuenta',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -391,14 +250,14 @@
                             me.listar(1,'','name');
                             swal(
                             'Desactivado!',
-                            'El usuario se ha desactivado con éxito.',
+                            'Su usuario se ha desactivado con éxito.',
                             'success'
                             )
                         }).catch((error) =>{
                              swal({
                                 title: 'No Desactivado!!',
                                 type:  'error',
-                                text:  'Ha ocurrido un error al desactivar el usuario',
+                                text:  'Ha ocurrido un error al desactivar su usuario',
                             })
                             console.log(error);
                         });
@@ -413,7 +272,8 @@
             },
             activar(id){
                 swal({
-                    title: 'Esta seguro de activar el usuario?',
+                    title: 'Esta seguro de activar su usuario?',
+                    //text:'Al cerrar sessión no podra volver a ingresar a su cuenta',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -434,14 +294,14 @@
                             me.listar(1,'','apellidos');
                             swal(
                             'Activado!',
-                            'El usuario  se ha activado con éxito.',
+                            'Su usuario  se ha activado con éxito.',
                             'success'
                             )
                         }).catch( (error) =>{
                             swal({
                                 title: 'No Activado!!',
                                 type:  'error',
-                                text:  'Ha ocurrido un error al activar el usuario',
+                                text:  'Ha ocurrido un error al activar su usuario',
                             })
                             console.log(error);
                         });
@@ -455,51 +315,10 @@
                     }
                 }) 
             },
-            eliminar(id){
-                swal({
-                    title: 'Esta seguro que desea eliminar el registro?',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar!',
-                    cancelButtonText: 'Cancelar',
-                    confirmButtonClass: 'btn btn-success',
-                    cancelButtonClass: 'btn btn-danger',
-                    buttonsStyling: false,
-                    reverseButtons: true
-                    }).then((result) => {
-                    if (result.value) {
-                        let me = this;
-                        var url = '/users/delete/' +id;
-                    axios.delete(url).then(function (response) {
-
-                        me.listar(1,'','apellidos');
-                        swal(
-                        'Eliminado!',
-                        'El registro ha sido eliminado con éxito.',
-                        'success'
-                        )
-                    }).catch((error) => {
-                        swal(
-                            'Error al eliminar!',
-                            'El registro no ha sido eliminado.',
-                            'error'
-                        )
-                        console.log(error);
-                    });                
-                    } else if (
-                        // Read more about handling dismissals
-                        result.dismiss === swal.DismissReason.cancel
-                    ) {
-                        
-                    }
-                    }) 
-            },
             
         },
         mounted() {
-            this.listar(1,this.buscar,this.criterio);
+            this.listar();
         }
     }
 </script>

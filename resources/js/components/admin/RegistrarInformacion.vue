@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i> Información
+                    <i class="icon-chart"></i> Registro de Información para mostrar en el sitio web
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->
@@ -38,7 +38,6 @@
                                 <thead>
                                     <tr>
                                         <th>Acciones</th>                                        
-                                        <th>Usuario</th>
                                         <th>Tema</th>
                                         <th>Capacitador</th>
                                         <th>Conoce</th>
@@ -59,7 +58,6 @@
 
                                         </td>
                                        <!-- <td v-text="persona.nombres + ' ' + persona.apellidos"></td>-->
-                                        <td v-text="registro.name"></td>
                                         <td v-text="registro.tema"></td>
                                         <td v-text="registro.capacitador"></td>
                                         <td v-text="registro.conoce"></td>
@@ -205,7 +203,7 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <Label>Seleccione la imagen(*)</Label>
-                                        <input type="file" @change="obtenerImagen" ref="file" accept=".jpg, .png, .jpeg" class="form-control file">
+                                        <input type="file" @change="obtenerImagenEdit" ref="file" accept=".jpg, .png, .jpeg" class="form-control file">
                                     </div>
                                 </div> 
 
@@ -273,20 +271,20 @@
                                         </thead>
                                         <tbody>  
                                             <tr>
-                                                <td style="width:230px">Usuario</td>
+                                                <td style="width:230px"><b>Usuario</b></td>
                                                 <td v-text="mostrarDatos.name"></td>
                                             </tr>
                                             <tr>
-                                                <td>Tema</td>
+                                                <td><b>Tema</b></td>
                                                 <td v-text="mostrarDatos.tema"></td>
                                             </tr>
                                             <tr>
-                                                <td>Capacitador</td>
+                                                <td><b>Capacitador</b></td>
                                                 <td v-text="mostrarDatos.capacitador"></td>
                                             </tr>
 
                                             <tr>
-                                                <td>Conoce</td>
+                                                <td><b>Conoce</b></td>
                                                 <td v-text="mostrarDatos.conoce"></td>
                                             </tr>
                                             <tr>
@@ -332,17 +330,14 @@
                     conoce: '',
                     imagenCargar: '',
                     imagenMiniatura: '',
-                    idInformacion: '',
+                    id: '',
                 },
                 name: '',
-                idUsuario: 0,
                
                 arrayRegistros: [],
                 arrayMostrarDatos: [],
                 errorMostrarMsj: [],
                 errorValidacion: 0,
-                errorMostrarMsj2: [],
-                errorValidacion2: 0,
                 pagination: {
                     'total': 0,
                     'current_page': 0,
@@ -355,7 +350,8 @@
                 offset: 3,
                 criterio: 'tema',
                 buscar: '',  
-                file: '',            
+                file: '', 
+       
 				
             }
         },
@@ -393,32 +389,28 @@
     
         methods: {
             obtenerImagen(e){
-               let me = this;
-                me.file = e.target.files[0];//img en la posicion 0
-                this.imagenCargar = me.file['name']; //agregamos la informacion
-                this.cargarImagen(me.file);
+             //  let me = this;
+                this.file = e.target.files[0];//img en la posicion 0
+                this.imagenCargar = this.file['name']; //agregamos la informacion
+                this.cargarImagen(this.file);
                
                 
                 if (this.validarDatos()) {
                     return;
                 }
-                
-               /* let limit = 1024 * 1024 * 2;*/
-
-              /*  if(me.file['type'] == 'image/png' /*|| file['type'] != 'image/jpg' || file['type'] != 'image/jpeg'){
-                    swal({
-                        type: 'error',
-                        title: 'Oops...',
-                        text: 'Formato de archivo no permitido!!',
-                    })
-                    
-                    return;*/
-              /* }else{
-                    this.imagenCargar = me.file['name']; //agregamos la informacion
-                    this.cargarImagen(me.file);
-                }*/               
-        
             },
+            obtenerImagenEdit(e){
+             //  let me = this;
+                this.file = e.target.files[0];//img en la posicion 0
+                this.imagenCargar = this.file['name']; //agregamos la informacion
+                this.cargarImagen(this.file);
+               
+                
+                if (this.validarDatosEdit()) {
+                    return;
+                }
+            },
+
             cargarImagen(file){
                 let reader = new FileReader();
                 reader.onload = (e) =>{
@@ -474,51 +466,41 @@
             editar(id) {
                 this.templateEditar();
                 this.template=3; //abro el template para editar
-                let me = this;//metodo para mostrar los datos de la malla
+                let me = this;
                 var url = '/informacion/obtener?id=' + id;
                 var arrayEditarDatos=[];
                 var ruta = '/informacion/'
                 axios.get(url).then(function(response) {
                     var respuesta= response.data;
                     arrayEditarDatos = respuesta.informacion;
-                    me.informacion.idInformacion = arrayEditarDatos[0]['id'];
+                    me.informacion.id = arrayEditarDatos[0]['id'];
                     me.informacion.tema = arrayEditarDatos[0]['tema'];
-                    me.informacion.capacitador=arrayEditarDatos[0]['capacitador'];
-                    me.informacion.conoce=arrayEditarDatos[0]['conoce'];
-                    me.file=arrayEditarDatos[0]['imagen'];
-                    me.file = 'http://localhost:8000/public/informacion/' + ''+me.file;
-                    
-                    console.log('okk');
-                    console.log(me.file); 
-                   
-
+                    me.informacion.capacitador = arrayEditarDatos[0]['capacitador'];
+                    me.informacion.conoce = arrayEditarDatos[0]['conoce'];
+                    me.informacion.imagenMiniatura = arrayEditarDatos[0]['imagen'];
+                    me.informacion.imagenMiniatura = 'http://localhost:8000/informacion/' + ''+me.informacion.imagenMiniatura;
+                
                 }).catch((error) =>{
                     swal({
                         title: 'Error al obtener los datos!!',
                         type:  'error',
                         text:  'No se pudo obtener el registro',
                     }) 
-                    console.log('dasdsdas');
-                    console.log(me.file); 
                     console.log(error); 
                    
                 });
 
             },
             actualizar(){
-                if (this.validarDatos()){
+                if (this.validarDatosEdit()){
                     return;
                 }
                 
                 let me = this;
 
-                axios.put('/informacion/actualizar', this.informacion )   
-                   /* 'tema': this.tema,
-                    'capacitador': this.capacitador,
-                    'conoce': this.conoce,
-                    'file': this.file,
-                    'id': this.idInformacion*/
-                /*})*/.then((response) => {
+                axios.put('/informacion/actualizar', me.informacion)   
+                
+                .then((response) => {
                     this.cerrarTemplateRegistro();
                     this.listar(1,'','conoce');
                     
@@ -529,7 +511,7 @@
                     })
                 }).catch( (error) =>{
                     swal({
-                        title: 'Error al actualizadar!!',
+                        title: 'Error al actualizar!!',
                         type:  'error',
                         text:  'La información no a sido actualizada',
                     }) 
@@ -537,21 +519,54 @@
                 }); 
 
 
-            },         
+            }, 
             validarDatos() {//Validaciones para el registro de los datos
                 this.errorValidacion = 0;
                 this.errorMostrarMsj = [];
-                if (!this.informacion.tema) this.errorMostrarMsj.push("El campo tema no puede estar vacio");
-                if (!this.informacion.capacitador) this.errorMostrarMsj.push("El campo capacitador no puede estar vacio");
-                if (!this.informacion.conoce) this.errorMostrarMsj.push("El campo conoce no puede estar vacio");
-                
+                if (!this.informacion.tema) this.errorMostrarMsj.push("El tema de la informacion es requerido");
+                if (!this.informacion.capacitador) this.errorMostrarMsj.push("El campo capacitador es requerido");
+                if (!this.informacion.conoce) this.errorMostrarMsj.push("El campo conoce es requerido");
+
+            
+
                 if (!this.file) {
+                        this.errorMostrarMsj.push("Seleccione una imagen para subir");
+                    } else
+                    if(this.file['type'] != 'image/png' && this.file['type'] != 'image/jpg' && this.file['type'] != 'image/jpeg'){
+                        this.errorMostrarMsj.push("Formato de archivo no permitido!");
+                        this.file = '';
+                    }
+                
+                if (this.errorMostrarMsj.length) this.errorValidacion = 1;
+
+                return this.errorValidacion;
+            }, 
+
+            validarDatosEdit() {//Validaciones para el registro de los datos
+                this.errorValidacion = 0;
+                this.errorMostrarMsj = [];
+                if (!this.informacion.tema) this.errorMostrarMsj.push("El tema de la informacion es requerido");
+                if (!this.informacion.capacitador) this.errorMostrarMsj.push("El campo capacitador es requerido");
+                if (!this.informacion.conoce) this.errorMostrarMsj.push("El campo conoce es requerido");
+
+               
+               if(this.file) { 
+                    if(this.file['type'] != 'image/png' && this.file['type'] != 'image/jpg' && this.file['type'] != 'image/jpeg')  {
+                             this.errorMostrarMsj.push("Formato de archivo no permitido!"); 
+                    } 
+                }else{
+                    return;
+                }
+
+
+                
+                /*   if (!this.file) {
                     this.errorMostrarMsj.push("Seleccione una imagen para subir");
                 } else
                 if(this.file['type'] != 'image/png' && this.file['type'] != 'image/jpg' && this.file['type'] != 'image/jpeg'){
                     this.errorMostrarMsj.push("Formato de archivo no permitido!");
                     this.file = '';
-                }
+                }*/
                 
                 if (this.errorMostrarMsj.length) this.errorValidacion = 1;
 

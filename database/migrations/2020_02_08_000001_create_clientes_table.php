@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdoptarTable extends Migration
+class CreateClientesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,10 @@ class CreateAdoptarTable extends Migration
      */
     public function up()
     {
-        Schema::create('adoptar', function (Blueprint $table) {
+        Schema::create('clientes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger ('idPersona')->unsigned();
             $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade');
-            $table->string('nombreMascota', 45)->nullable();
-            $table->string('especie', 45)->nullable();
-            $table->string('raza', 30)->nullable();
-            $table->string('fechaNacimiento', 25)->nullable();
-            $table->string('edad', 4)->nullable();
-            $table->string('observacion', 200)->nullable();
-            $table->string('imagen')->nullable();
-            $table->boolean('estado')->default(1);    
             //$table->timestamps();
         });
     }
@@ -36,6 +28,6 @@ class CreateAdoptarTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adoptar');
+        Schema::dropIfExists('clientes');
     }
 }

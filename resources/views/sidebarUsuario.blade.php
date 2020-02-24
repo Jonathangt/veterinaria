@@ -2,26 +2,26 @@
     <nav class="sidebar-nav">
         <ul class="nav">
             <li @click="menu=0" class="nav-item">
-                <a class="nav-link active" href="#"><i class="icon-menu"></i> Inicio</a>
+                <a class="nav-link active" href="#"><i class="icon-home"></i> Inicio</a>
             </li>
             <li @click="menu=1" class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-doc"></i> Información</a> 
+                <a class="nav-link" href="#"><i class="icon-paper-clip"></i> Información</a> 
             </li>
 
             <li @click="menu=2" class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-info"></i> Adoptar</a> 
+                <a class="nav-link" href="#"><i class="icon-heart"></i> Adoptar</a> 
             </li> 
 
 
 
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-pie-chart"></i> Registrar Adopciópn</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-pencil"></i> Registrar Adopción</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=3" class="nav-item">
                         <a class="nav-link" href="i#"><i class="icon-doc"></i> Datos</a>
                     </li>
                     <li @click="menu=4" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-map"></i> Mascota</a>
+                        <a class="nav-link" href="#"><i class="icon-heart"></i> Mascota</a>
                     </li>
                 </ul>
             </li> 

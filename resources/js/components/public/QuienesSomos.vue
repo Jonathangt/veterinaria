@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-paper-clip"></i> ¿Quiénes somos?
+                    <i class="icon-info"></i> ¿Quiénes somos?
                 </div>
                 <template>
                     <div class="card-body">
@@ -47,7 +47,7 @@
                             <label for=""><i>Conoce más de nosotros</i></label><br>
                             <a target="_blank" href="https://www.facebook.com/vetdobaltoff/"> <button type="button" class="btn btn-facebook">Fa</button></a>
                             <a target="_blank" href="https://www.instagram.com/veterinariadobaltoff/"> <button type="button" class="btn btn-instagram">Fa</button></a>
-                            <a target="_blank" href="https://www.google.es/"> <button type="button" class="btn btn-twitter">Fa</button></a>
+                          <!--   <a target="_blank" href="https://www.google.es/"> <button type="button" class="btn btn-twitter">Fa</button></a> -->
                         </div>
                     </div>
                     <br>

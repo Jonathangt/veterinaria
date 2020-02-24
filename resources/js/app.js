@@ -13,8 +13,15 @@ Vue.component('inicio-imagenes', require('./components/public/InicioCarousel.vue
 Vue.component('inicio-general', require('./components/public/InicioGeneral.vue').default);
 Vue.component('inicio-adopcion', require('./components/public/MascotasAdapcion.vue').default);
 
+/***USUARIO */
+Vue.component('registrar-datos-user', require('./components/user_cliente/RegistrarDatosUser.vue').default);
+Vue.component('registrar-adopcion-user', require('./components/user_cliente/RegistrarAdopcionUser.vue').default);
+
+
 /*CLIENTE  */
-Vue.component('vizualizar-consulta', require('./components/public/VisualizarConsulta.vue').default);
+Vue.component('vizualizar-consulta', require('./components/user_cliente/VisualizarConsulta.vue').default);
+Vue.component('registrar-adopcion-cliente', require('./components/user_cliente/RegistrarAdopcionCliente.vue').default);
+
 
 
 
@@ -33,6 +40,7 @@ Vue.component('registrar-adopcion', require('./components/admin/RegistrarAdopcio
 /**ADMIN - USUARIO -- CLIENTE */
 Vue.component('adopcion', require('./components/RegistrarAdopcion.vue').default);
 Vue.component('visualizar-donaciones', require('./components/public/VisualizarDonacion.vue').default);
+Vue.component('edicion-usuarios', require('./components/user_cliente/AcessosUsuarios.vue').default);
 
 
 const app = new Vue({

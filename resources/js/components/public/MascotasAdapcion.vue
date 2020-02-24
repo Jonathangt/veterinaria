@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-paper-clip"></i> Mascotas en Adopción
+                    <i class="icon-heart"></i> Mascotas en Adopción
                 </div>
 
                 <template>
@@ -22,7 +22,7 @@
 
                         <div  v-for="registro in arrayRegistros" :key="registro.id">
                                 <div><br>
-                                    <h5 v-text="registro.nombreMascota"></h5>
+                                   <i> <h5 v-text="registro.nombreMascota"></h5></i>
                                 </div>
 
                                 <div class="form-group row">
@@ -46,17 +46,18 @@
 
                                                <h6>Contáctame</h6>
 
-                                               <span>
-                                                   <b>Télefono:</b> <span v-text="registro.celular"></span>
-                                               </span><br>
                                                 <span>
-                                                   <b>Email:</b> <span v-text="registro.email"></span>
+                                                   <b>Celular:</b> <span v-text="registro.celular"></span><br>
                                                </span>
+
+                                               <span>
+                                                   <b>Télefono:</b> <span v-text="registro.telefono"></span>
+                                               </span><br>
 
                                                 <div class="form-group row">
                                                     <div class="col-md-12"><br>
-                                                        <button type="button" class="btn btn-primary">Imprimir</button>&nbsp;
-                                                        <button type="button" class="btn btn-primary">Adoptar</button>
+                                                        <button type="button" @click="imprimir(registro.id)" class="btn btn-primary">Imprimir</button>&nbsp;
+                                                        <button type="button"  @click="adoptar(registro)" class="btn btn-primary">Adoptar</button>
                                                     </div>                                                   
                                                 </div>
 
@@ -72,7 +73,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div> <br>
-                                                    <img :src="'/mascotas/'+registro.imagen" alt="Informacion" width="50%" height="50%">
+                                                    <img :src="'/mascotas/'+registro.imagen" alt="Informacion" width="70%" height="70%">
                                             </div>
                                         </div>
                                     </div>
@@ -100,7 +101,7 @@
                         <label for=""><i>Conoce más de nosotros</i></label><br>
                         <a target="_blank" href="https://www.facebook.com/vetdobaltoff/"> <button type="button" class="btn btn-facebook">Fa</button></a>
                         <a target="_blank" href="https://www.instagram.com/veterinariadobaltoff/"> <button type="button" class="btn btn-instagram">Fa</button></a>
-                        <a target="_blank" href="https://www.google.es/"> <button type="button" class="btn btn-twitter">Fa</button></a>
+                        <!-- <a target="_blank" href="https://www.google.es/"> <button type="button" class="btn btn-twitter">Fa</button></a> -->
 
                     </div> <!----class="card-body">-->
 
@@ -118,6 +119,7 @@
         data() {
             return {
                 arrayRegistros: [],
+                arraySwal: [],
                 pagination: {
                     'total': 0,
                     'current_page': 0,
@@ -187,6 +189,20 @@
                 //Envia la petición para visualizar la data de esa página
                 me.listar(page);
             }, 
+            adoptar(registro){
+
+                 swal({
+                        width: '450px',
+                        title: '¿Desea adoptar a' + ' ' + registro.nombreMascota + '?',
+                        type:  'question',
+                        html:  'Comuníquese con'+ ' ' + registro.nombre + ' ' + registro.apellidos+ 
+                                ' al ' + registro.celular + ' para que adoptes a '+ registro.nombreMascota,
+                    })
+
+            },
+            imprimir(id){
+                window.open('http://localhost:8000/adopcion/pdf/'+ id + ',' + '_blank');//_blank para que se muestre en una nueva pestaña
+            },
         },
         mounted() {
             this.listar(1);
@@ -195,6 +211,7 @@
 </script>
 
 <style>
+
 
     #red{
          color: #F0380A;

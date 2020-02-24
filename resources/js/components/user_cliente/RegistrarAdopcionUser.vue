@@ -6,7 +6,8 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i> Registro de mascotas para adopción
+                  
+                     <i class="icon-heart"></i> Registro de mascotas para adopción 
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->
@@ -74,16 +75,16 @@
                                         <td v-text="registro.especie"></td>
                                         <td>
                                         <div v-if="registro.estado">
-                                           <td class="badge badge-success">EN ADOPCION</td>
+                                            <td class="badge badge-success">EN ADOPCION</td>
                                         </div>
                                         <div v-else>
-                                           <td class="badge badge-danger">ADOPTADO (A)</td>
+                                            <td class="badge badge-danger">ADOPTADO (A)</td>
                                         </div>
                                     </td>
                                     </tr>
                                 </tbody>
                             </table>
-                           <span><i>Nota: Cuando su mascota sea adoptada por favor desactivar el registro para que no se muestre en la página de adopción</i></span><br><br>
+                            <span><i>Nota: Cuando su mascota sea adoptada por favor desactivar el registro para que no se muestre en la sección de adopción</i></span><br><br>
                         </div>
                         <nav>
                             <ul class="pagination">
@@ -532,7 +533,7 @@
                 }
         
             },
-             obtenerImagenEdit(e){
+            obtenerImagenEdit(e){
                let me = this;
                 me.file = e.target.files[0];//img en la posicion 0
                 this.imagenCargar = me.file['name']; //agregamos la informacion
@@ -553,7 +554,7 @@
             },
             getPersona() {
                 let me = this;
-                var url = '/adopcion/select-datos';
+                var url = '/adopcion/select-datos-user';
                 axios.get(url).then(function(response) {
                     var respuesta = response.data;
                     me.arrayPersona = respuesta.personas;
@@ -569,7 +570,7 @@
             },
             listar(page, buscar, criterio) {
                 let me = this;
-                var url = '/adopcion?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/adopcionUser?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function(response) {
                         var respuesta = response.data;
                         me.arrayRegistros = respuesta.adopcion.data;
@@ -727,8 +728,7 @@
         
                 if (this.errorMostrarMsj.length) this.errorValidacion = 1;
                 return this.errorValidacion;
-            }, 
-
+            },   
             cambiarPagina(page, buscar, criterio) {
                 //Actualiza la página actual
                 this.pagination.current_page = page;
@@ -745,7 +745,6 @@
                 this.mascota.raza = ''; 
                 this.mascota.observacion = ''; 
                 this.file = ''; 
-                this.mascota.imagenMiniatura = ''; 
                 this.errorMostrarMsj = '';      
             },
             templateRegistrar() {
@@ -758,8 +757,7 @@
                 this.mascota.especie = '';
                 this.mascota.raza = ''; 
                 this.mascota.observacion = ''; 
-                this.file = '';
-                this.mascota.imagenMiniatura = '';  
+                this.file = ''; 
                 this.errorMostrarMsj = '';
             },
             templateEditar() {
@@ -774,7 +772,6 @@
                 this.mascota.raza = ''; 
                 this.mascota.observacion = ''; 
                 this.file = ''; 
-                this.mascota.imagenMiniatura = ''; 
                 this.errorMostrarMsj = '';
             },
             desactivar(id){

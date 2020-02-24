@@ -10,7 +10,7 @@ class Mascotas extends Model
     protected $fillable = [
         'id',
         'idUsuario',
-        'idPersona',
+        'idCliente',
         'nombreMascota',
         'especie',
         'raza',

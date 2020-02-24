@@ -17,8 +17,8 @@ class CreateMascotasTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger ('idUsuario')->unsigned();
             $table->foreign('idUsuario')->references('id')->on('users');
-            $table->bigInteger ('idPersona')->unsigned();
-            $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade');
+            $table->bigInteger ('idCliente')->unsigned();
+            $table->foreign('idCliente')->references('id')->on('clientes')->onDelete('cascade');
             $table->string('nombreMascota', 30)->nullable();
             $table->string('especie', 45)->nullable();
             $table->string('raza', 30)->nullable();

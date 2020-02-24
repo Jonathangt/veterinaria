@@ -71,7 +71,7 @@
 
                     <a  class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         <img src="img/avatars/user.png" class="img-avatar" alt="user">
-                        {{ Auth::user()->name }} <span class="caret"></span>
+                        Hola, {{  Auth::user()->name }} <span class="caret"></span>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">

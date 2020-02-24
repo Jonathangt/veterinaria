@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i> Consulta
+                    <i class="icon-book-open"></i> Listado de sus consultas
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->
@@ -17,7 +17,7 @@
                                 <div class="input-group"><!--Criterios de busqueda -->
                                     <select class="form-control col-md-2" v-model="criterio">
                                         <option value="apellidos">Apellido</option> 
-                                        <option value="cedula">Cédula</option> 
+                                        <option value="nombreMascota">Nombre de Mascota</option> 
                                     </select>
 
                                     <input type="text" v-model="buscar" @keyup.enter="listar(1,buscar,criterio)" class="form-control col-md-4" placeholder="Busqueda">
@@ -31,9 +31,9 @@
                                     <tr>
                                         <th>Acciones</th>                                        
                                         <th>Cliente</th>
-                                        <th>Cédula</th>
                                         <th>Mascota</th>
                                         <th>Fecha y hora de Atentión</th>
+                                        <th>Próxima Consulta</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,9 +47,9 @@
                                             </button> &nbsp;
                                         </td>
                                         <td v-text="registro.nombre + ' ' + registro.apellidos"></td>
-                                        <td v-text="registro.cedula"></td>
                                         <td v-text="registro.nombreMascota"></td>
                                         <td v-text="registro.fechaAtencion + ' ' + registro.horaAtencion"></td>
+                                        <td v-text="registro.fechaSgtConsulta"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -101,7 +101,7 @@
                                     </thead>
                                     <tbody v-for="mostrarDatos in arrayMostrarDatos" :key="mostrarDatos.id">
                                     <tr>
-                                        <td style="width:230px"><b>Atendido Por</b></td>
+                                        <td style="width:230px"><b>Doctor (a)</b></td>
                                         <td v-text="mostrarDatos.name"></td>
                                     </tr>
                                     <tr>
@@ -116,11 +116,7 @@
                                         <td><b>Cédula</b></td>
                                         <td v-text="mostrarDatos.cedula"></td>
                                     </tr>
-                                     <tr>
-                                        <td><b>Email</b></td>
-                                        <td v-text="mostrarDatos.email"></td>
-                                    </tr>
-
+                                    
                                     <tr>
                                         <td><b>Mascota</b></td>
                                         <td v-text="mostrarDatos.nombreMascota"></td>
@@ -141,29 +137,9 @@
                                     </tr>
 
                                     <tr>
-                                        <td><b>Observación Consulta</b></td>
-                                        <td v-text="mostrarDatos.observacionDiagnostico"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><b>Medicamento</b></td>
-                                        <td v-text="mostrarDatos.medicamento"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><b>Horario</b></td>
-                                        <td v-text="mostrarDatos.horario"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><b>Observación Receta</b></td>
-                                        <td v-text="mostrarDatos.observacionReceta"></td>
-                                    </tr>                                   
+                                        <td><b>Siguiente Consulta</b></td>
+                                        <td v-text="mostrarDatos.fechaSgtConsulta"></td>
+                                    </tr>                    
                                     </tbody>
                                 </table>
                             </div>
@@ -239,10 +215,10 @@
         methods: {
             listar(page, buscar, criterio) {
                 let me = this;
-                var url = '/diagnostico/index-consulta?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/consultaCliente?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function(response) {
                         var respuesta = response.data;
-                        me.arrayRegistros = respuesta.diagnostico.data;
+                        me.arrayRegistros = respuesta.consulta.data;
                         me.pagination = respuesta.pagination;
                     })
                     .catch((error) =>{
@@ -270,10 +246,10 @@
                 let me = this;//metodo para mostrar los datos
                 this.template = 2;
 
-                var url = '/diagnostico/mostrar-consulta?id=' + id;
+                var url = '/consulta/obtener?id=' + id;
                 axios.get(url).then(function(response) {
                     var respuesta = response.data;
-                    me.arrayMostrarDatos = respuesta.diagnostico;
+                    me.arrayMostrarDatos = respuesta.consulta;
                     })
                     .catch((error) => {
                         swal({
@@ -285,7 +261,7 @@
                     });
             },
             obtenerReceta(id){
-                window.open('http://localhost:8000/diagnostico/pdf/'+ id + ',' + '_blank');//_blank para que se muestre en una nueva pestaña
+                window.open('http://localhost:8000/consulta/pdf/'+ id + ',' + '_blank');//_blank para que se muestre en una nueva pestaña
             },
         },
         mounted() {

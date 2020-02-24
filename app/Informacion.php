@@ -3,8 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Image\ImageServiceProvider;
 
 class Informacion extends Model

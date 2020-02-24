@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i> Mascotas
+                    <i class="icon-chart"></i>  Administración de Mascotas 
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->
@@ -17,7 +17,7 @@
                                 <div class="input-group"><!--Criterios de busqueda -->
                                     <select class="form-control col-md-2" v-model="criterio">
                                         <option value="apellidos">Apellido del Cliente</option> 
-                                        <option value="nombreMascota">Nombde de Mascota</option> 
+                                        <option value="nombreMascota">Nombre de Mascota</option> 
                                     </select>
 
                                     <input type="text" v-model="buscar" @keyup.enter="listar(1,buscar,criterio)" class="form-control col-md-4" placeholder="Busqueda">
@@ -38,7 +38,6 @@
                                     <tr>
                                         <th>Acciones</th>                                        
                                         <th>Cliente</th>
-                                        <th>Cédula del Cliente</th>
                                         <th>Mascota</th>
                                         <th>Especie</th>
                                         <th>Raza</th>
@@ -60,7 +59,6 @@
 
                                         </td>
                                         <td v-text="registro.nombre + ' ' + registro.apellidos"></td>
-                                        <td v-text="registro.cedula"></td>
                                         <td v-text="registro.nombreMascota"></td>
                                         <td v-text="registro.especie"></td>
                                         <td v-text="registro.raza"></td>
@@ -104,7 +102,7 @@
                             <div  class="col-md-4">
                                 <div class="form-group"><br>
                                     <Label>Seleccione el Cliente(*)</Label>
-                                    <select v-model="nombresApellido" class="form-control col-md-12"
+                                    <select v-model="idCliente" class="form-control col-md-12"
                                      onmousedown="if(this.options.length>10){this.size=5;}"  onchange='this.size=0;' onblur="this.size=0;">
                                         <option
                                             v-for="registro in arrayPersona" :key="registro.id" :value="registro"
@@ -206,10 +204,10 @@
                              <div  class="col-md-4">
                                 <div class="form-group"><br>
                                     <Label>Seleccione el Cliente(*)</Label>
-                                    <select v-model="nombresApellido" class="form-control col-md-12"
+                                    <select v-model="idCliente" class="form-control col-md-12"
                                      onmousedown="if(this.options.length>10){this.size=5;}"  onchange='this.size=0;' onblur="this.size=0;">
                                         <option
-                                            v-for="registro in arrayPersona" :key="registro.id" :value="registro"
+                                            v-for="registro in arrayPersona" :key="registro.id" :value="registro.id"
                                             v-text="registro.apellidos + ' ' + registro.nombre">
                                         </option>
                                     </select>
@@ -315,30 +313,30 @@
                                     </thead>
                                     <tbody v-for="mostrarDatos in arrayMostrarDatos" :key="mostrarDatos.id">  
                                     <tr>
-                                        <td style="width:230px">Mascota</td>
+                                        <td style="width:230px"><b>Mascota</b></td>
                                         <td v-text="mostrarDatos.nombreMascota"></td>
                                     </tr>
                                     <tr>
-                                        <td>Especie</td>
+                                        <td><b>Especie</b></td>
                                         <td v-text="mostrarDatos.especie"></td>
                                     </tr>
                                     <tr>
-                                        <td>Raza</td>
+                                        <td><b>Raza</b></td>
                                         <td v-text="mostrarDatos.raza"></td>
                                     </tr>
 
                                     <tr>
-                                        <td>Fecha Nacimiento</td>
+                                        <td><b>Fecha Nacimiento</b></td>
                                         <td v-text="mostrarDatos.fechaNacimiento"></td>
                                     </tr>
 
                                     <tr>
-                                        <td>Edad</td>
+                                        <td><b>Edad</b></td>
                                         <td v-text="mostrarDatos.edad"></td>
                                     </tr>
 
                                     <tr>
-                                        <td>Sexo</td>
+                                        <td><b>Sexo</b></td>
                                         <td v-text="mostrarDatos.sexo"></td>
                                     </tr>
 
@@ -348,27 +346,31 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Nombre del Cliente</td>
+                                        <td><b>Nombre del Cliente</b></td>
                                         <td v-text="mostrarDatos.nombre + ' ' + mostrarDatos.apellidos"></td>
                                     </tr>
 
                                      <tr>
-                                        <td>Cédula</td>
+                                        <td><b>Cédula</b></td>
                                         <td v-text="mostrarDatos.cedula"></td><br>
                                     </tr>
 
                                        <tr>
-                                        <td>Dirección</td>
+                                        <td><b>Dirección</b></td>
                                         <td v-text="mostrarDatos.direccion"></td>
                                     </tr>
                                        <tr>
-                                        <td>Teléfono</td>
+                                        <td><b>Teléfono</b></td>
                                         <td v-text="mostrarDatos.telefono"></td>
                                     </tr>
 
                                      <tr>
-                                        <td>Celular</td>
+                                        <td><b>Celular</b></td>
                                         <td v-text="mostrarDatos.celular"></td><br>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Email</b></td>
+                                        <td v-text="mostrarDatos.email"></td><br>
                                     </tr>
 
                                     </tbody>
@@ -406,27 +408,14 @@
         data() {
             return {
                 es: es,
-                idPersona: '',
+                idCliente: '',
                 idMascota: '',
-                nombresApellido: '',
                 nombreMascota: '',
                 especie: '',
                 raza: '',
                 fechaNacimiento: '',
                 edad: '',
                 sexo: '',
-
-                nombre: '',
-                apellidos: '',
-                cedula: '',
-                direccion: '',
-                telefono: '',
-                celular: '',
-                name:'', //se registrara para crear el usuario
-                email:'', 
-                rol:'',
-                password:'',
-                estado:'',
                 arrayPersona: [],
                 arrayRegistros: [],
                 arrayMostrarDatos: [],
@@ -500,7 +489,7 @@
 
             listar(page, buscar, criterio) {
                 let me = this;
-                var url = '/mascotas?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/mascotass?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function(response) {
                         var respuesta = response.data;
                         me.arrayRegistros = respuesta.mascotas.data;
@@ -521,7 +510,7 @@
                 }
             
                 axios.post('/mascotas/registrar',{     
-                    idPersona: this.nombresApellido.id,
+                    idCliente: this.idCliente.id,
                     nombreMascota: this.nombreMascota,
                     especie: this.especie,
                     raza: this.raza,
@@ -557,13 +546,14 @@
                     var respuesta= response.data;
                     arrayEditarDatos = respuesta.mascotas;
                     me.idMascota = arrayEditarDatos[0]['id'];
-                    me.nombresApellido = arrayEditarDatos[0]['idPersona'];
+                    me.idCliente = arrayEditarDatos[0]['idCliente'];
                     me.nombreMascota = arrayEditarDatos[0]['nombreMascota'];
                     me.especie = arrayEditarDatos[0]['especie'];
                     me.raza = arrayEditarDatos[0]['raza'];
                     me.fechaNacimiento = arrayEditarDatos[0]['fechaNacimiento'];
                     me.edad = arrayEditarDatos[0]['edad'];
                     me.sexo = arrayEditarDatos[0]['sexo'];
+
                 }).catch((error) =>  {
                     swal({
                         title: 'Error al obtener los datos!!',
@@ -580,7 +570,7 @@
                 }
 
                 axios.put('/mascotas/actualizar',{
-                    idPersona: this.nombresApellido.id,
+                    idCliente: this.idCliente,
                     nombreMascota: this.nombreMascota,
                     especie: this.especie,
                     raza: this.raza,
@@ -599,7 +589,7 @@
                     })
                 }).catch(error =>  {
                     swal({
-                        title: 'Error al actualizadar!!',
+                        title: 'Error al actualizar!!',
                         type:  'error',
                         text:  'La información no a sido actualizada',
                     }) 
@@ -627,13 +617,13 @@
             validarDatos() {//Validaciones para el registro de los datos 
                 this.errorValidacion = 0;
                 this.errorMostrarMsj = [];
-                if (!this.nombresApellido) this.errorMostrarMsj.push("Seleccione un cliente para la mascota");
-                if (!this.nombreMascota) this.errorMostrarMsj.push("El campo mascota no puede estar vacio");
-                if (!this.especie) this.errorMostrarMsj.push("El campo especie no puede estar vacio");
-                if (!this.raza) this.errorMostrarMsj.push("El campo raza no puede estar vacio");
-                if (!this.fechaNacimiento) this.errorMostrarMsj.push("El campo fecha de nacimiento no puede estar vacio");
-                if (!this.edad) this.errorMostrarMsj.push("El campo edad no puede estar vacio");
-                if (!this.sexo) this.errorMostrarMsj.push("El campo sexo no puede estar vacio");
+                if (!this.idCliente) this.errorMostrarMsj.push("Seleccione el nombre del cliente");
+                if (!this.nombreMascota) this.errorMostrarMsj.push("El nombre de la mascota es requerido");
+                if (!this.especie) this.errorMostrarMsj.push("La especie de la mascota es requerido");
+                if (!this.raza) this.errorMostrarMsj.push("La raza de la mascota es requerido");
+                if (!this.fechaNacimiento) this.errorMostrarMsj.push("La fecha de nacimiento de la mascota es requerido");
+                if (!this.edad) this.errorMostrarMsj.push("La edad de la mascota es requerido");
+                if (!this.sexo) this.errorMostrarMsj.push("El sexo de la mascota es requerido");
         
                 if (this.errorMostrarMsj.length) this.errorValidacion = 1;
                 return this.errorValidacion;
@@ -646,7 +636,7 @@
             }, 
             cerrarTemplateRegistro() {           
                 this.template = 1;
-                this.nombresApellido = '';
+                this.idCliente = '';
                 this.nombreMascota = '';    
                 this.especie = '';          
                 this.raza = '';
@@ -658,7 +648,7 @@
             templateRegistrar() {
                 this.getPersona();
                 this.template = 0;
-                this.nombresApellido = '';
+                this.idCliente = '';
                 this.nombreMascota = '';    
                 this.especie = '';          
                 this.raza = '';
@@ -671,7 +661,7 @@
                 this.getPersona();
                 
                 this.template = 3;
-                this.nombresApellido = '';
+                this.idCliente = '';
                 this.nombreMascota = '';    
                 this.especie = '';          
                 this.raza = '';
@@ -681,43 +671,41 @@
                 this.errorMostrarMsj = '';
             },
             eliminar(id){
-                swal({
-                    title: 'Esta seguro que desea eliminar el registro?',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar!',
-                    cancelButtonText: 'Cancelar',
-                    confirmButtonClass: 'btn btn-success',
-                    cancelButtonClass: 'btn btn-danger',
-                    buttonsStyling: false,
-                    reverseButtons: true
-                    }).then(result => {
-                    if (result.value) {
-                        var url = '/mascotas/delete/' +id;
-                    axios.delete(url).then(function (response) {
-                        this.listar(1,'','apellidos');
-                        swal(
-                        'Eliminado!',
-                        'El registro ha sido eliminado con éxito.',
-                        'success'
-                        )
-                    }).catch(error=> {
-                        swal(
-                            'Error al eliminar!',
-                            'El registro no ha sido eliminado.',
-                            'error'
-                        )
-                        console.log(error);
-                    });                
-                    } else if (
-                        // Read more about handling dismissals
-                        result.dismiss === swal.DismissReason.cancel
-                    ) {
-                        
-                    }
-                    }) 
+            // window.swal = require('sweetalert2') // added here
+            swal({
+                title: 'Esta seguro que desea eliminar el registro?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar!',
+                cancelButtonText: 'Cancelar',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false,
+                reverseButtons: true
+                }).then((result) => {
+                if (result.value) {
+                    let me = this;
+                    var url = '/mascotas/delete/' +id;
+                   axios.delete(url).then(function (response) {
+
+                    me.listar(1,'','apellidos');
+                    swal(
+                    'Eliminado!',
+                    'El registro ha sido eliminado con éxito.',
+                    'success'
+                    )
+                }).catch(function (error) {
+                    console.log(error);
+                });                
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === swal.DismissReason.cancel
+                ) {
+                    
+                }
+                }) 
             },
         },
         mounted() {

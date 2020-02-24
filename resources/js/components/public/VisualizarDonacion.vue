@@ -3,7 +3,7 @@
     
       
          <div v-for="registro in arrayRegistros" :key="registro.id">
-            <center> <h4>Se aceptan dondaciones</h4></center>
+            <center> <h3>Se receptan dondaciones</h3></center>
              <div class="blog-card">
 
               

@@ -97,7 +97,7 @@ class UserController extends Controller{
         $usuario->save();
     }
 
-    public function activar(UpdateUsuarios $request)  {
+    public function activar(Request $request)  {
         if (!$request->ajax()) return redirect('/');
         $usuario = User::findOrFail($request->id);
         $usuario->estado = '1';
@@ -131,4 +131,118 @@ class UserController extends Controller{
 
            
     } 
+
+    /** */
+
+    public function indexUsuario2(Request $request)    { //METODO PRUEBA 
+       // if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
+
+        /*$userID = \Auth::user()->id;  ///obtengo el campo id del usuario autenticado
+
+        $usuario = User::where('id', '=', $userID)->paginate(10);       
+
+        return ['usuario' => $usuario ];*/
+
+        $ID = \Auth::user()->id;  ///obtengo el email de usuer
+
+
+        $userID = \Auth::user()->email;  ///obtengo el email de usuer
+
+        $usuario = Personas::select('id', 'email')
+                        ->where('email', '=', $userID)->take(1)->get(10);    
+
+        if (!$usuario) {
+            return ['ID' => $ID];
+        }else{
+            return ['usuario' => $usuario];
+        }
+
+
+        
+
+        //$personaEmail = Personas::findOrFail($request->usuarioEmail); //obtengo el email si esta en la tabla personas
+
+    }
+
+    public function indexUsuario(Request $request)    {
+         if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
+ 
+         $userID = \Auth::user()->id;  ///obtengo el campo id del usuario autenticado
+ 
+         $usuario = User::where('id', '=', $userID)->paginate(10);       
+ 
+         return ['usuario' => $usuario ];
+ 
+  
+     }
+
+
+    public function updateUsuario(Request $request)    {
+        if (!$request->ajax()) return redirect('/');
+        
+        try{
+
+            DB::beginTransaction();
+            $usuario = User::findOrFail($request->id);
+
+            $usuarioEmail = User::findOrFail($request->email); //obtengo el email
+
+            $personaEmail = Personas::findOrFail($request->usuarioEmail); //obtengo el email si esta en la tabla personas
+
+            if(!$personaEmail){
+               
+                $personaEmail->email = $request->email;
+                $personaEmail->save(); 
+
+
+                $usuario->name = $request->name;
+                $usuario->email = $request->email;
+                $usuario->rol = '1';//USUARIO
+                $usuario->estado = '1'; //activo
+                $usuario->password = bcrypt( $request->password);//el password se almacena encritado por seguridad
+                $usuario->save(); 
+
+
+            }else{
+                $usuario->name = $request->name;
+                $usuario->email = $request->email;
+                $usuario->rol = '1';//USUARIO
+                $usuario->estado = '1'; //activo
+                $usuario->password = bcrypt( $request->password);//el password se almacena encritado por seguridad
+                $usuario->save(); 
+            }
+
+        /*    $usuario->name = $request->name;
+            $usuario->email = $request->email;
+            $usuario->rol = '1';//USUARIO
+            $usuario->estado = '1'; //activo
+            $usuario->password = bcrypt( $request->password);//el password se almacena encritado por seguridad
+            $usuario->save();*/
+
+            DB::commit();
+
+        } catch (Exception $e){
+            DB::rollBack();
+        }
+
+    }
+
+    public function prueba(Request $request)    {
+       
+        $usuario = User::findOrFail($request->id);
+
+        $usuarioEmail = User::findOrFail($request->email); //obtengo el email
+
+        //$personaEmail = Personas::findOrFail($request->usuarioEmail); //obtengo el email si esta en la tabla personas
+           
+            if(!$usuario){
+                return ['usuario' => $usuario];
+              
+
+            }else{
+                return ['usuarioEmail' => $usuarioEmail];
+            }
+
+      
+    }
 }

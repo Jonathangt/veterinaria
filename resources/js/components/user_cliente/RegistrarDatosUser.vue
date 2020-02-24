@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-user-follow"></i> Registro de personas que desean dar en adopción una mascota
+                    <i class="icon-pencil"></i> Registro de sus datos de usuario para dar en adopción una mascota
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->
@@ -26,7 +26,7 @@
                                    
                                     <div class="btn-group col-md-2">
                                         <button id='terms' type="button" @click="templateRegistrar()" class="btn btn-primary">
-                                            <i class="icon-plus"></i>&nbsp;Registrar persona
+                                            <i class="icon-plus"></i>&nbsp;Registrar datos de usuario
                                         </button>
                                     </div>
                                 </div>
@@ -42,27 +42,20 @@
                                         <th>Dirección</th>
                                         <th>Teléfono</th>
                                         <th>Celular</th>
-                                        <th>Email</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="registro in arrayRegistros" :key="registro.id">
                                         <td style="width:110px">
 
-                                        <span v-if="registro.estado"> 
-                                              <!------si el estado es 0 la persona es cliente y no se podra editar---->
-                                        </span>
-                                         <span v-else>
-                                             <button type="button" @click="editar(registro.id)" class="btn btn-warning btn-sm">
-                                                <i class="icon-pencil"></i>
-                                            </button>&nbsp;
+                                        <button type="button" @click="editar(registro.id)" class="btn btn-warning btn-sm">
+                                            <i class="icon-pencil"></i>
+                                        </button>&nbsp;
 
                                         <button type="button" class="btn btn-danger btn-sm" @click="eliminar(registro.id)">
                                             <i class="icon-trash"></i>
                                         </button>  
-                                        </span>                         
-                                            
-                                          
+                                                    
 
                                         </td>
                                         <td v-text="registro.nombre + ' ' + registro.apellidos"></td>
@@ -70,7 +63,6 @@
                                         <td v-text="registro.direccion"></td>
                                         <td v-text="registro.telefono"></td>
                                         <td v-text="registro.celular"></td>
-                                        <td v-text="registro.email"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -150,12 +142,6 @@
                                 </div>
                             </div> 
 
-                             <div  class="col-md-4">
-                                <div class="form-group"><br>
-                                    <Label>Email(*)</Label>
-                                    <input type="text" class="form-control" v-model="email" placeholder="Email" maxlength="40"> 
-                                </div>
-                            </div>                          
                         </div>
                     </div> <!--fin card body-->
                      <div class="card-body">            
@@ -239,12 +225,7 @@
                                 </div>
                             </div>
 
-                             <div  class="col-md-4">
-                                <div class="form-group"><br>
-                                    <Label>Email(*)</Label>
-                                    <input type="text" class="form-control" v-model="email" placeholder="Email" maxlength="40"> 
-                                </div>
-                            </div> 
+                       
 
                         </div>
                     </div> <!--fin card body-->
@@ -287,7 +268,6 @@
                 nombre: '',
                 apellidos: '',
                 cedula: '',
-                email: '', 
                 direccion: '',
                 telefono: '',
                 celular: '',
@@ -348,7 +328,7 @@
         methods: {
             listar(page, buscar, criterio) {
                 let me = this
-                var url = '/datos?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/datosUser?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function(response) {
                         var respuesta = response.data;
                         me.arrayRegistros = respuesta.personas.data;
@@ -370,14 +350,14 @@
                     return;
                 }
 
-                axios.post('/datos/registrar',{     
+                axios.post('/datos/registrarUser',{     
                     nombre: this.nombre,
                     apellidos: this.apellidos,
                     cedula: this.cedula,
                     direccion: this.direccion,
                     telefono: this.telefono,
                     celular: this.cedula,
-                    email: this.email,
+                    //email: this.email,
 
                 }).then(response=>  {
                     this.cerrarTemplateRegistro();
@@ -422,7 +402,7 @@
                     me.direccion = arrayEditarDatos[0]['direccion'];
                     me.telefono = arrayEditarDatos[0]['telefono'];
                     me.celular = arrayEditarDatos[0]['celular'];
-                    me.email = arrayEditarDatos[0]['email'];
+                   // me.email = arrayEditarDatos[0]['email'];
 
                 }).catch((error) =>  {
                     swal({
@@ -446,7 +426,7 @@
                     direccion: this.direccion,
                     telefono: this.telefono,
                     celular: this.celular,
-                    email: this.email,
+                    //email: this.email,
                     id: this.idPersona
                 }).then(response =>  {
                     this.cerrarTemplateRegistro();
@@ -475,7 +455,7 @@
                 if (!this.cedula) this.errorMostrarMsj.push("La cedula de la persona es requerido");
                 if (!this.telefono) this.errorMostrarMsj.push("El telefono de la persona es requerido");
                 if (!this.celular) this.errorMostrarMsj.push("El celular de la persona es requerido");
-                if (!this.email) this.errorMostrarMsj.push("El email celular de la persona es requerido");
+               // if (!this.email) this.errorMostrarMsj.push("El email celular de la persona es requerido");
         
                 if (this.errorMostrarMsj.length) this.errorValidacion = 1;
                 return this.errorValidacion;
@@ -494,7 +474,7 @@
                 this.direccion = '';
                 this.telefono = '';
                 this.celular = '';  
-                this.email = '';  
+               // this.email = '';  
                 this.errorMostrarMsj = '';      
             },
             templateRegistrar() {
@@ -506,7 +486,7 @@
                 this.direccion = '';
                 this.telefono = '';
                 this.celular = ''; 
-                this.email = '';  
+               // this.email = '';  
                 this.errorMostrarMsj = '';
             },
             templateEditar() {
@@ -518,7 +498,7 @@
                 this.direccion = '';
                 this.telefono = '';
                 this.celular = ''; 
-                this.email = '';  
+               //this.email = '';  
                 this.errorMostrarMsj = '';
             },
             eliminar(id){

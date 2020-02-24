@@ -15,8 +15,8 @@
         @if (Auth::user()->rol == 0)
             @include('sidebarAdministrador') <!---Administrador-->        
             <template v-if="menu==0">
-               <!--  <inicio-general></inicio-general> -->
-               <registrar-adopcion></registrar-adopcion> <!-----TODOS LOS USUARIOS--->
+            <inicio-general></inicio-general>  <!-----TODOS LOS USUARIOS--->
+               
             </template>
 
             <template v-if="menu==1">
@@ -40,11 +40,11 @@
             </template>
 
             <template v-if="menu==6">
-                <registrar-datos></registrar-datos> <!-----TODOS LOS USUARIOS--->
+                <registrar-datos></registrar-datos> 
             </template>
 
             <template v-if="menu==7">
-                <registrar-adopcion></registrar-adopcion> <!-----TODOS LOS USUARIOS--->
+                <registrar-adopcion></registrar-adopcion> 
             </template>
 
             <template v-if="menu==8">
@@ -63,10 +63,11 @@
         @elseif (Auth::user()->rol == 2)<!---Cliente Rol 2-->
             @include('sidebarCliente') 
             <template v-if="menu==0">
-                 <inicio-general></inicio-general> 
+                <inicio-general></inicio-general>  <!-----TODOS LOS USUARIOS--->
             </template>
             <template v-if="menu==1">
-                <informacion-general></informacion-general>
+                 <informacion-general></informacion-general>  <!-----TODOS LOS USUARIOS--->
+                
             </template>
             <template v-if="menu==2">
                 <vizualizar-consulta></vizualizar-consulta>
@@ -75,46 +76,46 @@
                 <inicio-adopcion></inicio-adopcion> <!-----TODOS LOS USUARIOS--->
             </template>
             <template v-if="menu==4">
-                <registrar-datos></registrar-datos> <!-----TODOS LOS USUARIOS--->
+                <registrar-adopcion-cliente></registrar-adopcion-cliente> 
             </template>
             <template v-if="menu==5">
-                <registrar-adopcion></registrar-adopcion> <!-----TODOS LOS USUARIOS--->
-            </template>
-            <template v-if="menu==6">
                 <edicion-usuarios></edicion-usuarios>
             </template>
-            <template v-if="menu==7">
-                <quienes-somos></quienes-somos>
+            <template v-if="menu==6">
+            <quienes-somos></quienes-somos>
             </template>
+            
             
 
         @else
             @include('sidebarUsuario')<!---Usuario --- Rol 1-->
             <template v-if="menu==0">
-                 <inicio-general></inicio-general> 
+                <inicio-general></inicio-general>  <!-----TODOS LOS USUARIOS--->
             </template>
+
             <template v-if="menu==1">
-                <informacion-general></informacion-general>
+                <informacion-general></informacion-general> <!-----TODOS LOS USUARIOS--->
             </template>
+
             <template v-if="menu==2">
                 <inicio-adopcion></inicio-adopcion> <!-----TODOS LOS USUARIOS--->
             </template>
+
             <template v-if="menu==3">
-                <registrar-datos></registrar-datos> <!-----TODOS LOS USUARIOS--->
+                <registrar-datos-user></registrar-datos-user> 
             </template>
+
             <template v-if="menu==4">
-                <registrar-adopcion></registrar-adopcion> <!-----TODOS LOS USUARIOS--->
+                <registrar-adopcion-user></registrar-adopcion-user> 
             </template>
+
             <template v-if="menu==5">
                 <edicion-usuarios></edicion-usuarios>
             </template>
+
             <template v-if="menu==6">
                 <quienes-somos></quienes-somos>
             </template>
         @endif
-    @endif
-
-  
-
-      
+    @endif      
 @endsection

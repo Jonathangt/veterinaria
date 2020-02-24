@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Mascotas;
 use App\Personas;
+use App\Clientes;
+
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,27 +12,25 @@ use Illuminate\Http\Request;
 class MascotasController extends Controller
 {
     public function index(Request $request)    {
-        //if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
+        if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
 
         $buscar = $request->buscar;
         $criterio = $request->criterio;
         
         if ($buscar==''){
-            $mascotas = Mascotas::join('personas', 'mascotas.idPersona', 'personas.id')
+            $mascotas = Mascotas::join('clientes', 'mascotas.idCliente', 'clientes.id')
+                                ->join('personas', 'clientes.idPersona', 'personas.id')
                                 ->join('users', 'mascotas.idUsuario', 'users.id')
-                                ->select('mascotas.id', 'mascotas.idPersona', 'mascotas.nombreMascota', 'mascotas.especie',
-                                            'mascotas.raza', 'mascotas.fechaNacimiento', 'mascotas.edad', 'mascotas.sexo',
-                                            'personas.nombre', 'personas.apellidos', 'personas.cedula', 'personas.direccion', 'personas.telefono',
-                                            'personas.celular')
+                                ->select('mascotas.id', 'mascotas.nombreMascota', 'mascotas.especie',
+                                            'mascotas.raza', 'mascotas.sexo', 'personas.nombre', 'personas.apellidos')
                                 ->orderBy('mascotas.id', 'desc')->paginate(10);
         }
         else{
-            $personas =  Mascotas::join('personas', 'mascotas.idPersona', 'personas.id')
+            $mascotas =  Mascotas::join('clientes', 'mascotas.idCliente', 'clientes.id')
+                                ->join('personas', 'clientes.idPersona', 'personas.id')
                                 ->join('users', 'mascotas.idUsuario', 'users.id')
-                                ->select('mascotas.id', 'mascotas.idPersona', 'mascotas.nombreMascota', 'mascotas.especie',
-                                            'mascotas.raza', 'mascotas.fechaNacimiento', 'mascotas.edad', 'mascotas.sexo',
-                                            'personas.nombre', 'personas.apellidos', 'personas.cedula', 'personas.direccion', 'personas.telefono',
-                                            'personas.celular')
+                                ->select('mascotas.id', 'mascotas.nombreMascota', 'mascotas.especie',
+                                            'mascotas.raza', 'mascotas.sexo', 'personas.nombre', 'personas.apellidos')
                                 ->where($criterio, 'like', '%'. $buscar . '%')
                                 ->orderBy('personas.apellidos', 'desc')->paginate(10);
         }
@@ -58,7 +58,7 @@ class MascotasController extends Controller
 
             $mascotas = new Mascotas();
             $mascotas->idUsuario = \Auth::user()->id; //obtengo el id del user 
-            $mascotas->idPersona = $request->idPersona;
+            $mascotas->idCliente = $request->idCliente;
             $mascotas->nombreMascota = $request->nombreMascota;
             $mascotas->especie = $request->especie;
             $mascotas->raza = $request->raza;
@@ -77,10 +77,11 @@ class MascotasController extends Controller
         if (!$request->ajax()) return redirect('/');
         
         try{
+
+            $mascotas = Mascotas::findOrFail($request->id);
             
-            $mascotas = new Mascotas();
             $mascotas->idUsuario = \Auth::user()->id; //obtengo el id del user 
-            $mascotas->idPersona = $request->idPersona;
+            $mascotas->idCliente = $request->idCliente;
             $mascotas->nombreMascota = $request->nombreMascota;
             $mascotas->especie = $request->especie;
             $mascotas->raza = $request->raza;
@@ -105,15 +106,19 @@ class MascotasController extends Controller
         if (!$request->ajax()) return redirect('/');
  
         $id = $request->id;
-        $mascotas = Mascotas::join('personas', 'mascotas.idPersona', 'personas.id')
-                       // ->join('users', 'mascotas.idUsuario', 'users.id')
-                       -> select('mascotas.id', 'mascotas.idPersona', 'mascotas.nombreMascota', 'mascotas.especie',
+        $mascotas = Mascotas::join('clientes', 'mascotas.idCliente', 'clientes.id')
+                          ->join('personas', 'clientes.idPersona', 'personas.id')
+                          ->join('users', 'personas.id', 'users.idPersona')
+                       -> select('mascotas.id', 'mascotas.idCliente', 'mascotas.nombreMascota', 'mascotas.especie',
                                     'mascotas.raza', 'mascotas.fechaNacimiento', 'mascotas.edad', 'mascotas.sexo',
                                     'personas.nombre', 'personas.apellidos', 'personas.cedula', 'personas.direccion', 'personas.telefono',
-                                    'personas.celular')
+                                    'personas.celular', 'users.email')
                         ->where('mascotas.id','=',$id)->get(); 
         return ['mascotas' => $mascotas];
     }
+
+   
+
 
     
 
@@ -148,9 +153,9 @@ class MascotasController extends Controller
         //if (!$request->ajax()) return redirect('/');
 
         $id = $request->id;
-        $mascotas = Mascotas::join('personas', 'mascotas.idPersona', 'personas.id')
+        $mascotas = Mascotas::join('personas', 'mascotas.idCliente', 'personas.id')
                     ->join('users', 'mascotas.idUsuario', 'users.id')
-                    ->select('mascotas.id', 'mascotas.idPersona', 'mascotas.nombreMascota', 'mascotas.especie',
+                    ->select('mascotas.id', 'mascotas.idCliente', 'mascotas.nombreMascota', 'mascotas.especie',
                                 'mascotas.raza', 'mascotas.fechaNacimiento', 'mascotas.edad', 'mascotas.sexo',
                                 'users.name', 'users.email', 'users.rol', 'users.estado', 'users.password',  
                                 'personas.nombre', 'personas.apellidos', 'personas.cedula', 'personas.direccion', 'personas.telefono',
@@ -175,9 +180,9 @@ class MascotasController extends Controller
         //if (!$request->ajax()) return redirect('/');
  
         $id = $request->id;
-        $obtenerID = Mascotas::join('personas', 'mascotas.idPersona', 'personas.id')
-                        ->select('mascotas.id', 'mascotas.idPersona', 'mascotas.nombreMacota', 'personas.nombre', 'personas.apellidos')
-                                ->where('mascotas.idPersona','=',$id)->get(); //take para que solo obtenga un registro
+        $obtenerID = Mascotas::join('personas', 'mascotas.idCliente', 'personas.id')
+                        ->select('mascotas.id', 'mascotas.idCliente', 'mascotas.nombreMacota', 'personas.nombre', 'personas.apellidos')
+                                ->where('mascotas.idCliente','=',$id)->get(); //take para que solo obtenga un registro
         return ['obtenerID' => $obtenerID];
         
     }

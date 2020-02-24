@@ -2,7 +2,7 @@
     <nav class="sidebar-nav">
         <ul class="nav">
             <li @click="menu=0" class="nav-item">
-                <a class="nav-link active" href="#"><i class="icon-home"></i> INICIO</a>
+                <a class="nav-link active" href="#"><i class="icon-options-vertical"></i> INICIO</a>
             </li>
             <li class="nav-title">
                 Opciones
