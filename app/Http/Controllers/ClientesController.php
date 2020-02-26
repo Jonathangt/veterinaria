@@ -8,24 +8,31 @@ use App\Clientes;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+
+use App\Http\Requests\StoreClientes;
+use App\Http\Requests\UpdateClientes;
 
 
 
 class ClientesController extends Controller
 {
     public function index(Request $request)    {
+       
         if (!$request->ajax()) return redirect('/');//idPersona para valiar los accesos mediante peticion ajax
-
+       
         $buscar = $request->buscar;
         $criterio = $request->criterio;
         
         if ($buscar==''){
+            
             $personas = Clientes::join('personas', 'clientes.idPersona', 'personas.id')
                                     ->join('users', 'personas.id', 'users.idPersona')
                             ->select('clientes.id', 'clientes.idPersona', 'personas.nombre', 'personas.apellidos',
                                     'personas.cedula', 'personas.direccion', 'personas.telefono', 'personas.celular', 
                                     'users.email')
                             ->orderBy('clientes.id', 'desc')->paginate(10);
+                           
         }
         else{
             $personas = Clientes::join('personas', 'clientes.idPersona', 'personas.id')
@@ -49,6 +56,7 @@ class ClientesController extends Controller
             ],
             'personas' => $personas
         ];
+       
     }
 
     public function obtener(Request $request){ //metodo para obtener el registro y editarlo
@@ -69,7 +77,7 @@ class ClientesController extends Controller
     }
 
   
-    public function store(Request $request)    {
+    public function store(StoreClientes $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
@@ -109,12 +117,13 @@ class ClientesController extends Controller
         }
 
     }
+    
 
-    public function update(Request $request)    {
+    public function update(UpdateClientes $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
-            
+
             $clientes = Clientes::findOrFail($request->id);
 
             $persona = Personas::findOrFail($clientes->idPersona);
@@ -161,7 +170,7 @@ class ClientesController extends Controller
         $clientes = Clientes::findOrFail($id)->delete();
         $user = User::findOrFail($personas->id)->delete();
        
-   /*     $persona = Personas::findOrFail($clientes->idPersona)->delete();
+        /* $persona = Personas::findOrFail($clientes->idPersona)->delete();
 
         $user = User::select('users.id', 'users.idPersona')
         ->where('users.idPersona', '=', $persona)->delete();
@@ -171,7 +180,7 @@ class ClientesController extends Controller
 
     public function selectCliente(Request $request){
         //Metodo para filtrar las personas en el registro de mascotas
-        //if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
         //$id = $request->id;
         $personas = Clientes::join('personas', 'clientes.idPersona', 'personas.id')
                             ->select('clientes.id', 'clientes.idPersona', 'personas.nombre', 'personas.apellidos')

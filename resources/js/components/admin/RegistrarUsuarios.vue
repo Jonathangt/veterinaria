@@ -129,6 +129,7 @@
                                     <label class="col-md-3 form-control-label" for="email-input">Email (*)</label>
                                     <div class="col-md-9">
                                         <input type="text" v-model="email" class="form-control" placeholder="Email" maxlength="30"> 
+                                        <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div> 
                                     </div>
                                 </div>     
                                 
@@ -139,13 +140,13 @@
                                     </div>
                                 </div>
 
-                                <div v-show="errorValidacion" class="form-group row div-error">
+                                 <div v-show="errorValidacion" class="form-group row div-error">
                                     <div class="text-center text-error">
                                         <div v-for="error in errorMostrarMsj" :key="error" v-text="error">
-                                             
+                                                
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
 
                             </form>
                         </div>
@@ -169,6 +170,7 @@
     export default {
         data (){
             return {
+                errors: {},
                 idUser: 0,
                 name : '',  
                 email : '',             
@@ -248,9 +250,11 @@
                 me.listar(page,buscar,criterio);
             },
             registrar(){
-                if (this.validar()){
+                 if (this.validar()){
                     return;
-                }
+                } 
+
+                this.errors = {};
 
                 axios.post('/users/registrar',{
                     name: this.name,
@@ -269,26 +273,30 @@
                })
                .catch(error => {
                     const { status, errors } = error.response
-			        this.errorValidacion = 0
                     const response = error.response
                      if (status === 500) {
                         console.log(response.data)
                     }else if (status === 422) {
-                        this.errorValidacion = 1
-                        //this.errorMostrarMsj = errors.email.slice(0)
-                        this.errorMostrarMsj.push(response.data.errors.email);
+                        this.errors = error.response.data.errors || {};
                         console.clear()
                     } else {
                         console.log(error)
                     }
+                    /*  if (error.response.status === 422) {
+                        this.errors = error.response.data.errors || {};
+                        console.clear()
+                    }*/
+
                 });
             },
             actualizar(){
-               if (this.validar()){
+                if (this.validar()){
                     return;
                 }
 
-                axios.put('/users/actualizarAdmin',{
+                this.errors = {};
+
+                axios.put('/users/actualizar',{
                     name: this.name,
                     email : this.email,
                     password : this.password,
@@ -304,14 +312,11 @@
 
                }).catch(error => {
                     const { status, errors } = error.response
-			        this.errorValidacion = 0
                     const response = error.response
                      if (status === 500) {
                         console.log(response.data)
                     }else if (status === 422) {
-                        this.errorValidacion = 1
-                        //this.errorMostrarMsj = errors.email.slice(0)
-                        this.errorMostrarMsj.push(response.data.errors.email);
+                        this.errors = error.response.data.errors || {};
                         console.clear()
                     } else {
                         console.log(error)
@@ -328,7 +333,6 @@
                 if (!this.password) this.errorMostrarMsj.push("El password es requerido");
                 if (this.errorMostrarMsj.length) this.errorValidacion = 1;
 
-
                 return this.errorValidacion;
             },
             cerrarModal(){
@@ -336,7 +340,9 @@
                 this.tituloModal='';
                 this.name='';
                 this.email='';
+                this.email='';
                 this.password='';
+                this.errors= '';
                 this.errorValidacion=0;
 
             },
@@ -350,6 +356,7 @@
                                 this.name= '';
                                 this.email='';
                                 this.password='';
+                                this.errors= '';
                                 this.tipoAccion = 1;
                                 break;
                             }
@@ -361,6 +368,7 @@
                                 this.name = data['name'];
                                 this.email = data['email'];
                                 this.password = data['password'];
+                                this.errors= '';
                                 break;
                             }
                         }

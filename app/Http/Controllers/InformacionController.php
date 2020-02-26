@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+
+use App\Clientes;
+use App\Personas;
+
+
+
+
+
+
 class InformacionController extends Controller
 {
     
@@ -167,23 +176,26 @@ class InformacionController extends Controller
     }
 
     
-    public function pruebsdsadx(Request $request)  {
+    public function prueba(Request $request)  {
         //  $informacion = Informacion::findOrFail($id)->delete();
 
-        $frase = "http://localhost:8000/informacion/LLHCg5zAyjK9tn6WCOIX.jpg";
+        
+         
+        $clientes = Clientes::findOrFail($request->id);
+           
+        $persona = Personas::findOrFail($clientes->idPersona);
 
-        if(strncmp($frase, 'http://localhost:8000/informacion/', 33) === 0){
-            
-            $exploded = substr("http://localhost:8000/informacion/LLHCg5zAyjK9tn6WCOIX.jpg", -24);
+    /*    $select = Personas::join('users', 'personas.idUsuario', 'users.idPersona')
+                ->select('personas.nombre', 'personas.apellidos')
+                ->where('personas.id', '=', $clientes->idPersona)->get();*/
 
-            return ['exploded' => $exploded];
+        $users=User::where('idPersona', '=', $clientes->idPersona)->first();
+              
+      
 
-        }else{
-            $exploded = explode('/informacion/', "http://localhost:8000/informacion/LLHCg5zAyjK9tn6WCOIX.jpg");
-            return ['exploded' => $exploded];
-        }
-       
-  
+            return ['users' => $users->idPersona];
+        
+
     } 
   
 

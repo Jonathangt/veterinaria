@@ -6,7 +6,7 @@
             </li>
 
             <li @click="menu=1" class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-doc"></i> Información</a> 
+                <a class="nav-link" href="#"><i class="icon-paper-clip"></i> Información</a> 
             </li>
 
 

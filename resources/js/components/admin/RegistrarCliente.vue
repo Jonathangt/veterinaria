@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i> Administración de Clientes
+                    <i class="icon-people"></i> Administración de Clientes
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->
@@ -101,7 +101,8 @@
                             <div class="col-md-4">
                                 <div class="form-group"><br>
                                     <Label>Nombre(*)</Label>
-                                    <input type="text" class="form-control" v-model="nombre" placeholder="Nombre" maxlength="15"> 
+                                    <input type="text" class="form-control" v-model="nombre" placeholder="Nombre" maxlength="14"> 
+                                    <div v-if="errors && errors.nombre" class="text-danger">{{ errors.nombre[0] }}</div> 
                                 </div>
                             </div>
 
@@ -109,6 +110,7 @@
                                 <div class="form-group"><br>
                                     <Label>Apellido(*)</Label>
                                     <input type="text" class="form-control" v-model="apellidos" placeholder="Apellidos" maxlength="40"> 
+                                    <div v-if="errors && errors.apellidos" class="text-danger">{{ errors.apellidos[0] }}</div> 
                                 </div>
                             </div>
 
@@ -116,6 +118,7 @@
                                 <div class="form-group"><br>
                                     <Label>Cédula(*)</Label>
                                     <input type="text" class="form-control" v-model="cedula" placeholder="Cédula" maxlength="10"> 
+                                    <div v-if="errors && errors.cedula" class="text-danger">{{ errors.cedula[0] }}</div> 
                                 </div>
                             </div>
 
@@ -123,6 +126,7 @@
                                 <div class="form-group"><br>
                                     <Label>Dirección(*)</Label>
                                     <input type="text" class="form-control" v-model="direccion" placeholder="Dirección" maxlength="70"> 
+                                    <div v-if="errors && errors.direccion" class="text-danger">{{ errors.direccion[0] }}</div>  
                                 </div>
                             </div>
                         
@@ -131,6 +135,7 @@
                                 <div  class="form-group"><br>
                                     <Label>Teléfono(*)</Label>
                                     <input type="text" class="form-control" v-model="telefono" placeholder="Teléfono" maxlength="10"> 
+                                    <div v-if="errors && errors.telefono" class="text-danger">{{ errors.telefono[0] }}</div> 
                                 </div>
                             </div>
 
@@ -138,6 +143,7 @@
                                 <div class="form-group"><br>
                                     <Label>Celular(*)</Label>
                                     <input type="text" class="form-control" v-model="celular" placeholder="Celular" maxlength="10"> 
+                                    <div v-if="errors && errors.celular" class="text-danger">{{ errors.celular[0] }}</div> 
                                 </div>
                             </div>
 
@@ -145,6 +151,7 @@
                                 <div class="form-group"><br>
                                     <Label>Email(*)</Label>
                                     <input type="text" class="form-control" v-model="email" placeholder="Email" maxlength="30"> 
+                                    <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div> 
                                 </div>
                             </div>
                         </div>
@@ -190,7 +197,8 @@
                             <div class="col-md-4">
                                 <div class="form-group"><br>
                                     <Label>Nombre(*)</Label>
-                                    <input type="text" class="form-control" v-model="nombre" placeholder="Nombre" maxlength="30"> 
+                                    <input type="text" class="form-control" v-model="nombre" placeholder="Nombre" maxlength="14"> 
+                                    <div v-if="errors && errors.nombre" class="text-danger">{{ errors.nombre[0] }}</div> 
                                 </div>
                             </div>
 
@@ -198,6 +206,7 @@
                                 <div class="form-group"><br>
                                     <Label>Apellido(*)</Label>
                                     <input type="text" class="form-control" v-model="apellidos" placeholder="Apellidos" maxlength="40"> 
+                                    <div v-if="errors && errors.apellidos" class="text-danger">{{ errors.apellidos[0] }}</div> 
                                 </div>
                             </div>
 
@@ -205,13 +214,15 @@
                                 <div class="form-group"><br>
                                     <Label>Cédula(*)</Label>
                                     <input type="text" class="form-control" v-model="cedula" placeholder="Cédula" maxlength="10"> 
+                                    <div v-if="errors && errors.cedula" class="text-danger">{{ errors.cedula[0] }}</div> 
                                 </div>
                             </div>
                           
                              <div class="col-md-4">
                                 <div class="form-group"><br>
                                     <Label>Dirección(*)</Label>
-                                    <input type="text" class="form-control" v-model="direccion" placeholder="Dirección" maxlength="70"> 
+                                    <input type="text" class="form-control" v-model="direccion" placeholder="Dirección" maxlength="70">
+                                    <div v-if="errors && errors.direccion" class="text-danger">{{ errors.direccion[0] }}</div>  
                                 </div>
                             </div>
                           
@@ -220,6 +231,7 @@
                                 <div  class="form-group"><br>
                                     <Label>Teléfono(*)</Label>
                                     <input type="text" class="form-control" v-model="telefono" placeholder="Teléfono" maxlength="10"> 
+                                    <div v-if="errors && errors.telefono" class="text-danger">{{ errors.telefono[0] }}</div> 
                                 </div>
                             </div>
 
@@ -227,12 +239,14 @@
                                 <div class="form-group"><br>
                                     <Label>Celular(*)</Label>
                                     <input type="text" class="form-control" v-model="celular" placeholder="Celular" maxlength="10"> 
+                                    <div v-if="errors && errors.celular" class="text-danger">{{ errors.celular[0] }}</div> 
                                 </div>
                             </div>
                              <div  class="col-md-4">
                                 <div class="form-group"><br>
                                     <Label>Email(*)</Label>
                                     <input type="text" class="form-control" v-model="email" placeholder="Email" maxlength="30"> 
+                                    <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div> 
                                 </div>
                             </div>
                         </div>
@@ -272,6 +286,7 @@
     export default {
         data() {
             return {
+                errors: {},
                 idPersona: '',     
                 nombre: '',
                 apellidos: '',
@@ -358,6 +373,7 @@
                 if (this.validarDatos()) {
                     return;
                 }
+                this.errors = {};
                 let me = this;
 
                 axios.post('/clientes/registrar',{     
@@ -379,19 +395,23 @@
                         text:  'La información a sido guardada',
                     })
                 }).catch((error) =>{
-                    swal({
-                        title: 'Cliente no registrado!!',
-                        type:  'error',
-                        text:  'La información no a sido guardada',
-                    })
-                    console.log(error);
+                    const { status, errors } = error.response
+                    const response = error.response
+                     if (status === 500) {
+                        console.log(response.data)
+                    }else if (status === 422) {
+                        this.errors = error.response.data.errors || {};
+                        console.clear()
+                    } else {
+                        console.log(error)
+                    }
                 });
             
             },
            
             editar(id) {
                 this.templateEditar();
-                let me = this;//metodo para mostrar los datos de la malla
+                let me = this;
                 var url = '/clientes/obtener?id=' + id;
                 var arrayEditarDatos=[];
                 axios.get(url).then(function(response) {
@@ -420,7 +440,7 @@
                  if (this.validarDatos()){
                     return;
                 }
-                
+                this.errors = {};
                 let me = this;
 
                 axios.put('/clientes/actualizar',{
@@ -442,12 +462,16 @@
                         text:  'La información a sido actualizada',
                     })
                 }).catch((error) =>  {
-                    swal({
-                        title: 'Error al actualizar!!',
-                        type:  'error',
-                        text:  'La información no a sido actualizada',
-                    }) 
-                    console.log(error);                 
+                    const { status, errors } = error.response
+                    const response = error.response
+                     if (status === 500) {
+                        console.log(response.data)
+                    }else if (status === 422) {
+                        this.errors = error.response.data.errors || {};
+                        console.clear()
+                    } else {
+                        console.log(error)
+                    }                
                 }); 
             },  
             validarDatos() {//Validaciones para el registro de los datos 
@@ -481,7 +505,8 @@
                 me.direccion = '';
                 me.telefono = '';
                 me.celular = '';  
-                me.email = '';  
+                me.email = ''; 
+                me.errors= ''; 
                 me.errorMostrarMsj = '';      
             },
             templateRegistrar() {
@@ -493,7 +518,8 @@
                 me.direccion = '';
                 me.telefono = '';
                 me.celular = ''; 
-                me.email = '';  
+                me.email = '';
+                me.errors= '';
                 me.errorMostrarMsj = '';
             },
             templateEditar() {
@@ -506,6 +532,7 @@
                 me.telefono = '';
                 me.celular = ''; 
                 me.email = '';  
+                me.errors= '';
                 me.errorMostrarMsj = '';
             },
             eliminar(id){

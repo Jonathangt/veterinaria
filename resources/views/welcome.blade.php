@@ -82,6 +82,11 @@
         <header class="app-header navbar">
 
             <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
+              <!--   <div style="padding-left: 10px;">
+                    <a href="{{ url('/') }}">
+                    <span class="logo-mini"><i > Veterinaria Dobaltoff</i></span>
+                </div> -->
+
                 <span class="navbar-toggler-icon"></span>
                 <a href="{{ url('/') }}">
                 <span class="logo-mini"><i> Veterinaria Dobaltoff</i></span>

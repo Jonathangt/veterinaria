@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+
+use App\Http\Requests\StoreAdopcion;
+use App\Http\Requests\UpdateAdopcion;
+
 use PDF;
 
 class AdopcionController extends Controller
@@ -50,7 +54,7 @@ class AdopcionController extends Controller
 
     public function obtener(Request $request){//metodo para editar y visualizar los datos
 
-        //if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
  
         $id = $request->id;
 
@@ -67,14 +71,14 @@ class AdopcionController extends Controller
     }
 
    
-    public function store(Request $request)    {
+    public function store(StoreAdopcion $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
 
             DB::beginTransaction();
 
-            $now = Carbon::now();
+            //$now = Carbon::now();
 
             $exploded = explode(',', $request->imagenMiniatura);
             $decode = base64_decode($exploded[1]);
@@ -103,8 +107,9 @@ class AdopcionController extends Controller
         }
     }
 
-    public function update(Request $request)    {
-      
+    public function update(UpdateAdopcion $request)    {
+        if (!$request->ajax()) return redirect('/');
+
         try{            
             $adopcion = Adopcion::findOrFail($request->id);
 
@@ -154,8 +159,6 @@ class AdopcionController extends Controller
 
     }
 
-
-
     public function desactivar(Request $request) {
         if (!$request->ajax()) return redirect('/');
         $adopcion = Adopcion::findOrFail($request->id);
@@ -172,7 +175,6 @@ class AdopcionController extends Controller
 
     public function pdfAdocion(Request $request, $id){
         
-        //obtengo el periodo de la malla curricular
         $adopcion = Adopcion::join('personas', 'adopcion.idPersona', 'personas.id')
                             ->select('adopcion.id', 'adopcion.idPersona', 'adopcion.nombreMascota', 'adopcion.especie',
                                     'adopcion.raza', 'adopcion.fechaNacimiento', 'adopcion.edad', 
@@ -220,7 +222,6 @@ class AdopcionController extends Controller
     }
 
     /**Metodos usuario */
-
 
     public function indexUsuario(Request $request)    {
         if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax

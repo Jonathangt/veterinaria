@@ -24,7 +24,7 @@ class StoreUsuarios extends FormRequest
     public function rules()
     {
         return [
-            'email'=>'unique:users|email'
+            'email'=>'unique:users|email',
         ];
     }
 

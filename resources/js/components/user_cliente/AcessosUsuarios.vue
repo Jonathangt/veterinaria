@@ -83,11 +83,12 @@
                                     <label class="col-md-3 form-control-label" for="email-input">Email (*)</label>
                                     <div class="col-md-9">
                                         <input type="text" v-model="email" class="form-control" placeholder="Email" maxlength="30"> 
+                                        <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div> 
                                     </div>
                                 </div>     
                                 
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="email-input">Password (*)</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Password (*)</label>
                                     <div class="col-md-9">
                                         <input type="password" v-model="password" class="form-control" placeholder="Password" maxlength="20"> 
                                     </div>
@@ -123,6 +124,7 @@
     export default {
         data (){
             return {
+                errors: {},
                 idUser: 0,
                 name : '',  
                 email : '',             
@@ -158,7 +160,7 @@
                     return;
                 }
 
-                axios.put('/users/actualizarUsuario',{
+                axios.put('/users/actualizar',{
                     name: this.name,
                     email : this.email,
                     password : this.password,
@@ -174,14 +176,11 @@
 
                }).catch(error => {
                     const { status, errors } = error.response
-			        this.errorValidacion = 0
                     const response = error.response
                      if (status === 500) {
                         console.log(response.data)
                     }else if (status === 422) {
-                        this.errorValidacion = 1
-                        //this.errorMostrarMsj = errors.email.slice(0)
-                        this.errorMostrarMsj.push(response.data.errors.email);
+                        this.errors = error.response.data.errors || {};
                         console.clear()
                     } else {
                         console.log(error)
@@ -220,6 +219,7 @@
                                 this.name = data['name'];
                                 this.email = data['email'];
                                 this.password = data['password'];
+                                this.errors= '';
                                 break;
                             }
                         }

@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 use App\Mascotas;
 use App\Personas;
-use App\Clientes;
+use App\Http\Requests\StoreMascotas;
+use App\Http\Requests\UpdateMascotas;
+
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+
 
 class MascotasController extends Controller
 {
@@ -50,7 +53,7 @@ class MascotasController extends Controller
     }
 
 
-    public function store(Request $request)    {
+    public function store(StoreMascotas $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
@@ -62,7 +65,7 @@ class MascotasController extends Controller
             $mascotas->nombreMascota = $request->nombreMascota;
             $mascotas->especie = $request->especie;
             $mascotas->raza = $request->raza;
-            $mascotas->fechaNacimiento = Carbon::parse($request->fechaNacimiento)->format('d-m-Y');
+            $mascotas->fechaNacimiento = Carbon::parse($request->fechaNacimiento)->toFormattedDateString();
             $mascotas->edad = $request->edad;
             $mascotas->sexo = $request->sexo;
             $mascotas->save();
@@ -73,7 +76,7 @@ class MascotasController extends Controller
         }
     }
 
-    public function update(Request $request)    {
+    public function update(UpdateMascotas $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
@@ -85,7 +88,7 @@ class MascotasController extends Controller
             $mascotas->nombreMascota = $request->nombreMascota;
             $mascotas->especie = $request->especie;
             $mascotas->raza = $request->raza;
-            $mascotas->fechaNacimiento = Carbon::parse($request->fechaNacimiento)->format('d-m-Y');
+            $mascotas->fechaNacimiento = Carbon::parse($request->fechaNacimiento)->toFormattedDateString();
             $mascotas->edad = $request->edad;
             $mascotas->sexo = $request->sexo;
             $mascotas->save();
@@ -117,37 +120,8 @@ class MascotasController extends Controller
         return ['mascotas' => $mascotas];
     }
 
-   
-
-
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
 
     public function obtenerDatos(Request $request){//metodo para editar y visualizar los datos
         //if (!$request->ajax()) return redirect('/');
@@ -176,7 +150,7 @@ class MascotasController extends Controller
     }
 
     public function obtenerMascotaID(Request $request){
-        //metodo para obtener el periodo lectivo de la malla registrada
+       
         //if (!$request->ajax()) return redirect('/');
  
         $id = $request->id;
@@ -188,7 +162,7 @@ class MascotasController extends Controller
     }
 
     public function obtenerID(Request $request){
-        //metodo para obtener el periodo lectivo de la malla registrada
+      
         //if (!$request->ajax()) return redirect('/');
  
         $id = $request->id;
@@ -196,7 +170,7 @@ class MascotasController extends Controller
                             ->select('id', 'name')
                                 ->where('id','=',$id)->get(); //take para que solo obtenga un registro
         return ['obtenerID' => $obtenerID];
-    }
+    }*/
 
   
 

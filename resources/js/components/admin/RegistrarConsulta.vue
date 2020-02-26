@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i>  Administración de Consultas
+                    <i class="icon-book-open"></i>  Administración de Consultas
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->
@@ -155,7 +155,8 @@
                             <div class="col-md-4">
                                 <div class="form-group"><br>
                                     <label>Peso(*)</label>
-                                        <input type="text" class="form-control" v-model="peso" placeholder="Peso" maxlength="15">                                   
+                                        <input type="text" class="form-control" v-model="peso" placeholder="Peso" maxlength="15">  
+                                        <div v-if="errors && errors.peso" class="text-danger">{{ errors.peso[0] }}</div>                                  
                                 </div>
                             </div>
 
@@ -163,6 +164,7 @@
                                 <div class="form-group">
                                     <label>Observación(*)</label>
                                     <textarea rows="4" cols="50" maxlength="200" class="form-control" v-model="observacionDiagnostico" placeholder="Observación de la consulta"> </textarea>
+                                    <div v-if="errors && errors.observacionDiagnostico" class="text-danger">{{ errors.observacionDiagnostico[0] }}</div>
                                 </div>
                             </div>
                         </div>
@@ -179,6 +181,7 @@
                                 <div class="form-group"><br>
                                     <label>Medicamento(*)</label>
                                     <input type="text" class="form-control" v-model="medicamento" placeholder="Medicamento" maxlength="200">
+                                    <div v-if="errors && errors.medicamento" class="text-danger">{{ errors.medicamento[0] }}</div>
                                 </div>
                             </div>
 
@@ -186,6 +189,7 @@
                                 <div class="form-group">
                                     <label>Horario (*)</label>
                                     <input type="text" class="form-control" v-model="horario" placeholder="Horario" maxlength="50">
+                                    <div v-if="errors && errors.horario" class="text-danger">{{ errors.horario[0] }}</div>
                                 </div>
                             </div>
 
@@ -193,6 +197,7 @@
                                 <div class="form-group">
                                     <label>Observación(*)</label>
                                     <textarea rows="4" cols="50" maxlength="200" class="form-control" v-model="observacionReceta" placeholder="Observación de la receta"> </textarea>
+                                    <div v-if="errors && errors.observacionReceta" class="text-danger">{{ errors.observacionReceta[0] }}</div>
                                 </div>
                             </div>
 
@@ -205,6 +210,7 @@
                                 <div class="form-group">
                                     <label>Próxima Consulta(*)</label>
                                     <datepicker id="select" placeholder= "Fecha" v-model="fechaSgtConsulta" :language="es"></datepicker>
+                                    <div v-if="errors && errors.fechaSgtConsulta" class="text-danger">{{ errors.fechaSgtConsulta[0] }}</div>
                                 </div>
                             </div>
                             
@@ -309,7 +315,8 @@
                             <div class="col-md-4">
                                 <div class="form-group"><br>
                                     <label>Peso(*)</label>
-                                        <input type="text" class="form-control" v-model="peso" placeholder="Peso" maxlength="15">                                   
+                                        <input type="text" class="form-control" v-model="peso" placeholder="Peso" maxlength="15">   
+                                        <div v-if="errors && errors.peso" class="text-danger">{{ errors.peso[0] }}</div>                                 
                                 </div>
                             </div>
 
@@ -317,6 +324,7 @@
                                 <div class="form-group">
                                     <label>Observación(*)</label>
                                     <textarea rows="4" cols="50" maxlength="200" class="form-control" v-model="observacionDiagnostico" placeholder="Observación de la consulta"> </textarea>
+                                    <div v-if="errors && errors.observacionDiagnostico" class="text-danger">{{ errors.observacionDiagnostico[0] }}</div> 
                                 </div>
                             </div>
                         </div>
@@ -333,6 +341,7 @@
                                 <div class="form-group"><br>
                                     <label>Medicamento(*)</label>
                                     <input type="text" class="form-control" v-model="medicamento" placeholder="Medicamento" maxlength="200">
+                                    <div v-if="errors && errors.medicamento" class="text-danger">{{ errors.medicamento[0] }}</div> 
                                 </div>
                             </div>
 
@@ -340,6 +349,7 @@
                                 <div class="form-group"><br>
                                     <label>Horario (*)</label>
                                     <input type="text" class="form-control" v-model="horario" placeholder="Horario" maxlength="50">
+                                    <div v-if="errors && errors.horario" class="text-danger">{{ errors.horario[0] }}</div> 
                                 </div>
                             </div>
 
@@ -347,6 +357,7 @@
                                 <div class="form-group">
                                     <label>Observación(*)</label>
                                     <textarea rows="4" cols="50" maxlength="200" class="form-control" v-model="observacionReceta" placeholder="Observación de la receta"> </textarea>
+                                    <div v-if="errors && errors.observacionReceta" class="text-danger">{{ errors.observacionReceta[0] }}</div> 
                                 </div>
                             </div>
 
@@ -359,6 +370,7 @@
                                 <div class="form-group">
                                     <label>Próxima Consulta(*)</label>
                                     <datepicker id="select" placeholder= "Fecha" v-model="fechaSgtConsulta" :language="es"></datepicker>
+                                    <div v-if="errors && errors.fechaSgtConsulta" class="text-danger">{{ errors.fechaSgtConsulta[0] }}</div> 
                                 </div>
                             </div>
 
@@ -509,6 +521,7 @@
     export default {
         data() {
             return {
+                errors: {},
                 es: es,
                 idCliente: '',
                 idMascota: '',
@@ -634,6 +647,7 @@
                     return;
                 }
                 let me = this;
+                this.errors = {};
 
                 axios.post('/consulta/registrar',{     
                     idCliente : this.idCliente,
@@ -658,12 +672,16 @@
                     })
 
                 }).catch((error) =>{
-                    swal({
-                        title: 'Consulta no registrada!!',
-                        type:  'error',
-                        text:  'No se ha guardado la información',
-                    })
-                    console.log(error);
+                    const { status, errors } = error.response
+                    const response = error.response
+                     if (status === 500) {
+                        console.log(response.data)
+                    }else if (status === 422) {
+                        this.errors = error.response.data.errors || {};
+                        console.clear()
+                    } else {
+                        console.log(error)
+                    }
                 });
             },
             editar(id) {
@@ -707,8 +725,9 @@
                 }
                 
                 let me = this;
+                this.errors = {};
 
-                axios.put('/consultas/actualizar',{
+                axios.put('/consulta/actualizar',{
                     idCliente : this.idCliente,
                     idMascota: this.idMascota,
                     esterilizado : this.esterilizado,
@@ -731,12 +750,16 @@
                         text:  'La información a sido actualizada',
                     })
                 }).catch( (error) =>{
-                    swal({
-                        title: 'Error al actualizar!!',
-                        type:  'error',
-                        text:  'La información no a sido actualizada',
-                    }) 
-                    console.log(error);
+                    const { status, errors } = error.response
+                    const response = error.response
+                     if (status === 500) {
+                        console.log(response.data)
+                    }else if (status === 422) {
+                        this.errors = error.response.data.errors || {};
+                        console.clear()
+                    } else {
+                        console.log(error)
+                    }
                 }); 
             
             },         
@@ -779,6 +802,7 @@
                 me.medicamento = '';
                 me.horario = '';
                 me.observacionReceta = '';
+                this.errors= '';
                 me.fechaSgtConsulta = '';
                 me.errorMostrarMsj = '';
 
@@ -796,6 +820,7 @@
                 me.observacionDiagnostico = '';
                 me.medicamento = '';
                 me.horario = '';
+                this.errors= '';
                 me.observacionReceta = '';
                 me.fechaSgtConsulta = '';
                 me.errorMostrarMsj = '';
@@ -812,6 +837,7 @@
                 me.observacionDiagnostico = '';
                 me.medicamento = '';
                 me.horario = '';
+                this.errors= '';
                 me.observacionReceta = '';
                 me.fechaSgtConsulta = '';
                 me.errorMostrarMsj = '';

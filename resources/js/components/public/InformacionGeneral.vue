@@ -17,7 +17,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <div class="col-md-9">
+                                    <div class="col-md-8">
                                          <div class="form-group"><br>
                                                 <p v-text="registro.capacitador"></p>
                                             </div>
@@ -27,10 +27,10 @@
                                             </div>
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <div> <br>
-                                                    <img :src="'/informacion/'+registro.imagen" alt="Informacion" width="70%" height="70%">
+                                                    <img :src="'/informacion/'+registro.imagen" alt="Informacion" width="100%" height="100%">
                                             </div>
                                         </div>
                                     </div>

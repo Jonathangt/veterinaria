@@ -22,17 +22,19 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Modulo Usuario 
 Route::get('/users', 'UserController@index');
 Route::post('/users/registrar', 'UserController@store');
-Route::put('/users/actualizarAdmin', 'UserController@updateAdmin');
-Route::put('/users/actualizarCliente', 'UserController@updateCliente');
-Route::put('/users/actualizarUser', 'UserController@updateUser');
+Route::put('/users/actualizar', 'UserController@update');
+
+//Route::put('/users/actualizarCliente', 'UserController@updateCliente');
+//Route::put('/users/actualizarUser', 'UserController@updateUser');
+
 Route::put('/users/desactivar', 'UserController@desactivar');
 Route::put('/users/activar', 'UserController@activar');
 Route::delete('/users/delete/{id}', 'UserController@destroy');
 
 //Ruta para el usuario
 Route::get('/indexUsuario', 'UserController@indexUsuario');
-Route::put('/users/actualizarUsuario', 'UserController@updateUsuario');
-Route::get('/prueba/prueba', 'UserController@prueba');
+Route::put('/users/actualizarUsuario', 'UserController@update'); //el admin usa el mismo metodo
+//Route::get('/prueba/prueba', 'UserController@prueba');
 
 
 
@@ -75,9 +77,10 @@ Route::delete('/donacion/delete/{id}', 'DonacionesController@destroy');
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
     return "Cache is cleared";
+   
 });
 
-Route::get('/pruebsdsadx', 'InformacionController@pruebsdsadx');
+Route::get('/prueba', 'InformacionController@prueba');
 
 
 //Modulo informacion
@@ -95,7 +98,7 @@ Route::get('/consulta/obtener', 'ConsultaController@obtenerDatos');
 Route::get('/consulta/select-cliente', 'ClientesController@selectCliente');
 Route::get('/consulta/select-mascotas', 'ConsultaController@selectMascota');
 Route::post('/consulta/registrar', 'ConsultaController@store');
-Route::put('/consultas/actualizar', 'ConsultaController@update');
+Route::put('/consulta/actualizar', 'ConsultaController@update');
 Route::delete('/consulta/delete/{id}', 'ConsultaController@destroy');
 Route::get('/consulta/pdf/{id}', 'ConsultaController@pdfReceta');
 Route::get('/consulta/mostrar-consulta', 'ConsultaController@obtenerDatos');

@@ -5972,7 +5972,8 @@ a.text-warning:focus, a.text-warning:hover {
   color: #d39e00 !important; }
 
 .text-danger {
-  color: #f86c6b !important; }
+  color: #f86c6b !important;
+  font-weight: bold; }
 
 a.text-danger:focus, a.text-danger:hover {
   color: #f63c3a !important; }

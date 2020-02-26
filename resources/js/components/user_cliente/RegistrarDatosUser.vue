@@ -102,7 +102,7 @@
                             <div class="col-md-4">
                                 <div class="form-group"><br>
                                     <Label>Nombre(*)</Label>
-                                    <input type="text" class="form-control" v-model="nombre" placeholder="Nombre" maxlength="15"> 
+                                    <input type="text" class="form-control" v-model="nombre" placeholder="Nombre" maxlength="14"> 
                                 </div>
                             </div>
 
@@ -185,7 +185,7 @@
                             <div class="col-md-4">
                                 <div class="form-group"><br>
                                     <Label>Nombre(*)</Label>
-                                    <input type="text" class="form-control" v-model="nombre" placeholder="Nombre" maxlength="30"> 
+                                    <input type="text" class="form-control" v-model="nombre" placeholder="Nombre" maxlength="14"> 
                                 </div>
                             </div>
 
@@ -389,7 +389,7 @@
             },
             editar(id) {
                 this.templateEditar();
-                let me = this;//metodo para mostrar los datos de la malla
+                let me = this;
                 var url = '/datos/obtener?id=' + id;
                 var arrayEditarDatos=[];
                 axios.get(url).then(function(response) {

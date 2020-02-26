@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i> Registro de Donaciones para mostrar en el inicio del sitio web
+                    <i class="icon-tag"></i> Registro de Donaciones para mostrar en el inicio del sitio web
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->
@@ -106,11 +106,13 @@
                                 <div class="form-group"><br>
                                     <Label>Recaudacion(*)</Label>
                                     <input type="text" class="form-control" v-model="recaudacion" placeholder="Recaudacion" maxlength="200"> 
+                                    <div v-if="errors && errors.recaudacion" class="text-danger">{{ errors.recaudacion[0] }}</div> 
                                 </div>
 
                                 <div class="form-group">
                                     <Label>Lugar de recaudo(*)</Label>
-                                    <input type="text" class="form-control" v-model="lugar" placeholder="Lugar" maxlength="200"> 
+                                    <input type="text" class="form-control" v-model="lugar" placeholder="Lugar" maxlength="200">
+                                    <div v-if="errors && errors.lugar" class="text-danger">{{ errors.lugar[0] }}</div>  
                                 </div>
                             </div>
 
@@ -127,6 +129,7 @@
                                 <div class="form-group">
                                     <Label>Motivo(*)</Label>
                                     <textarea rows="4" cols="50" maxlength="200" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando"> </textarea> 
+                                    <div v-if="errors && errors.motivo" class="text-danger">{{ errors.motivo[0] }}</div> 
                                 </div>
                             </div>
 
@@ -140,7 +143,7 @@
                                 <div class="form-group">
                                     <Label>Fecha de Inicio(*)</Label>
                                  <!--    <input type="date" class="form-control" v-model="fechaInicio"> -->
-                                 <datepicker id="select" placeholder= "Fecha de inico" v-model="fechaInicio" :language="es"></datepicker>
+                                 <datepicker id="select" placeholder="Fecha de inicio" v-model="fechaInicio" :language="es"></datepicker>
                                 </div>
                             </div>
 
@@ -148,8 +151,7 @@
                                 <div class="form-group">
                                     <Label>Fecha de Finalización(*)</Label>
                                <!--     <input type="date" class="form-control" v-model="fechaFin"> -->
-                                    
-                                    <datepicker id="select" placeholder= "Fecha de finalización" v-model="fechaFin" :language="es"></datepicker>
+                                    <datepicker id="select" placeholder="Fecha de finalización" v-model="fechaFin" :language="es"></datepicker>
                                 </div>
                             </div>
                         </div>
@@ -165,6 +167,7 @@
                                 <div class="form-group"><br>
                                    <Label>Teléfono(*)</Label>
                                         <input type="text" class="form-control" v-model="telefono" placeholder="Teléfono" maxlength="10"> 
+                                        <div v-if="errors && errors.telefono" class="text-danger">{{ errors.telefono[0] }}</div> 
                                 </div>
                             </div>
 
@@ -172,6 +175,7 @@
                                 <div class="form-group"><br>
                                     <Label>Dirección (*)</Label>
                                     <input type="text" class="form-control" v-model="direccion" placeholder="Dirección" maxlength="100"> 
+                                    <div v-if="errors && errors.direccion" class="text-danger">{{ errors.direccion[0] }}</div> 
                                 </div>
                             </div>
 
@@ -179,6 +183,7 @@
                                 <div class="form-group"><br>
                                     <Label>Email (*)</Label>
                                     <input type="text" class="form-control" v-model="email" placeholder="Dirección" maxlength="50"> 
+                                    <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div> 
                                 </div>
                             </div>
                         </div> <!--fin row borde-->
@@ -216,11 +221,13 @@
                                 <div class="form-group"><br>
                                     <Label>Recaudacion(*)</Label>
                                     <input type="text" class="form-control" v-model="recaudacion" placeholder="Recaudacion" maxlength="200"> 
+                                    <div v-if="errors && errors.recaudacion" class="text-danger">{{ errors.recaudacion[0] }}</div> 
                                 </div>
 
                                 <div class="form-group">
                                     <Label>Lugar de recaudo(*)</Label>
                                     <input type="text" class="form-control" v-model="lugar" placeholder="Lugar" maxlength="200"> 
+                                    <div v-if="errors && errors.lugar" class="text-danger">{{ errors.lugar[0] }}</div> 
                                 </div>
                             </div>
 
@@ -237,6 +244,7 @@
                                 <div class="form-group">
                                     <Label>Motivo(*)</Label>
                                     <textarea rows="4" cols="50" maxlength="200" class="form-control"  v-model="motivo" placeholder="Para que se esta recaudando"> </textarea> 
+                                    <div v-if="errors && errors.motivo" class="text-danger">{{ errors.motivo[0] }}</div> 
                                 </div>
                             </div>
 
@@ -249,17 +257,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <Label>Fecha de Inicio(*)</Label>
-                                 <!--    <input type="date" class="form-control" v-model="fechaInicio"> -->
-                                 <datepicker id="select" placeholder= "Fecha de inico" v-model="fechaInicio" :language="es"></datepicker>
+                                    <datepicker id="select" placeholder="Fecha de inicio" v-model="fechaInicio" :language="es"></datepicker>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <Label>Fecha de Finalización(*)</Label>
-                               <!--     <input type="date" class="form-control" v-model="fechaFin"> -->
-                                    
-                                    <datepicker id="select" placeholder= "Fecha de finalización" v-model="fechaFin" :language="es"></datepicker>
+                                    <datepicker id="select" placeholder="Fecha de finalización" v-model="fechaFin" :language="es"></datepicker> 
                                 </div>
                             </div>
                         </div>
@@ -275,6 +280,7 @@
                                 <div class="form-group"><br>
                                    <Label>Teléfono(*)</Label>
                                         <input type="text" class="form-control" v-model="telefono" placeholder="Teléfono" maxlength="10"> 
+                                        <div v-if="errors && errors.telefono" class="text-danger">{{ errors.telefono[0] }}</div> 
                                 </div>
                             </div>
 
@@ -282,6 +288,7 @@
                                 <div class="form-group"><br>
                                     <Label>Dirección (*)</Label>
                                     <input type="text" class="form-control" v-model="direccion" placeholder="Dirección" maxlength="100"> 
+                                    <div v-if="errors && errors.direccion" class="text-danger">{{ errors.direccion[0] }}</div> 
                                 </div>
                             </div>
 
@@ -289,6 +296,7 @@
                                 <div class="form-group"><br>
                                     <Label>Email (*)</Label>
                                     <input type="text" class="form-control" v-model="email" placeholder="Dirección" maxlength="50"> 
+                                    <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div> 
                                 </div>
                             </div>
                         </div> <!--fin row borde-->
@@ -412,10 +420,12 @@
 
 <script>
     import Datepicker from 'vuejs-datepicker';
-    import { es } from 'vuejs-datepicker/dist/locale'
+    import { es } from 'vuejs-datepicker/dist/locale';
+
     export default {
         data() {
             return {
+                errors: {},
                 es: es,
                 name: '',
                 email: '',
@@ -447,7 +457,7 @@
             }
         },
         components: {
-            Datepicker
+            Datepicker,
         },
         computed: {
             isActived: function() {
@@ -581,6 +591,8 @@
                 }
                 let me = this;
 
+                this.errors = {};
+
                 axios.post('/donacion/registrar',{     
                     'recaudacion': this.recaudacion,
                     'lugar' : this.lugar,
@@ -602,12 +614,16 @@
                     })
 
                 }).catch((error) =>{
-                    swal({
-                        title: 'Donación no registrada!!',
-                        type:  'error',
-                        text:  'La información no a sido publicada',
-                    })
-                    console.log(error);
+                    const { status, errors } = error.response
+                    const response = error.response
+                     if (status === 500) {
+                        console.log(response.data)
+                    }else if (status === 422) {
+                        this.errors = error.response.data.errors || {};
+                        console.clear()
+                    } else {
+                        console.log(error)
+                    }
                 });
               
 
@@ -616,8 +632,8 @@
            
             editar(id) {
                 this.templateEditar();
-                this.template=3; //abro el template para editar
-                let me = this;//metodo para mostrar los datos de la malla
+                // this.template=3; //abro el template para editar
+                let me = this;
                 var url = '/donacion/obtener?id=' + id;
                 var arrayEditarDatos=[];
                 axios.get(url).then(function(response) {
@@ -625,13 +641,13 @@
                     arrayEditarDatos = respuesta.donacion;
                     me.idDonacion = arrayEditarDatos[0]['id'];
                     me.recaudacion = arrayEditarDatos[0]['recaudacion'];
-                    me.lugar=arrayEditarDatos[0]['lugar'];
-                    me.motivo=arrayEditarDatos[0]['motivo'];
-                    me.telefono=arrayEditarDatos[0]['telefono'];
-                    me.direccion=arrayEditarDatos[0]['direccion'];
-                    me.email=arrayEditarDatos[0]['email'];
-                    me.fechaInicio=arrayEditarDatos[0]['fechaInicio'];
-                    me.fechaFin=arrayEditarDatos[0]['fechaFin'];
+                    me.lugar = arrayEditarDatos[0]['lugar'];
+                    me.motivo = arrayEditarDatos[0]['motivo'];
+                    me.telefono = arrayEditarDatos[0]['telefono'];
+                    me.direccion = arrayEditarDatos[0]['direccion'];
+                    me.email = arrayEditarDatos[0]['email'];
+                    me.fechaInicio = arrayEditarDatos[0]['fechaInicio'];
+                    me.fechaFin = arrayEditarDatos[0]['fechaFin'];
 
                 }).catch((error) => {
                     swal({
@@ -650,6 +666,8 @@
                 }
                 
                 let me = this;
+
+                this.errors = {};
 
                 axios.put('/donacion/actualizar',{
                     'recaudacion': this.recaudacion,
@@ -671,12 +689,16 @@
                         text:  'La información a sido actualizada',
                     })
                 }).catch( (error) =>{
-                    swal({
-                        title: 'Error al actualizadar!!',
-                        type:  'error',
-                        text:  'La información no a sido actualizada',
-                    }) 
-                    console.log(error);
+                    const { status, errors } = error.response
+                    const response = error.response
+                     if (status === 500) {
+                        console.log(response.data)
+                    }else if (status === 422) {
+                        this.errors = error.response.data.errors || {};
+                        console.clear()
+                    } else {
+                        console.log(error)
+                    }
                 }); 
 
                 
@@ -722,6 +744,7 @@
                 me.email = '';
                 me.fechaInicio = '';
                 me.fechaFin = '';
+                this.errors= '';
                 me.errorMostrarMsj = '';
 
             },
@@ -736,11 +759,12 @@
                 me.email = '';
                 me.fechaInicio = '';
                 me.fechaFin = '';
+                this.errors= '';
                 me.errorMostrarMsj = '';
             },
             templateEditar() {
                 let me = this;
-                this.template = 3;
+                me.template = 3;
                 me.recaudacion = '';
                 me.lugar = '';              
                 me.motivo = '';
@@ -749,6 +773,7 @@
                 me.email = '';
                 me.fechaInicio = '';
                 me.fechaFin = '';
+                me.errors= '';
                 me.errorMostrarMsj = '';
             },
             obtenerRegistro(id) {

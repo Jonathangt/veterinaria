@@ -135,6 +135,7 @@
                                         <div class="form-group"><br>
                                            <Label>Mascota(*)</Label> 
                                            <input type="text" class="form-control" v-model="mascota.nombreMascota" placeholder="Nombre Mascota" maxlength="20"> 
+                                           <div v-if="errors && errors.nombreMascota" class="text-danger">{{ errors.nombreMascota[0] }}</div> 
                                         </div>
                                     </div>
 
@@ -148,7 +149,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group"><br>
                                             <Label>Edad(*)</Label>
-                                            <input type="text" class="form-control" v-model="mascota.edad" placeholder="Edad" maxlength="4"> 
+                                            <input type="text" class="form-control" v-model="mascota.edad" placeholder="Edad" maxlength="15"> 
+                                            <div v-if="errors && errors.edad" class="text-danger">{{ errors.edad[0] }}</div> 
                                         </div>
                                     </div>
 
@@ -156,6 +158,7 @@
                                         <div class="form-group"><br>
                                             <Label>Especie(*)</Label>
                                             <input type="text" class="form-control" v-model="mascota.especie" placeholder="Especie" maxlength="20"> 
+                                            <div v-if="errors && errors.especie" class="text-danger">{{ errors.especie[0] }}</div> 
                                         </div>
                                     </div>
 
@@ -164,6 +167,7 @@
                                         <div class="form-group"><br>
                                             <Label>Raza(*)</Label>
                                             <input type="text" class="form-control" v-model="mascota.raza" placeholder="Raza" maxlength="20"> 
+                                            <div v-if="errors && errors.raza" class="text-danger">{{ errors.raza[0] }}</div> 
                                         </div>
                                     </div>
 
@@ -176,6 +180,7 @@
                                         <div class="form-group">
                                             <Label>Observación(*)</Label>
                                             <textarea rows="4" cols="50" maxlength="200" class="form-control"  v-model="mascota.observacion" placeholder="Observación"> </textarea> 
+                                            <div v-if="errors && errors.observacion" class="text-danger">{{ errors.observacion[0] }}</div> 
                                         </div>
                                     </div>
 
@@ -257,6 +262,7 @@
                                         <div class="form-group"><br>
                                            <Label>Mascota(*)</Label> 
                                            <input type="text" class="form-control" v-model="mascota.nombreMascota" placeholder="Nombre Mascota" maxlength="20"> 
+                                           <div v-if="errors && errors.nombreMascota" class="text-danger">{{ errors.nombreMascota[0] }}</div> 
                                         </div>
                                     </div>
 
@@ -270,7 +276,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group"><br>
                                             <Label>Edad(*)</Label>
-                                            <input type="text" class="form-control" v-model="mascota.edad" placeholder="Edad" maxlength="4"> 
+                                            <input type="text" class="form-control" v-model="mascota.edad" placeholder="Edad" maxlength="15"> 
+                                             <div v-if="errors && errors.edad" class="text-danger">{{ errors.edad[0] }}</div> 
                                         </div>
                                     </div>
 
@@ -278,6 +285,7 @@
                                         <div class="form-group"><br>
                                             <Label>Especie(*)</Label>
                                             <input type="text" class="form-control" v-model="mascota.especie" placeholder="Especie" maxlength="20"> 
+                                            <div v-if="errors && errors.especie" class="text-danger">{{ errors.especie[0] }}</div> 
                                         </div>
                                     </div>
 
@@ -286,6 +294,7 @@
                                         <div class="form-group"><br>
                                             <Label>Raza(*)</Label>
                                             <input type="text" class="form-control" v-model="mascota.raza" placeholder="Raza" maxlength="20"> 
+                                             <div v-if="errors && errors.raza" class="text-danger">{{ errors.raza[0] }}</div> 
                                         </div>
                                     </div>
 
@@ -298,6 +307,7 @@
                                         <div class="form-group">
                                             <Label>Observación(*)</Label>
                                             <textarea rows="4" cols="50" maxlength="200" class="form-control"  v-model="mascota.observacion" placeholder="Observación"> </textarea> 
+                                            <div v-if="errors && errors.observacion" class="text-danger">{{ errors.observacion[0] }}</div> 
                                         </div>
                                     </div>
 
@@ -449,6 +459,14 @@
     export default {
         data() {
             return {
+                errors: {},
+               
+                nombreMascota: '',
+                edad: '',
+                especie: '',
+                raza: '',
+                observacion: '',
+
                 mascota: {
                     idPersona: '',
                     nombreMascota: '',
@@ -589,6 +607,7 @@
                 if (this.validarDatos()) {
                     return;
                 }
+                this.errors = {};
             
                 axios.post('/adopcion/registrar', this.mascota )   
                 
@@ -645,6 +664,8 @@
                     return;
                 }
 
+                this.errors = {};
+
                 axios.put('/adopcion/actualizar', this.mascota)  
                    
                 .then(response =>  {
@@ -657,12 +678,16 @@
                         text:  'La información a sido actualizada',
                     })
                 }).catch(error =>  {
-                    swal({
-                        title: 'Error al actualizar!!',
-                        type:  'error',
-                        text:  'La información no a sido actualizada',
-                    }) 
-                    console.log(error);                 
+                    const { status, errors } = error.response
+                    const response = error.response
+                     if (status === 500) {
+                        console.log(response.data)
+                    }else if (status === 422) {
+                        this.errors = error.response.data.errors || {};
+                        console.clear()
+                    } else {
+                        console.log(error)
+                    }                
                 }); 
             },  
             obtenerRegistro(id) {
@@ -745,6 +770,7 @@
                 this.mascota.raza = ''; 
                 this.mascota.observacion = ''; 
                 this.file = ''; 
+                this.errors= '';
                 this.mascota.imagenMiniatura = ''; 
                 this.errorMostrarMsj = '';      
             },
@@ -759,6 +785,7 @@
                 this.mascota.raza = ''; 
                 this.mascota.observacion = ''; 
                 this.file = ''; 
+                this.errors= '';
                 this.mascota.imagenMiniatura = ''; 
                 this.errorMostrarMsj = '';
             },
@@ -774,6 +801,7 @@
                 this.mascota.raza = ''; 
                 this.mascota.observacion = ''; 
                 this.file = ''; 
+                this.errors= '';
                 this.mascota.imagenMiniatura = ''; 
                 this.errorMostrarMsj = '';
             },

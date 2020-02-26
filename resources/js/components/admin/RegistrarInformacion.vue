@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i> Registro de Información para mostrar en el sitio web
+                    <i class="icon-share"></i> Registro de Información para mostrar en el sitio web
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->
@@ -320,6 +320,7 @@
     </main>
 </template>
 
+
 <script>
     export default {
         data() {
@@ -388,6 +389,7 @@
         }, 
     
         methods: {
+           
             obtenerImagen(e){
              //  let me = this;
                 this.file = e.target.files[0];//img en la posicion 0

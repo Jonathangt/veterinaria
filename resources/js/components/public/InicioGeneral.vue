@@ -16,7 +16,7 @@
                             <div class="col-md-12">
                                 <div class="form-group centerTabla"><br>
                                 <!--    <h2>Veterinaria Dobaltoff</h2><br>-->
-                                    <h5 >ÚNETE AL RESCATE PROTECCIóN Y BIENESTAR ANIMAL</h5>
+                                    <h5 >ÚNETE AL RESCATE PROTECCION Y BIENESTAR ANIMAL</h5>
                                     <div class="form-group">
                                         <img src="img/About.jpg" alt="Dobaltoff" width="300" height="200">
                                     </div>

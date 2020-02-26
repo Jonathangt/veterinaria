@@ -47,7 +47,7 @@ class PersonasController extends Controller
     }
 
     public function obtenerID(Request $request){
-        //metodo para obtener el periodo lectivo de la malla registrada
+       
         //if (!$request->ajax()) return redirect('/');
  
         $id = $request->id;

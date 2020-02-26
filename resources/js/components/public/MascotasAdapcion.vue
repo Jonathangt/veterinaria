@@ -73,7 +73,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div> <br>
-                                                    <img :src="'/mascotas/'+registro.imagen" alt="Informacion" width="70%" height="70%">
+                                                    <img :src="'/mascotas/'+registro.imagen" alt="Informacion" width="90%" height="90%">
                                             </div>
                                         </div>
                                     </div>

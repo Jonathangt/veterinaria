@@ -6,7 +6,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="icon-chart"></i>  Administración de Mascotas 
+                    <i class="icon-heart"></i>  Administración de Mascotas 
                 </div>
                 <!-- --------------------------------------------------------------------------------->
                 <!--  PRINCIPAL-->
@@ -88,7 +88,7 @@
                 <!-- Registro de datos-->
                 <template v-else-if="template==0">
                     <div class="text-center"><br>
-                         <Label><b class="labelContacto"> Registro de la mascota</b></Label>
+                         <Label><b class="labelContacto"> Registro de la mascota para la consulta</b></Label>
                     </div>
                      <div class="col-md-12">
                         <div class="form-group">
@@ -117,6 +117,7 @@
                                 <div class="form-group"><br>
                                     <Label>Nombre mascota(*)</Label>
                                     <input type="text" class="form-control" v-model="nombreMascota" placeholder="Mascota" maxlength="20"> 
+                                    <div v-if="errors && errors.nombreMascota" class="text-danger">{{ errors.nombreMascota[0] }}</div> 
                                 </div>
                             </div>
 
@@ -125,6 +126,7 @@
                                 <div class="form-group"><br>
                                     <Label>Especie(*)</Label>
                                     <input type="text" class="form-control" v-model="especie" placeholder="Especie" maxlength="20"> 
+                                    <div v-if="errors && errors.especie" class="text-danger">{{ errors.especie[0] }}</div> 
                                 </div>
                             </div>
 
@@ -133,6 +135,7 @@
                                 <div class="form-group"><br>
                                     <Label>Raza(*)</Label>
                                     <input type="text" class="form-control" v-model="raza" placeholder="Raza" maxlength="20"> 
+                                    <div v-if="errors && errors.raza" class="text-danger">{{ errors.raza[0] }}</div> 
                                 </div>
                             </div>
 
@@ -148,7 +151,8 @@
                              <div  class="col-md-4">
                                 <div class="form-group"><br>
                                     <Label>Edad(*)</Label>
-                                    <input type="text" class="form-control" v-model="edad" placeholder="Edad" maxlength="15"> 
+                                    <input type="text" class="form-control" v-model="edad" placeholder="Edad" maxlength="10"> 
+                                    <div v-if="errors && errors.edad" class="text-danger">{{ errors.edad[0] }}</div> 
                                 </div>
                             </div>
 
@@ -218,6 +222,7 @@
                                 <div class="form-group"><br>
                                     <Label>Nombre mascota(*)</Label>
                                     <input type="text" class="form-control" v-model="nombreMascota" placeholder="Mascota" maxlength="20"> 
+                                    <div v-if="errors && errors.nombreMascota" class="text-danger">{{ errors.nombreMascota[0] }}</div> 
                                 </div>
                             </div>
 
@@ -225,7 +230,8 @@
                              <div class="col-md-4">
                                 <div class="form-group"><br>
                                     <Label>Especie(*)</Label>
-                                    <input type="text" class="form-control" v-model="especie" placeholder="Especie" maxlength="20"> 
+                                    <input type="text" class="form-control" v-model="especie" placeholder="Especie" maxlength="20">
+                                    <div v-if="errors && errors.especie" class="text-danger">{{ errors.especie[0] }}</div>  
                                 </div>
                             </div>
 
@@ -234,6 +240,7 @@
                                 <div class="form-group"><br>
                                     <Label>Raza(*)</Label>
                                     <input type="text" class="form-control" v-model="raza" placeholder="Raza" maxlength="20"> 
+                                    <div v-if="errors && errors.raza" class="text-danger">{{ errors.raza[0] }}</div> 
                                 </div>
                             </div>
 
@@ -249,7 +256,8 @@
                              <div  class="col-md-4">
                                 <div class="form-group"><br>
                                     <Label>Edad(*)</Label>
-                                    <input type="text" class="form-control" v-model="edad" placeholder="Edad" maxlength="15"> 
+                                    <input type="text" class="form-control" v-model="edad" placeholder="Edad" maxlength="10"> 
+                                    <div v-if="errors && errors.edad" class="text-danger">{{ errors.edad[0] }}</div> 
                                 </div>
                             </div>
 
@@ -407,6 +415,7 @@
     export default {
         data() {
             return {
+                errors: {},
                 es: es,
                 idCliente: '',
                 idMascota: '',
@@ -508,7 +517,9 @@
                 if (this.validarDatos()) {
                     return;
                 }
-            
+
+                this.errors = {};
+
                 axios.post('/mascotas/registrar',{     
                     idCliente: this.idCliente.id,
                     nombreMascota: this.nombreMascota,
@@ -528,12 +539,16 @@
                         text:  'La información a sido guardada',
                     })
                 }).catch(error =>{
-                    swal({
-                        title: 'Mascota no registrada!!',
-                        type:  'error',
-                        text:  'La información no a sido guardada',
-                    })
-                    console.log(error);
+                    const { status, errors } = error.response
+                    const response = error.response
+                     if (status === 500) {
+                        console.log(response.data)
+                    }else if (status === 422) {
+                        this.errors = error.response.data.errors || {};
+                        console.clear()
+                    } else {
+                        console.log(error)
+                    }
                 });
             
             },
@@ -569,6 +584,8 @@
                     return;
                 }
 
+                this.errors = {};
+
                 axios.put('/mascotas/actualizar',{
                     idCliente: this.idCliente,
                     nombreMascota: this.nombreMascota,
@@ -588,12 +605,16 @@
                         text:  'La información a sido actualizada',
                     })
                 }).catch(error =>  {
-                    swal({
-                        title: 'Error al actualizar!!',
-                        type:  'error',
-                        text:  'La información no a sido actualizada',
-                    }) 
-                    console.log(error);                 
+                   const { status, errors } = error.response
+                    const response = error.response
+                     if (status === 500) {
+                        console.log(response.data)
+                    }else if (status === 422) {
+                        this.errors = error.response.data.errors || {};
+                        console.clear()
+                    } else {
+                        console.log(error)
+                    }               
                 }); 
             },  
             obtenerRegistro(id) {
@@ -655,6 +676,7 @@
                 this.fechaNacimiento = '';
                 this.edad = ''; 
                 this.sexo = '';
+                this.errors= '';
                 this.errorMostrarMsj = '';
             },
             templateEditar() {
@@ -668,44 +690,45 @@
                 this.fechaNacimiento = '';
                 this.edad = ''; 
                 this.sexo = '';
+                this.errors= '';
                 this.errorMostrarMsj = '';
             },
             eliminar(id){
-            // window.swal = require('sweetalert2') // added here
-            swal({
-                title: 'Esta seguro que desea eliminar el registro?',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Aceptar!',
-                cancelButtonText: 'Cancelar',
-                confirmButtonClass: 'btn btn-success',
-                cancelButtonClass: 'btn btn-danger',
-                buttonsStyling: false,
-                reverseButtons: true
-                }).then((result) => {
-                if (result.value) {
-                    let me = this;
-                    var url = '/mascotas/delete/' +id;
-                   axios.delete(url).then(function (response) {
+                // window.swal = require('sweetalert2') // added here
+                swal({
+                    title: 'Esta seguro que desea eliminar el registro?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar!',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger',
+                    buttonsStyling: false,
+                    reverseButtons: true
+                    }).then((result) => {
+                    if (result.value) {
+                        let me = this;
+                        var url = '/mascotas/delete/' +id;
+                    axios.delete(url).then(function (response) {
 
-                    me.listar(1,'','apellidos');
-                    swal(
-                    'Eliminado!',
-                    'El registro ha sido eliminado con éxito.',
-                    'success'
-                    )
-                }).catch(function (error) {
-                    console.log(error);
-                });                
-                } else if (
-                    // Read more about handling dismissals
-                    result.dismiss === swal.DismissReason.cancel
-                ) {
-                    
-                }
-                }) 
+                        me.listar(1,'','apellidos');
+                        swal(
+                        'Eliminado!',
+                        'El registro ha sido eliminado con éxito.',
+                        'success'
+                        )
+                    }).catch(function (error) {
+                        console.log(error);
+                    });                
+                    } else if (
+                        // Read more about handling dismissals
+                        result.dismiss === swal.DismissReason.cancel
+                    ) {
+                        
+                    }
+                    }) 
             },
         },
         mounted() {

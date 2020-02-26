@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use PDF;
 
+use App\Http\Requests\StoreConsultas;
+use App\Http\Requests\UpdateConsultas;
+
 
 class ConsultaController extends Controller
 {
@@ -23,11 +26,6 @@ class ConsultaController extends Controller
 
         //tengo que obtener la condicion y el id de la persona
         $userID = \Auth::user()->condicion;  ///obtengo diagnostico: 1 //ok
-
-       // $persona = Personas::findOrFail($diagnosticoa); //otengo toda la coleccion persona //return->id //ok
-
-
-      // return ['userID' => $userID];
         
         if ($buscar==''){
             $consulta = Consultas:://join('users', 'consultas.idUsuario', 'users.id')
@@ -65,7 +63,7 @@ class ConsultaController extends Controller
         ];
     }
 
-    public function store(Request $request)    {
+    public function store(StoreConsultas $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
@@ -109,12 +107,11 @@ class ConsultaController extends Controller
         }
     }
 
-    public function update(Request $request)    {
+    public function update(UpdateConsultas $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
             
-            //$now = Carbon::now();
             $consulta = Consultas::findOrFail($request->id);
             $consulta->idUsuario = \Auth::user()->id; //obtengo el id del user 
             $consulta->idCliente = $request->idCliente;
@@ -141,7 +138,7 @@ class ConsultaController extends Controller
     }
 
     public function obtenerDatos(Request $request){//metodo para editar y visualizar los datos
-        //if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
 
         $id = $request->id;
         $consulta = Consultas::join('users', 'consultas.idUsuario', 'users.id')
@@ -168,7 +165,6 @@ class ConsultaController extends Controller
       
     public function pdfReceta(Request $request, $id){
         
-        //obtengo el periodo de la malla curricular
         $consulta = Consultas::join('users', 'consultas.idUsuario', 'users.id')
                                     ->join('clientes', 'consultas.idCliente', 'clientes.id')
                                     ->join('personas', 'clientes.idPersona', 'personas.id')
@@ -214,8 +210,6 @@ class ConsultaController extends Controller
 
        
         $personaID = \Auth::user()->idPersona;  ///obtengo el campo diagnostico del usuario autenticado
-
-       // $persona = Personas::findOrFail($consultaa); //otengo toda la coleccion persona //return->id //ok
         
         if ($buscar==''){
             $consulta = Consultas::join('users', 'consultas.idUsuario', 'users.id')
@@ -258,13 +252,5 @@ class ConsultaController extends Controller
     }
 
     
-
-
-
-
-
-   
-  
-
 
 }

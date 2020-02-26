@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
+use App\Http\Requests\StoreDonaciones;
+use App\Http\Requests\UpdateDonaciones;
+
 class DonacionesController extends Controller
 {
     public function index(Request $request)    {
@@ -46,18 +49,16 @@ class DonacionesController extends Controller
         ];
     }
 
-    public function store(Request $request)    {
+    public function store(StoreDonaciones $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
             DB::beginTransaction();
 
-         
-
             //se guarda con el fotmato ok
             /*$donacion->fechaInicio = Carbon::parse($request->fechaInicio); 2020-02-15 01:05:00*/
 
-         //   $now = Carbon::now();
+            //   $now = Carbon::now();
            // $now = $request->direccion;
             //Feb 11, 2020  $donacion->fechaInicio = $now->toFormattedDateString();
           
@@ -75,8 +76,8 @@ class DonacionesController extends Controller
             $donacion->motivo = $request->motivo;
             $donacion->telefono = $request->telefono;
             $donacion->direccion = $request->direccion;
-            $donacion->fechaInicio = Carbon::parse($request->fechaInicio)->format('d-m-Y');
-            $donacion->fechaFin = Carbon::parse($request->fechaFin)->format('d-m-Y');
+            $donacion->fechaInicio = Carbon::parse($request->fechaInicio)->toFormattedDateString();
+            $donacion->fechaFin = Carbon::parse($request->fechaFin)->toFormattedDateString();
             $donacion->email = $request->email;
             $donacion->save();
             DB::commit();
@@ -86,7 +87,7 @@ class DonacionesController extends Controller
         }
     }
 
-    public function update(Request $request)    {
+    public function update(UpdateDonaciones $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
@@ -98,8 +99,8 @@ class DonacionesController extends Controller
             $donacion->motivo = $request->motivo;
             $donacion->telefono = $request->telefono;
             $donacion->direccion = $request->direccion;
-            $donacion->fechaInicio = Carbon::parse($request->fechaInicio)->format('d-m-Y');
-            $donacion->fechaFin = Carbon::parse($request->fechaFin)->format('d-m-Y');
+            $donacion->fechaInicio = Carbon::parse($request->fechaInicio)->toFormattedDateString();
+            $donacion->fechaFin = Carbon::parse($request->fechaFin)->toFormattedDateString();            
             $donacion->email = $request->email;           
             $donacion->save();
 
@@ -153,7 +154,6 @@ class DonacionesController extends Controller
 
         return ['donacion' => $donacion ];
 
-        
      }
 
      public function destroy($id)  {

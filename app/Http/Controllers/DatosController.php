@@ -6,17 +6,17 @@ use Illuminate\Http\Request;
 use App\Personas;
 use App\Clientes;
 use App\User;
-use App\Http\Requests\StoreDatos;
-use App\Http\Requests\UpdateDatos;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
+use App\Http\Requests\StorePersonas;
+use App\Http\Requests\UpdatePersonas;
 
 class DatosController extends Controller
 {
     public function index(Request $request)    {
-       // if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
+        if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
 
         $buscar = $request->buscar;
         $criterio = $request->criterio;
@@ -36,7 +36,7 @@ class DatosController extends Controller
                             select('personas.id', 'personas.idUsuario', 'personas.nombre', 'personas.apellidos',
                                 'personas.cedula', 'personas.direccion', 'personas.telefono', 'personas.celular', 'personas.email',
                                 'personas.estado')
-                            //->where('personas.idUsuario', '=', $userID)
+                            ->where('personas.estado', '=', '0')
                             ->where($criterio, 'like', '%'. $buscar . '%')
                             ->orderBy('personas.nombre', 'desc')->paginate(10);
         }
@@ -55,7 +55,7 @@ class DatosController extends Controller
         ];
     }
 
-    public function store(Request $request)    {
+    public function store(StorePersonas $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
@@ -84,7 +84,7 @@ class DatosController extends Controller
 
     }
 
-    public function update(Request $request)    {
+    public function update(UpdatePersonas $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
@@ -112,10 +112,8 @@ class DatosController extends Controller
 
     }
 
-
-
     public function obtener(Request $request){ //metodo para obtener el registro y editarlo
-        //if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
  
         $id = $request->id;
         $personas = Personas::join('users', 'personas.idUsuario', 'users.id')
@@ -127,7 +125,7 @@ class DatosController extends Controller
 
     public function selectDatos(Request $request){
         //Metodo para filtar el nombre de la persona en el registro de la mascota para adocion
-        //if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
         $id = $request->id;
         //$userID = \Auth::user()->id;  ///obtengo el campo id del usuario autenticado
         $personas = Personas::select('personas.id', 'personas.nombre', 'personas.apellidos')
@@ -147,10 +145,6 @@ class DatosController extends Controller
                                 ->orderBy('personas.apellidos', 'asc')->take(1)->get(); 
         return ['personas' => $personas];
     }
-
-
-    
-
    
 
     public function destroy($id)  {
