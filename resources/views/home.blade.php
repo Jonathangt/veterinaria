@@ -31,10 +31,10 @@
                 <registrar-consulta></registrar-consulta>
             </template>
 
-
             <template v-if="menu==4">
                 <registrar-informacion></registrar-informacion>
             </template>
+            
             <template v-if="menu==5">
                 <registrar-donaciones></registrar-donaciones>
             </template>

@@ -17,7 +17,7 @@
                                 <div class="input-group"><!--Criterios de busqueda -->
                                     <select class="form-control col-md-2" v-model="criterio">
                                         <option value="apellidos">Apellido del Cliente</option> 
-                                        <option value="cedula">Nombre de Mascota</option> 
+                                        <option value="nombreMascota">Nombre de Mascota</option> 
                                     </select>
 
                                     <input type="text" v-model="buscar" @keyup.enter="listar(1,buscar,criterio)" class="form-control col-md-4" placeholder="Busqueda">

@@ -198,7 +198,7 @@ class DatosController extends Controller
          ];
     }
 
-    public function storeUsuario(Request $request)    {
+    public function storeUsuario(StorePersonas $request)    {
         if (!$request->ajax()) return redirect('/');
         
         try{
@@ -243,7 +243,7 @@ class DatosController extends Controller
     public function selectDatosCliente(Request $request){
         //Metodo para filtar el nombre de la persona en el registro de la mascota para adocion
         //if (!$request->ajax()) return redirect('/');
-        $id = $request->id;
+        //$id = $request->id;
         $idPersona = \Auth::user()->idPersona;  ///obtengo el campo id del usuario autenticado
         $personas = Personas::select('personas.id', 'personas.nombre', 'personas.apellidos')
                                 ->where('personas.id', '=', $idPersona)

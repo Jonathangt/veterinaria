@@ -90,11 +90,10 @@ class InformacionController extends Controller
     }
 
     public function update(Request $request)    {
+        if (!$request->ajax()) return redirect('/');
       
         try{            
             $informacion = Informacion::findOrFail($request->id);
-
-            
 
             $informacion->idUsuario = \Auth::user()->id; //obtengo el id del user 
             $informacion->tema = $request->tema;
@@ -146,7 +145,7 @@ class InformacionController extends Controller
     }
 
     public function obtenerDatos(Request $request){//metodo para editar y visualizar los datos
-        //if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
 
         $id = $request->id;
         $informacion = Informacion::join('users', 'informacion.idUsuario', 'users.id')
@@ -176,31 +175,10 @@ class InformacionController extends Controller
     }
 
     
-    public function prueba(Request $request)  {
-        //  $informacion = Informacion::findOrFail($id)->delete();
-
-        
-         
-        $clientes = Clientes::findOrFail($request->id);
-           
-        $persona = Personas::findOrFail($clientes->idPersona);
-
-    /*    $select = Personas::join('users', 'personas.idUsuario', 'users.idPersona')
-                ->select('personas.nombre', 'personas.apellidos')
-                ->where('personas.id', '=', $clientes->idPersona)->get();*/
-
-        $users=User::where('idPersona', '=', $clientes->idPersona)->first();
-              
-      
-
-            return ['users' => $users->idPersona];
-        
-
-    } 
+    /*public function prueba(Request $request)  {
+       
+    } */
   
-
-
-
 
     public function destroy($id)  {
     

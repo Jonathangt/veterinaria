@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class PersonasController extends Controller
 {
     public function index(Request $request)    {
-        //if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
+        if (!$request->ajax()) return redirect('/');//condicion para valiar los accesos mediante peticion ajax
 
         $buscar = $request->buscar;
         $criterio = $request->criterio;
@@ -48,7 +48,7 @@ class PersonasController extends Controller
 
     public function obtenerID(Request $request){
        
-        //if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
  
         $id = $request->id;
         $obtenerID = User::join('users', 'personas.idUsuario', 'users.id')

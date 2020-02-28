@@ -460,7 +460,6 @@
         data() {
             return {
                 errors: {},
-               
                 nombreMascota: '',
                 edad: '',
                 especie: '',
@@ -621,12 +620,16 @@
                         text:  'La información a sido guardada',
                     })
                 }).catch(error =>{
-                    swal({
-                        title: 'Mascota no registrada!!',
-                        type:  'error',
-                        text:  'La información no a sido guardada',
-                    })
-                    console.log(error);
+                    const { status, errors } = error.response
+                    const response = error.response
+                     if (status === 500) {
+                        console.log(response.data)
+                    }else if (status === 422) {
+                        this.errors = error.response.data.errors || {};
+                        console.clear()
+                    } else {
+                        console.log(error)
+                    }
                 });
             
             },

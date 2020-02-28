@@ -28,6 +28,7 @@ class StoreAdopcion extends FormRequest
             'especie'=>'regex:/^[\pL\s]+$/u',
             'raza'=>'regex:/^[\pL\s]+$/u',
             'edad' =>'regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/',  
+            //'observacion' =>'regex:/^[A-ZÀÂÇÉÈÊËÎÏÔÛÙÜŸÑÆŒa-zàâçéèêëîïôûùüÿñæœ0-9_.,() ]+$/',
         ];
     }
 
@@ -37,6 +38,8 @@ class StoreAdopcion extends FormRequest
                 'especie.regex' => 'Este campo solo acepta letras',
                 'raza.regex' => 'Este campo solo acepta letras',
                 'edad.regex' => 'Este campo no permite caracteries especiales',
+                //'observacion.regex' => 'Este campo no permite caracteries especiales',
+                
 
             ];
     }

@@ -421,6 +421,8 @@
 <script>
     import Datepicker from 'vuejs-datepicker';
     import { es } from 'vuejs-datepicker/dist/locale';
+    import moment from 'moment';
+
 
     export default {
         data() {
@@ -717,7 +719,14 @@
                 if (!this.direccion) this.errorMostrarMsj.push("El campo dirección no puede estar vacio");
                 if (!this.email) this.errorMostrarMsj.push("El campo email no puede estar vacio");
 
-                if ( this.fechaFin < this.fechaInicio){
+                var f_Inicio = moment(this.fechaInicio); 
+                f_Inicio.format();  // 2020-02-27T20:18:58-05:00
+
+                var f_Fin = moment(this.fechaFin); 
+                f_Fin.format();  // 2020-02-27T20:18:58-05:00
+
+
+                if (f_Fin < f_Inicio){
                     this.errorMostrarMsj.push("La fecha de finalización no puede ser antes de la fecha de inicio");
                 }
                
