@@ -100,7 +100,11 @@ class InformacionController extends Controller
             $informacion->capacitador = $request->capacitador;
             $informacion->conoce = $request->conoce;
 
-            if(strncmp($request->imagenMiniatura, 'http://localhost:8000/informacion/', 33) === 0){
+            //if(strncmp($request->imagenMiniatura, 'http://localhost:8000/informacion/', 33) === 0){
+
+            $public = public_path().'/informacion/';
+
+            if(strncmp($request->imagenMiniatura, $public, 33) === 0){
                 $exploded = substr($request->imagenMiniatura, -24);
                 $informacion->imagen = $exploded;
 
@@ -151,7 +155,7 @@ class InformacionController extends Controller
         $informacion = Informacion::join('users', 'informacion.idUsuario', 'users.id')
                                     ->select( 'informacion.id', 'informacion.idUsuario', 'informacion.tema', 'informacion.capacitador',
                                                 'informacion.conoce', 'informacion.imagen', 'users.name')
-                                ->where('Informacion.id','=',$id)->get();
+                                ->where('informacion.id','=',$id)->get();
         return ['informacion' => $informacion];
     }
 

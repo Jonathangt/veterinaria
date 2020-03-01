@@ -160,7 +160,7 @@
                     return;
                 }
 
-                axios.put('/users/actualizar',{
+                axios.put('/users/actualizarUser',{
                     name: this.name,
                     email : this.email,
                     password : this.password,

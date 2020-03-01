@@ -14,8 +14,6 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-        <!-- <link rel="stylesheet" href="js/bootstrap-fileinput/css/fileinput.min.css"> -->
-
         <!-- Styles -->
         <style>
             html, body {
@@ -66,15 +64,10 @@
             }
         </style>
 
+    <link href="{{url('css/app.css')}}" rel="stylesheet">
+    <link href="{{url('css/plantilla.css')}}" rel="stylesheet">
+
   
-
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/simple-line-icons.min.css" rel="stylesheet">
-    <!-- Main styles for this application -->
-    <link href="css/style.css" rel="stylesheet">
-
-
-   
 
     <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
     
@@ -126,26 +119,16 @@
                 <quienes-somos></quienes-somos>
             </template>
         </div>
-    </div> <!---fin div app --->
+    </div> <!--fin div app -->
     
 
         <!---Desarrollado por Jonathan Guevara Torres 2020--->
         
         <!-- Bootstrap and necessary plugins-->
-        <script src="js/app.js"></script> 
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/pace.min.js"></script>
-        <script src="js/Chart.min.js"></script>
-        <script src="js/template.js"></script> 
-        <script src="js/sweetalert2.all.js"></script> 
-
-        <!-- <script src="js/bootstrap-fileinput/js/fileinput.min.js"></script>
-        <script src="js/bootstrap-fileinput/js/locales/es.js"></script>
-        <script src="js/bootstrap-fileinput/themes/fas/theme.min.js"></script>
-         -->
+        <script src="{{url('js/app.js')}}" ></script> 
+        <script src="{{url('js/jquery.min.js')}} "></script>
+        <script src="{{url('js/plantilla.js')}}" ></script> 
 </body>
 
 </html>

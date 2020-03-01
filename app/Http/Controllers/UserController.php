@@ -146,6 +146,33 @@ class UserController extends Controller{
  
     }
 
+    public function updateUsuarios (UpdateUsuarios $request)    {
+        if (!$request->ajax()) return redirect('/'); //update para usuarios y clientes
+        
+        try{
+
+            DB::beginTransaction();
+            $usuario = User::findOrFail($request->id);
+            $usuario->name = $request->name;
+            $usuario->email = $request->email;
+           // $usuario->rol = '0';//Administrador
+           // $usuario->estado = '1'; //activo
+            $usuario->password = bcrypt( $request->password);//el password se almacena encritado por seguridad
+            $usuario->save();
+
+            $persona = Personas::findOrFail($usuario->idPersona); //busco el idPersona en users para actualizar el correo
+            $persona->email = $request->email;
+            $persona->save();
+
+
+            DB::commit();
+
+        } catch (Exception $e){
+            DB::rollBack();
+        }
+
+    }
+
 
  
 

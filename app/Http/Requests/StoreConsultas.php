@@ -42,7 +42,7 @@ class StoreConsultas extends FormRequest
                 'medicamento.regex' => 'Este campo no permite caracteries especiales',
                 'horario.regex' => 'Este campo no permite caracteries especiales',
                 'observacionReceta.regex' => 'Este campo no permite caracteries especiales',
-                'fechaSgtConsulta.after' => 'La siguiente consulta no puede ser antes de la fecha actual',
+                'fechaSgtConsulta.after' => 'La siguiente consulta debe de ser despues de la fecha actual',
 
             ];
     }

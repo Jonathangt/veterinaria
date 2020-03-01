@@ -15,10 +15,10 @@
                         <a class="nav-link" href="#"><i class="icon-people"></i> Clientes</a>
                     </li>
                     <li @click="menu=2" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-heart"></i>Mascota<a>
+                        <a class="nav-link" href="#"><i class="icon-heart"></i>Mascotas<a>
                     </li>
                     <li @click="menu=3" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-book-open"></i> Consulta<a>
+                        <a class="nav-link" href="#"><i class="icon-book-open"></i> Consultas<a>
                     </li>
                 </ul>
             </li> 

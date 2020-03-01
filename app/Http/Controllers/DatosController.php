@@ -28,7 +28,7 @@ class DatosController extends Controller
                             select('personas.id', 'personas.idUsuario', 'personas.nombre', 'personas.apellidos',
                                     'personas.cedula', 'personas.direccion', 'personas.telefono', 'personas.celular', 'personas.email',
                                     'personas.estado')
-                            ->where('personas.estado', '=', '0')
+                            ->where('personas.estado', '=', '0') //para que no se muestren los clientes en esta pantalla
                             ->orderBy('personas.id', 'desc')->paginate(10);
         }
         else{
@@ -72,7 +72,7 @@ class DatosController extends Controller
             $persona->telefono = $request->telefono;
             $persona->celular = $request->celular;
             $persona->email = $request->email;
-            $persona->estado = '0';
+            $persona->estado = '0'; 
             //$persona->email = \Auth::user()->email; //obtengo el enail del user 
             $persona->save();
 
@@ -126,10 +126,10 @@ class DatosController extends Controller
     public function selectDatos(Request $request){
         //Metodo para filtar el nombre de la persona en el registro de la mascota para adocion
         if (!$request->ajax()) return redirect('/');
-        $id = $request->id;
+        //$id = $request->id;
         //$userID = \Auth::user()->id;  ///obtengo el campo id del usuario autenticado
         $personas = Personas::select('personas.id', 'personas.nombre', 'personas.apellidos')
-                                //->where('personas.idUsuario', '=', $userID)
+                                ->where('personas.estado', '=', '0')
                                 ->orderBy('personas.apellidos', 'asc')->get();
 
         return ['personas' => $personas];
@@ -214,11 +214,16 @@ class DatosController extends Controller
             $persona->direccion = $request->direccion;
             $persona->telefono = $request->telefono;
             $persona->celular = $request->celular;
-            $persona->email = $request->email;
+            $persona->email = \Auth::user()->email; //obtengo el email de la tabla users y lo copio a la tabla personas
             $persona->estado = '0'; /*para que el adm no pueda editar ni eliminar
                                  los datos //cambiar a 1 para q el admin no pueda editar ni eliminar*/
             //$persona->email = \Auth::user()->email; //obtengo el enail del user 
             $persona->save();
+
+          
+            $usuarioUp = User::findOrFail($persona->idUsuario);
+            $usuarioUp->idPersona = $persona->id;
+            $usuarioUp->save();
 
             DB::commit();
 
@@ -242,7 +247,7 @@ class DatosController extends Controller
 
     public function selectDatosCliente(Request $request){
         //Metodo para filtar el nombre de la persona en el registro de la mascota para adocion
-        //if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
         //$id = $request->id;
         $idPersona = \Auth::user()->idPersona;  ///obtengo el campo id del usuario autenticado
         $personas = Personas::select('personas.id', 'personas.nombre', 'personas.apellidos')

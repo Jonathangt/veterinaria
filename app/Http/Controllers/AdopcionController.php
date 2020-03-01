@@ -121,8 +121,11 @@ class AdopcionController extends Controller
             $adopcion->edad = $request->edad;
             $adopcion->observacion = $request->observacion;
 
+            //if(strncmp($request->imagenMiniatura, 'https://veterinariadobaltoff.online/public_html/mascotas/', 30) === 0){
 
-            if(strncmp($request->imagenMiniatura, 'http://localhost:8000/mascotas/', 30) === 0){
+            $public = public_path().'/mascotas/';
+
+            if(strncmp($request->imagenMiniatura, $public, 30) === 0){
                 $exploded = substr($request->imagenMiniatura, -24);
                 $adopcion->imagen = $exploded;
 
@@ -176,11 +179,12 @@ class AdopcionController extends Controller
     public function pdfAdocion(Request $request, $id){
         
         $adopcion = Adopcion::join('personas', 'adopcion.idPersona', 'personas.id')
+                            /*->join('users', 'personas.id', 'users.id')*/
                             ->select('adopcion.id', 'adopcion.idPersona', 'adopcion.nombreMascota', 'adopcion.especie',
                                     'adopcion.raza', 'adopcion.fechaNacimiento', 'adopcion.edad', 
                                     'adopcion.observacion', 'adopcion.imagen', 
                                     'personas.nombre', 'personas.apellidos', 'personas.cedula',  'personas.direccion',
-                                    'personas.telefono',  'personas.celular')
+                                    'personas.telefono',  'personas.celular',  'personas.email')
                         // ->orderBy('adopcion.id', 'desc')
                             ->where('adopcion.id','=',$id)->get(); 
 
@@ -199,11 +203,12 @@ class AdopcionController extends Controller
  
         $id = $request->id;
         $adopcion = Adopcion::join('personas', 'adopcion.idPersona', 'personas.id')
+                            //->join('users', 'personas.id', 'users.id')
                                 ->select('adopcion.id', 'adopcion.idPersona', 'adopcion.nombreMascota', 'adopcion.especie',
                                         'adopcion.raza', 'adopcion.fechaNacimiento', 'adopcion.edad', 
                                         'adopcion.observacion', 'adopcion.imagen', 'adopcion.estado',
                                         'personas.nombre', 'personas.apellidos', 
-                                        'personas.telefono',  'personas.celular',  'personas.email')
+                                        'personas.telefono',  'personas.celular',   'personas.email' /*'users.email'*/)
                                 ->orderBy('adopcion.id', 'desc')
                                 ->where('adopcion.estado','=','1')->paginate(5);
                                 //->where('adopcion.id','=',$id)->get(); 

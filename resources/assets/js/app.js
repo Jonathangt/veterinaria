@@ -4601,18 +4601,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -7958,24 +7946,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -8319,7 +8289,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      axios.put('/users/actualizarUser', {
+      axios.put('/users/actualizar', {
         name: this.name,
         email: this.email,
         password: this.password,
@@ -15880,7 +15850,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n#bodyzz {\n font-size: 15px;\n}\nhr {\n    height: -0.5px;\n    background-color: red;\n   /* margin-left: 25%;\n    margin-right: 25%;*/\n}\n#red{\n     color: #F0380A;\n}\n#logo{\n    float: left;\n    margin-top: 1%;\n    margin-left: 2%;\n    margin-right: 2%;\n}\n#logo2{\n    float: right;\n    margin-top: 1%;\n    margin-left: 2%;\n    margin-right: 2%;\n}\n#imagen{\n    width: 10%;\n    text-align: right;\n}\n#datos{\n    float: left;\n    margin-top: 0%;\n    margin-left: 2%;\n    margin-right: 2%;\n    /*text-align: justify;*/\n}\n#encabezado{\n    text-align: center;\n    margin-left: 10%;\n    margin-right: 35%;\n    font-size: 15px;\n}\n.centerTabla {\ntext-align: left;\n}\n\n\n", ""]);
+exports.push([module.i, "\n#red{\n     color: #F0380A;\n}\n#logo{\n    float: left;\n    margin-top: 1%;\n    margin-left: 2%;\n    margin-right: 2%;\n}\n#logo2{\n    float: right;\n    margin-top: 1%;\n    margin-left: 2%;\n    margin-right: 2%;\n}\n#imagen{\n    width: 10%;\n    text-align: right;\n}\n#datos{\n    float: left;\n    margin-top: 0%;\n    margin-left: 2%;\n    margin-right: 2%;\n    /*text-align: justify;*/\n}\n#encabezado{\n    text-align: center;\n    margin-left: 10%;\n    margin-right: 35%;\n    font-size: 15px;\n}\n.centerTabla {\ntext-align: left;\n}\n\n\n", ""]);
 
 // exports
 
@@ -77342,7 +77312,6 @@ var render = function() {
                   return _c("div", { key: registro.id }, [
                     _c("div", [
                       _c("br"),
-                      _c("br"),
                       _vm._v(" "),
                       _c("i", [
                         _c("h5", {
@@ -77354,132 +77323,125 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "form-group",
-                            attrs: { id: "bodyzz" }
-                          },
-                          [
-                            _c("span", [
-                              _c("b", [_vm._v("Fecha de Nacimiento:")]),
+                      _c("div", { staticClass: "col-md-7" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("span", [
+                            _c("b", [_vm._v("Fecha de Nacimiento:")]),
+                            _vm._v(" "),
+                            _c("span", {
+                              domProps: {
+                                textContent: _vm._s(registro.fechaNacimiento)
+                              }
+                            })
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("span", [
+                            _c("b", [_vm._v("Edad:")]),
+                            _vm._v(" "),
+                            _c("span", {
+                              domProps: { textContent: _vm._s(registro.edad) }
+                            })
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("span", [
+                            _c("b", [_vm._v("Especie:")]),
+                            _vm._v(" "),
+                            _c("span", {
+                              domProps: {
+                                textContent: _vm._s(registro.especie)
+                              }
+                            })
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("span", [
+                            _c("b", [_vm._v("Raza:")]),
+                            _vm._v(" "),
+                            _c("span", {
+                              domProps: { textContent: _vm._s(registro.raza) }
+                            })
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("span", [
+                            _c("b", [_vm._v("Observación:")]),
+                            _vm._v(" "),
+                            _c("span", {
+                              domProps: {
+                                textContent: _vm._s(registro.observacion)
+                              }
+                            })
+                          ]),
+                          _c("br"),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("h6", [_vm._v("Contáctame")]),
+                          _vm._v(" "),
+                          _c("span", [
+                            _c("b", [_vm._v("Celular:")]),
+                            _vm._v(" "),
+                            _c("span", {
+                              domProps: {
+                                textContent: _vm._s(registro.celular)
+                              }
+                            }),
+                            _c("br")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", [
+                            _c("b", [_vm._v("Télefono:")]),
+                            _vm._v(" "),
+                            _c("span", {
+                              domProps: {
+                                textContent: _vm._s(registro.telefono)
+                              }
+                            })
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group row" }, [
+                            _c("div", { staticClass: "col-md-12" }, [
+                              _c("br"),
                               _vm._v(" "),
-                              _c("span", {
-                                domProps: {
-                                  textContent: _vm._s(registro.fechaNacimiento)
-                                }
-                              })
-                            ]),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("span", [
-                              _c("b", [_vm._v("Edad:")]),
-                              _vm._v(" "),
-                              _c("span", {
-                                domProps: { textContent: _vm._s(registro.edad) }
-                              })
-                            ]),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("span", [
-                              _c("b", [_vm._v("Especie:")]),
-                              _vm._v(" "),
-                              _c("span", {
-                                domProps: {
-                                  textContent: _vm._s(registro.especie)
-                                }
-                              })
-                            ]),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("span", [
-                              _c("b", [_vm._v("Raza:")]),
-                              _vm._v(" "),
-                              _c("span", {
-                                domProps: { textContent: _vm._s(registro.raza) }
-                              })
-                            ]),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("span", [
-                              _c("b", [_vm._v("Observación:")]),
-                              _vm._v(" "),
-                              _c("span", {
-                                domProps: {
-                                  textContent: _vm._s(registro.observacion)
-                                }
-                              })
-                            ]),
-                            _c("br"),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("h6", [_vm._v("Contáctame")]),
-                            _vm._v(" "),
-                            _c("span", [
-                              _c("b", [_vm._v("Celular:")]),
-                              _vm._v(" "),
-                              _c("span", {
-                                domProps: {
-                                  textContent: _vm._s(registro.celular)
-                                }
-                              }),
-                              _c("br")
-                            ]),
-                            _vm._v(" "),
-                            _c("span", [
-                              _c("b", [_vm._v("Correo:")]),
-                              _vm._v(" "),
-                              _c("span", {
-                                domProps: {
-                                  textContent: _vm._s(registro.email)
-                                }
-                              })
-                            ]),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c("div", { staticClass: "col-md-12" }, [
-                                _c("br"),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-primary",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.imprimir(registro.id)
-                                      }
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.imprimir(registro.id)
                                     }
-                                  },
-                                  [_vm._v("Imprimir")]
-                                ),
-                                _vm._v(
-                                  " \n                                                    "
-                                ),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-primary",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.adoptar(registro)
-                                      }
+                                  }
+                                },
+                                [_vm._v("Imprimir")]
+                              ),
+                              _vm._v(
+                                " \n                                                    "
+                              ),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.adoptar(registro)
                                     }
-                                  },
-                                  [_vm._v("Adoptar")]
-                                )
-                              ])
+                                  }
+                                },
+                                [_vm._v("Adoptar")]
+                              )
                             ])
-                          ]
-                        )
+                          ])
+                        ])
                       ]),
                       _vm._v(" "),
                       _vm._m(2, true),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-5" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _c("div", [
                             _c("br"),
@@ -77495,9 +77457,7 @@ var render = function() {
                           ])
                         ])
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(3, true)
+                    ])
                   ])
                 }),
                 _vm._v(" "),
@@ -77580,12 +77540,12 @@ var render = function() {
                 _c("br"),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(4),
+                _vm._m(3),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(5),
+                _vm._m(4),
                 _vm._v(" "),
-                _vm._m(6)
+                _vm._m(5)
               ],
               2
             )
@@ -77622,14 +77582,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-1" }, [
       _c("div", { staticClass: "form-group" }, [_c("br")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "form-group" }, [_c("hr")])
     ])
   },
   function() {

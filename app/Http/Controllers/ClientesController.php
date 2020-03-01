@@ -92,17 +92,19 @@ class ClientesController extends Controller
             $persona->direccion = $request->direccion;
             $persona->telefono = $request->telefono;
             $persona->celular = $request->celular;
+            $persona->email = $request->email;
             $persona->estado = '1';
             //$persona->email = $request->email;
             $persona->save();
 
             $cliente = new Clientes();
-            $cliente->idPersona = $persona->id;; //le paso el id persona a la tabla clientes
+            $cliente->idPersona = $persona->id; //le paso el id persona a la tabla clientes
             $cliente->save();
 
 
             $usuario = new User();
             $usuario->name = $request->nombre;
+            $usuario->idPersona = $persona->id;
             $usuario->email = $request->email;
             $usuario->password = bcrypt( $request->cedula);
             $usuario->rol = '2';

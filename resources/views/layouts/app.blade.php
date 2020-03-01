@@ -13,19 +13,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Veterinaria Dobaltoff</title>
 
-    <!-- Scripts-->
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
- 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-       <!-- Styles-->
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/simple-line-icons.min.css" rel="stylesheet"> 
-    <!-- <link rel="stylesheet" href="js/bootstrap-fileinput/css/fileinput.min.css"> -->
-
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{{url('css/app.css')}}" rel="stylesheet">
+    <link href="{{url('css/plantilla.css')}}" rel="stylesheet">
 
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
@@ -97,21 +90,11 @@
       
         </div>
     </div> 
-
-   
-     <!-- Bootstrap and necessary plugins -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/app.js" ></script> 
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/pace.min.js"></script>
-        <script src="js/Chart.min.js"></script>
-        <script src="js/template.js"></script>
-        <script src="js/sweetalert2.all.js"></script> 
-
-        <!-- <script src="js/bootstrap-fileinput/js/fileinput.min.js"></script>
-        <script src="js/bootstrap-fileinput/js/locales/es.js"></script>
-        <script src="js/bootstrap-fileinput/themes/fas/theme.min.js"></script> -->
+       
+        <script src="{{url('js/jquery.min.js')}} "></script>
+        <script src="{{url('js/app.js')}}" ></script> 
+        <script src="{{url('js/plantilla.js')}}" ></script> 
+       
 </body>
 
 </html>

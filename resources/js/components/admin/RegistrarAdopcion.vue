@@ -73,12 +73,13 @@
                                         <td v-text="registro.edad"></td>
                                         <td v-text="registro.especie"></td>
                                         <td>
-                                        <div v-if="registro.estado">
-                                           <td class="badge badge-success">EN ADOPCION</td>
-                                        </div>
-                                        <div v-else>
-                                           <td class="badge badge-danger">ADOPTADO (A)</td>
-                                        </div>
+                                        <template v-if="registro.estado">
+                                            <td class="badge badge-success">EN ADOPCION</td>
+                                        </template>
+
+                                        <template v-else>
+                                            <td class="badge badge-danger">ADOPTADO (A)</td>
+                                        </template>
                                     </td>
                                     </tr>
                                 </tbody>

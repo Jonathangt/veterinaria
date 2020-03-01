@@ -21,13 +21,12 @@
                         </div>
 
                         <div  v-for="registro in arrayRegistros" :key="registro.id">
-                                <div><br>
+                                <div><br><br>
                                    <i> <h5 v-text="registro.nombreMascota"></h5></i>
                                 </div>
-
                                 <div class="form-group row">
-                                    <div class="col-md-7">
-                                        <div class="form-group">
+                                    <div class="col-md-6">
+                                        <div id="bodyzz" class="form-group">
                                                <span>
                                                    <b>Fecha de Nacimiento:</b> <span v-text="registro.fechaNacimiento"></span>
                                                </span><br>
@@ -50,8 +49,11 @@
                                                    <b>Celular:</b> <span v-text="registro.celular"></span><br>
                                                </span>
 
-                                               <span>
+                                             <!--   <span>
                                                    <b>Télefono:</b> <span v-text="registro.telefono"></span>
+                                               </span><br> -->
+                                               <span>
+                                                   <b>Correo:</b> <span v-text="registro.email"></span>
                                                </span><br>
 
                                                 <div class="form-group row">
@@ -60,9 +62,10 @@
                                                         <button type="button"  @click="adoptar(registro)" class="btn btn-primary">Adoptar</button>
                                                     </div>                                                   
                                                 </div>
-
+                                           
                                         </div>                                                                             
                                     </div>
+
                                     <div class="col-md-1">
                                         <div class="form-group"><br>
                                               
@@ -70,14 +73,29 @@
                                     </div>
 
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="form-group">
                                             <div> <br>
                                                     <img :src="'/mascotas/'+registro.imagen" alt="Informacion" width="90%" height="90%">
+                                                
                                             </div>
                                         </div>
                                     </div>
+
+                                   
                                 </div> <!---------fin group row--->
+                                
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                   
+                                        <hr>
+                                    
+                                    </div>
+                                </div>
+
+                                
+                                 
+                                  
 
                         </div> <!---fin array-->
 
@@ -211,6 +229,17 @@
 </script>
 
 <style>
+
+    #bodyzz {
+     font-size: 15px;
+    }
+
+    hr {
+        height: -0.5px;
+        background-color: red;
+       /* margin-left: 25%;
+        margin-right: 25%;*/
+    }
 
 
     #red{

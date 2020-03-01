@@ -34,7 +34,7 @@ Route::delete('/users/delete/{id}', 'UserController@destroy');
 //Ruta para el usuario
 Route::get('/indexUsuario', 'UserController@indexUsuario');
 Route::put('/users/actualizarUsuario', 'UserController@update'); //el admin usa el mismo metodo
-//Route::get('/prueba/prueba', 'UserController@prueba');
+Route::put('/users/actualizarUser', 'UserController@updateUsuarios');
 
 
 

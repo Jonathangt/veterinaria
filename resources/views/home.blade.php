@@ -15,8 +15,8 @@
         @if (Auth::user()->rol == 0)
             @include('sidebarAdministrador') <!---Administrador-->        
             <template v-if="menu==0">
-                <inicio-general></inicio-general> <!-----TODOS LOS USUARIOS--->
-    
+               <inicio-general></inicio-general> <!-----TODOS LOS USUARIOS--->
+           
             </template>
 
             <template v-if="menu==1">
@@ -90,7 +90,7 @@
         @else
             @include('sidebarUsuario')<!---Usuario --- Rol 1-->
             <template v-if="menu==0">
-                <inicio-general></inicio-general>  <!-----TODOS LOS USUARIOS--->
+              <inicio-general></inicio-general> <!-----TODOS LOS USUARIOS---> 
             </template>
 
             <template v-if="menu==1">

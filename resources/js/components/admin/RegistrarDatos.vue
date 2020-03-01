@@ -49,10 +49,11 @@
                                     <tr v-for="registro in arrayRegistros" :key="registro.id">
                                         <td style="width:110px">
 
-                                        <span v-if="registro.estado"> 
+                                         <span v-if="registro.estado"> 
                                               <!------si el estado es 0 la persona es cliente y no se podra editar---->
-                                        </span>
-                                         <span v-else>
+                                              
+                                         </span> 
+                                         <span v-else> 
                                              <button type="button" @click="editar(registro.id)" class="btn btn-warning btn-sm">
                                                 <i class="icon-pencil"></i>
                                             </button>&nbsp;
@@ -61,6 +62,17 @@
                                             <i class="icon-trash"></i>
                                         </button>  
                                         </span>                         
+                                            
+
+                                      <!--    <span>
+                                             <button type="button" @click="editar(registro.id)" class="btn btn-warning btn-sm">
+                                                <i class="icon-pencil"></i>
+                                            </button>&nbsp;
+
+                                        <button type="button" class="btn btn-danger btn-sm" @click="eliminar(registro.id)">
+                                            <i class="icon-trash"></i>
+                                        </button>  
+                                        </span>    -->                      
                                             
                                         </td>
                                         <td v-text="registro.nombre + ' ' + registro.apellidos"></td>
@@ -327,6 +339,7 @@
                 criterio: 'apellidos',
                 buscar: '',
             }
+            
         },
         computed: {
             isActived: function() {
@@ -357,7 +370,6 @@
             },
            
         }, 
-    
         methods: {
             listar(page, buscar, criterio) {
                 let me = this
@@ -377,7 +389,6 @@
                         console.log(error);
                     });
             },
-            
             registrar(){
                 if (this.validarDatos()) {
                     return;

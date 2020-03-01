@@ -84,7 +84,9 @@
                     <span><br>
                         <b>Contáctame</b><br>
                         <b>Celular:</b>  {{$v->celular}}<br>
-                        <b>Télefono:</b>  {{$v->telefono}}<br>
+                        <!-- <b>Télefono:</b>  {{$v->telefono}}<br> -->
+                        <b>Email:</b>  {{$v->email}}<br>
+
                     </span>
                 </div>
             </div>
