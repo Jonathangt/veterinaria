@@ -54,18 +54,19 @@
                                             <button type="button" @click="editar(registro.id)" class="btn btn-warning btn-sm">
                                                 <i class="icon-pencil"></i>
                                             </button>&nbsp;
-                                            
-                                             <span v-if="registro.estado">
-                                                <button type="button" class="btn btn-secondary btn-sm" @click="desactivar(registro.id)">
-                                                <i class="icon-info"></i>
-                                            </button>
-                                            </span>
-                                            <span v-else>
-                                                <button type="button" class="btn btn-success btn-sm" @click="activar(registro.id)">
-                                                <i class="icon-check"></i>
-                                                </button>
-                                            </span>
 
+                                            <template v-if="registro.estado">
+                                                <button type="button" class="btn btn-secondary btn-sm" @click="desactivar(registro.id)">
+                                                    <i class="icon-info"></i>
+                                                </button>
+                                            </template>
+
+                                            <template v-else>
+                                                <button type="button" class="btn btn-success btn-sm" @click="activar(registro.id)">
+                                                    <i class="icon-check"></i>
+                                                </button>
+                                            </template>
+                                        
                                         </td>
                                         <td v-text="registro.nombre + ' ' + registro.apellidos"></td>
                                         <td v-text="registro.nombreMascota"></td>

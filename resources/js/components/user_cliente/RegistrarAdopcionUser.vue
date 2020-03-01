@@ -56,16 +56,17 @@
                                                 <i class="icon-pencil"></i>
                                             </button>&nbsp;
                                             
-                                             <span v-if="registro.estado">
+                                            <template v-if="registro.estado">
                                                 <button type="button" class="btn btn-secondary btn-sm" @click="desactivar(registro.id)">
-                                                <i class="icon-info"></i>
-                                            </button>
-                                            </span>
-                                            <span v-else>
-                                                <button type="button" class="btn btn-success btn-sm" @click="activar(registro.id)">
-                                                <i class="icon-check"></i>
+                                                    <i class="icon-info"></i>
                                                 </button>
-                                            </span>
+                                            </template>
+
+                                            <template v-else>
+                                                <button type="button" class="btn btn-success btn-sm" @click="activar(registro.id)">
+                                                    <i class="icon-check"></i>
+                                                </button>
+                                            </template>    
 
                                         </td>
                                         <td v-text="registro.nombre + ' ' + registro.apellidos"></td>
@@ -74,13 +75,14 @@
                                         <td v-text="registro.edad"></td>
                                         <td v-text="registro.especie"></td>
                                         <td>
-                                        <div v-if="registro.estado">
-                                            <td class="badge badge-success">EN ADOPCION</td>
-                                        </div>
-                                        <div v-else>
-                                            <td class="badge badge-danger">ADOPTADO (A)</td>
-                                        </div>
-                                    </td>
+                                            <template v-if="registro.estado">
+                                                <td class="badge badge-success">EN ADOPCION</td>
+                                            </template>
+
+                                            <template v-else>
+                                                <td class="badge badge-danger">ADOPTADO (A)</td>
+                                            </template>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

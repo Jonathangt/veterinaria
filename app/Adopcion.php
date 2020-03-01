@@ -20,6 +20,10 @@ class Adopcion extends Model
         'imagen',
         'estado',
     ];
+	
+	 protected $casts = [
+        'estado' => 'boolean',
+    ];
     
     public $timestamps = false;
 }

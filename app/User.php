@@ -20,6 +20,13 @@ class User extends Authenticatable
         'id', 'name', 'email', 'password', 'rol', 'estado', 'idPersona'
     ];
 
+    protected $casts = [
+        'rol' => 'boolean',
+        'estado' => 'boolean',
+        'email_verified_at' => 'datetime',
+    ];
+
+   
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -29,14 +36,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
 
     protected $table = 'users';
 

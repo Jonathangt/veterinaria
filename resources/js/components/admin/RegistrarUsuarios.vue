@@ -5,7 +5,7 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="icon-people"></i> Administración de Usuarios del Sistema Dobaltoff  <!---fa fa-align-justify ** icono-->                  
+                        <i class="icon-people"></i> Administración de Usuarios del Sistema Dobaltoff              
                     </div>
                     <div class="card-body">
                           <div class="form-group row">
@@ -34,7 +34,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="usuario in arrayUsuario" :key="usuario.id">
-                                    <td style="width:125px"> <!------entra rol 0----------->
+                                    <td style="width:125px"> <!-- entra rol 0 -->
                                      <!--    <span v-if="!usuario.rol"> 
                                               <button type="button" @click="abrirModal('usuario','actualizar',usuario)" class="btn btn-warning btn-sm">
                                                 <i class="icon-pencil"></i>
@@ -46,45 +46,44 @@
                                             </button>
                                         </span> -->
 
-                                      <span v-if="usuario.rol"> 
-                                              
-                                        </span>
-                                         <span v-else>
-                                             <button type="button" @click="abrirModal('usuario','actualizar',usuario)" class="btn btn-warning btn-sm">
+
+                                        <template v-if="usuario.rol">
+                                                
+                                        </template>
+
+                                        <template  v-else>
+                                            <button type="button" @click="abrirModal('usuario','actualizar',usuario)" class="btn btn-warning btn-sm">
                                                 <i class="icon-pencil"></i>
-                                                </button>&nbsp;
-                                        </span> 
+                                            </button>&nbsp;
+                                        </template>
 
-                                        
-
-
-
-                                       <span v-if="usuario.estado">
-                                                <button type="button" class="btn btn-secondary btn-sm" @click="desactivar(usuario.id)">
+                                        <template v-if="usuario.estado">
+                                             <button type="button" class="btn btn-secondary btn-sm" @click="desactivar(usuario.id)">
                                                 <i class="icon-info"></i>
                                             </button>
-                                        </span>
-                                        <span v-else>
+                                        </template>
+
+                                        <template  v-else>
                                             <button type="button" class="btn btn-success btn-sm" @click="activar(usuario.id)">
-                                            <i class="icon-check"></i>
+                                                <i class="icon-check"></i>
                                             </button>
-                                        </span>
+                                        </template>
 
                                         <!--<button type="button" class="btn btn-danger btn-sm" @click="eliminar(usuario.id)">
                                                 <i class="icon-trash"></i>
                                             </button>  -->
 
-
                                     </td>
                                     <td v-text="usuario.name"></td>
                                     <td v-text="usuario.email"></td>
                                     <td>
-                                        <div v-if="usuario.estado">
+                                        <template v-if="usuario.estado">
                                             <td class="badge badge-success">Cuenta Activa</td>
-                                        </div>
-                                        <div v-else>
+                                        </template>
+
+                                        <template v-else>
                                             <td class="badge badge-danger">Cuenta Desactivada</td>
-                                        </div>
+                                        </template>
                                     </td>                                
                                 </tr>                                
                             </tbody>
