@@ -7324,11 +7324,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -8158,7 +8153,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -75958,67 +75952,57 @@ var render = function() {
                 "tbody",
                 _vm._l(_vm.arrayUsuario, function(usuario) {
                   return _c("tr", { key: usuario.id }, [
-                    _c(
-                      "td",
-                      { staticStyle: { width: "125px" } },
-                      [
-                        usuario.rol
-                          ? void 0
-                          : [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-warning btn-sm",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.abrirModal(
-                                        "usuario",
-                                        "actualizar",
-                                        usuario
-                                      )
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "icon-pencil" })]
-                              ),
-                              _vm._v(" \n                                    ")
-                            ],
-                        _vm._v(" "),
-                        usuario.estado
-                          ? [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-secondary btn-sm",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.desactivar(usuario.id)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "icon-info" })]
-                              )
-                            ]
-                          : [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-success btn-sm",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.activar(usuario.id)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "icon-check" })]
-                              )
-                            ]
-                      ],
-                      2
-                    ),
+                    _c("td", { staticStyle: { width: "125px" } }, [
+                      usuario.rol === 0
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-warning btn-sm",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.abrirModal(
+                                    "usuario",
+                                    "actualizar",
+                                    usuario
+                                  )
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "icon-pencil" })]
+                          )
+                        : _vm._e(),
+                      _vm._v(
+                        " \n\n                                    \n                                    "
+                      ),
+                      usuario.estado
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary btn-sm",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.desactivar(usuario.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "icon-info" })]
+                          )
+                        : _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success btn-sm",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.activar(usuario.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "icon-check" })]
+                          )
+                    ]),
                     _vm._v(" "),
                     _c("td", {
                       domProps: { textContent: _vm._s(usuario.name) }
@@ -78031,27 +78015,26 @@ var render = function() {
                 _vm._l(_vm.arrayUsuario, function(usuario) {
                   return _c("tr", { key: usuario.id }, [
                     _c("td", { staticStyle: { width: "125px" } }, [
-                      _c("span", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-warning btn-sm",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.abrirModal(
-                                  "usuario",
-                                  "actualizar",
-                                  usuario
-                                )
-                              }
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-warning btn-sm",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.abrirModal(
+                                "usuario",
+                                "actualizar",
+                                usuario
+                              )
                             }
-                          },
-                          [_c("i", { staticClass: "icon-pencil" })]
-                        ),
-                        _vm._v(" \n                                    ")
-                      ]),
-                      _vm._v(" "),
+                          }
+                        },
+                        [_c("i", { staticClass: "icon-pencil" })]
+                      ),
+                      _vm._v(
+                        " \n                                  \n                                   "
+                      ),
                       usuario.estado
                         ? _c("span", [
                             _c(

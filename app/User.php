@@ -21,7 +21,6 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
-        'rol' => 'boolean',
         'estado' => 'boolean',
         'email_verified_at' => 'datetime',
     ];

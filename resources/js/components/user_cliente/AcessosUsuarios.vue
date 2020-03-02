@@ -26,11 +26,10 @@
                             <tbody>
                                 <tr v-for="usuario in arrayUsuario" :key="usuario.id">
                                     <td style="width:125px"> 
-                                        <span>
-                                              <button type="button" @click="abrirModal('usuario','actualizar',usuario)" class="btn btn-warning btn-sm">
-                                                <i class="icon-pencil"></i>
-                                                </button>&nbsp;
-                                        </span>
+                                        <button type="button" @click="abrirModal('usuario','actualizar',usuario)" class="btn btn-warning btn-sm">
+                                            <i class="icon-pencil"></i>
+                                        </button>&nbsp;
+                                      
                                        <span v-if="usuario.estado">
                                                 <button type="button" class="btn btn-secondary btn-sm" @click="desactivar(usuario.id)">
                                                 <i class="icon-info"></i>

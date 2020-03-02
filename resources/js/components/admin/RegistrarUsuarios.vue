@@ -46,28 +46,23 @@
                                             </button>
                                         </span> -->
 
+                                        <!--=== '0'" -->
 
-                                        <template v-if="usuario.rol">
-                                                
-                                        </template>
+                                         <button v-if="usuario.rol === 0" type="button" @click="abrirModal('usuario', 'actualizar', usuario)" class="btn btn-warning btn-sm">
+                                            <i class="icon-pencil"></i>
+                                        </button>&nbsp;
 
-                                        <template  v-else>
-                                            <button type="button" @click="abrirModal('usuario','actualizar',usuario)" class="btn btn-warning btn-sm">
-                                                <i class="icon-pencil"></i>
-                                            </button>&nbsp;
-                                        </template>
+                                        
+                                        <button v-if="usuario.estado" type="button" class="btn btn-secondary btn-sm" @click="desactivar(usuario.id)">
+                                            <i class="icon-info"></i>
+                                        </button>
+                                    
 
-                                        <template v-if="usuario.estado">
-                                             <button type="button" class="btn btn-secondary btn-sm" @click="desactivar(usuario.id)">
-                                                <i class="icon-info"></i>
-                                            </button>
-                                        </template>
-
-                                        <template  v-else>
-                                            <button type="button" class="btn btn-success btn-sm" @click="activar(usuario.id)">
-                                                <i class="icon-check"></i>
-                                            </button>
-                                        </template>
+                                    
+                                        <button v-else type="button" class="btn btn-success btn-sm" @click="activar(usuario.id)">
+                                            <i class="icon-check"></i>
+                                        </button>
+                                    
 
                                         <!--<button type="button" class="btn btn-danger btn-sm" @click="eliminar(usuario.id)">
                                                 <i class="icon-trash"></i>
